@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,9 +13,8 @@
         android:id="@+id/appName"
         android:layout_width="234dp"
         android:layout_height="59dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="32dp"
+
+        android:layout_marginBottom="40dp"
         android:fontFamily="sans-serif-medium"
         android:outlineAmbientShadowColor="#FFFFFF"
         android:shadowColor="#03A9F4"
@@ -24,18 +23,22 @@
         android:text="MediMatch"
         android:textColor="#FFF"
         android:textSize="44sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.224" />
+        android:layout_above="@id/appLogo"
+        android:layout_centerHorizontal="true"/>
+
+    <ImageView
+        android:id="@+id/appLogo"
+        android:layout_width="132dp"
+        android:layout_height="110dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        app:srcCompat="@mipmap/ic_launcher_foreground" />
 
     <Button
         android:id="@+id/buttonStart"
+        android:layout_marginTop="60dp"
         android:layout_width="127dp"
         android:layout_height="54dp"
-        android:layout_marginBottom="356dp"
         android:background="#F8F8F8"
         android:fontFamily="sans-serif-medium"
         android:hapticFeedbackEnabled="true"
@@ -45,21 +48,9 @@
         android:soundEffectsEnabled="true"
         android:text="START"
         android:textColor="#03A9F4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appLogo"
-        app:layout_constraintVertical_bias="1.0" />
+        android:layout_below="@id/appLogo"
+        android:layout_centerHorizontal="true"
+        />
 
-    <ImageView
-        android:id="@+id/appLogo"
-        android:layout_width="132dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appName"
-        app:srcCompat="@mipmap/ic_launcher_foreground" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
