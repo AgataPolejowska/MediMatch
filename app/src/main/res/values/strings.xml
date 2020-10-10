@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MediMatch</string>
+    <string name="medimatch">MediMatch</string>
+    <string name="quit">QUIT</string>
+    <string name="start">START</string>
+    <string name="logo">LOGO</string>
 </resources>

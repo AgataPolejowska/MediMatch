@@ -21,7 +21,7 @@
         android:shadowColor="#03A9F4"
         android:shadowDy="20"
         android:shadowRadius="10"
-        android:text="MediMatch"
+        android:text="@string/medimatch"
         android:textColor="#FFF"
         android:textSize="50sp" />
 
@@ -32,7 +32,8 @@
         android:layout_marginTop="10dp"
         android:layout_centerInParent="true"
         app:srcCompat="@mipmap/ic_launcher_foreground"
-        tools:ignore="VectorDrawableCompat" />
+        tools:ignore="VectorDrawableCompat"
+        android:contentDescription="@string/logo" />
 
     <Button
         android:id="@+id/buttonStart"
@@ -50,10 +51,22 @@
         android:shadowDy="10"
         android:shadowRadius="10"
         android:soundEffectsEnabled="true"
-        android:text="START"
+        android:text="@string/start"
         android:textColor="#03A9F4"
         android:onClick="startGameActivity"/>
 
+    <Button
+        android:id="@+id/buttonQuit"
+        android:layout_width="193dp"
+        android:layout_height="65dp"
+        android:layout_below="@id/buttonStart"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/design_button"
+        android:fontFamily="sans-serif-medium"
+        android:onClick="onClickQuit"
+        android:text="@string/quit"
+        android:textColor="#03A9F4" />
 
 
 
