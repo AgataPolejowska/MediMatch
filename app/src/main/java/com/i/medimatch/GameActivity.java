@@ -1,50 +1,69 @@
 package com.i.medimatch;
 
+import android.content.ClipData;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.view.DragEvent;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+import androidx.cardview.widget.CardView;
 
 
 public class GameActivity extends AppCompatActivity {
+
+    CardView cardFun, cardName;
 
     public GameActivity() {
         // Empty constructor
     }
 
-    /* private static final String ARG_PARAM1 = "param1";
-     private static final String ARG_PARAM2 = "param2";
 
-     private String mParam1;
-     private String mParam2;
-
-     public static GameActivity newInstance(String param1, String param2) {
-         GameActivity fragment = new GameActivity();
-         Bundle args = new Bundle();
-         args.putString(ARG_PARAM1, param1);
-         args.putString(ARG_PARAM2, param2);
-         fragment.setArguments(args);
-         return fragment;
-     }
- */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-  /*      if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        } */
-        setContentView(R.layout.fragment_game_activity);
+        setContentView(R.layout.activity_game);
+
+        cardFun = (CardView) findViewById(R.id.card_fun);
+        cardName = (CardView) findViewById(R.id.card_name);
+
+        cardFun.setOnLongClickListener(longClickListener);
+        cardName.setOnDragListener(dragListener);
     }
-/*
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_game_activity, container, false);
-    }
-*/
 
 
+    /* Drag and drop */
+    View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            ClipData data = ClipData.newPlainText("", "");
+            View.DragShadowBuilder myShadowBuilder = new View.DragShadowBuilder(v);
+            v.startDrag(data, myShadowBuilder, v, 0);
+            return false;
+        }
+    };
+
+    View.OnDragListener dragListener = new View.OnDragListener() {
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+
+            int dragEvent = event.getAction();
+
+            switch (dragEvent) {
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    final View view = (View) event.getLocalState();
+
+                    if (view.getId() == R.id.card_fun) {
+                        cardName.setCardBackgroundColor(Color.LTGRAY);
+                    }
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    break;
+                case DragEvent.ACTION_DROP:
+                    break;
+            }
+
+            return true;
+        }
+    };
 }

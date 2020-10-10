@@ -13,9 +13,9 @@
         android:id="@+id/appName"
         android:layout_width="wrap_content"
         android:layout_height="98dp"
-
         android:layout_above="@id/appLogo"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
         android:fontFamily="sans-serif-medium"
         android:outlineAmbientShadowColor="#FFFFFF"
         android:shadowColor="#03A9F4"
@@ -29,7 +29,7 @@
         android:id="@+id/appLogo"
         android:layout_width="155dp"
         android:layout_height="126dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_centerInParent="true"
         app:srcCompat="@mipmap/ic_launcher_foreground"
         tools:ignore="VectorDrawableCompat"
@@ -56,10 +56,23 @@
         android:onClick="startGameActivity"/>
 
     <Button
-        android:id="@+id/buttonQuit"
+        android:id="@+id/buttonSettings"
         android:layout_width="193dp"
         android:layout_height="65dp"
         android:layout_below="@id/buttonStart"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/design_button"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/settings"
+        android:textColor="#03A9F4"
+        android:onClick="openSettingsActivity"/>
+
+    <Button
+        android:id="@+id/buttonQuit"
+        android:layout_width="193dp"
+        android:layout_height="65dp"
+        android:layout_below="@id/buttonSettings"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:background="@drawable/design_button"

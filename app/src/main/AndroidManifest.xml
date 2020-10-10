@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.i.medimatch.GameActivity"></activity>
+        <activity android:name="com.i.medimatch.GameActivity" />
+        <activity android:name="com.i.medimatch.SettingsActivity" />
     </application>
 
 </manifest>

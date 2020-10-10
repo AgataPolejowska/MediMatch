@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_background"
+    android:orientation="vertical"
+    tools:context=".SettingsActivity">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="35dp"
+        android:shadowColor="#03A9F4"
+        android:shadowDy="20"
+        android:shadowRadius="10"
+        android:text="Choose the names of medicines you want to learn"
+        android:textColor="#FFFFFF"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="25sp" />
+
+    <CheckBox
+        android:id="@+id/med1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="AXTIL"
+        android:layout_below="@id/textView"
+        android:textColor="#FFFFFF"
+        android:buttonTint="@android:color/white"/>
+
+    <CheckBox
+        android:id="@+id/med2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="CheckBox"
+        android:layout_below="@id/med1"
+        android:textColor="#FFFFFF"
+        android:buttonTint="@android:color/white"/>
+
+    <CheckBox
+        android:id="@+id/med3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="CheckBox"
+        android:layout_below="@id/med2"
+        android:textColor="#FFFFFF"
+        android:buttonTint="@android:color/white"/>
+
+    <CheckBox
+        android:id="@+id/med4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="CheckBox"
+        android:layout_below="@id/med3"
+        android:textColor="#FFFFFF"
+        android:buttonTint="@android:color/white"/>
+
+</RelativeLayout>

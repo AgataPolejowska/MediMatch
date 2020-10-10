@@ -23,6 +23,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /* Called when the user taps the Start button */
+    public void openSettingsActivity(View view) {
+        Intent intent2 = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(intent2);
+    }
+
+    /* Called when the user presses back or the Quit Button */
     public void onBackPressed() {
         quitDialog();
     }
@@ -48,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+
+    /* Settings */
 
 
     /* Save answers to file */
