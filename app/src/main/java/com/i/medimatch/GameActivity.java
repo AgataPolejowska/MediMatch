@@ -2,11 +2,12 @@ package com.i.medimatch;
 
 import android.content.ClipData;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.DragEvent;
-import android.view.SoundEffectConstants;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,26 @@ public class GameActivity extends AppCompatActivity {
     private TextView ScoreLabel = null;
     private int score = 0;
     boolean answer = false;
+
+    TextView TimerLabel;
+    long startTime = 0;
+
+    Handler timerHandler = new Handler(Looper.getMainLooper());
+    Runnable timerRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            long millis = System.currentTimeMillis() - startTime;
+            int seconds = (int) (millis/1000);
+            int minutes = seconds/60;
+            seconds = seconds % 60;
+
+            TimerLabel.setText(String.format("%d:%02d", minutes, seconds));
+            timerHandler.postDelayed(this, 500);
+        }
+    };
+
+
 
     CardView cardFun, cardName;
 
@@ -34,13 +55,41 @@ public class GameActivity extends AppCompatActivity {
 
         ScoreLabel = (TextView) findViewById(R.id.scoreLabel);
 
+        TimerLabel = (TextView) findViewById(R.id.timerLabel);
+        Button timerbutton = (Button) findViewById(R.id.timerButton);
+
+        timerbutton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Button timerbutton = (Button) v;
+                if (timerbutton.getText().equals("stop")) {
+                    timerHandler.removeCallbacks(timerRunnable);
+                    timerbutton.setText("start");
+                } else {
+                    startTime = System.currentTimeMillis();
+                    timerHandler.postDelayed(timerRunnable, 0);
+                    timerbutton.setText("stop");
+                }
+            }
+
+        });
+        ;
+
         cardFun = (CardView) findViewById(R.id.card_fun);
         cardName = (CardView) findViewById(R.id.card_name);
 
         cardFun.setOnLongClickListener(longClickListener);
         cardName.setOnDragListener(dragListener);
 
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        timerHandler.removeCallbacks(timerRunnable);
+        Button timerbutton = (Button)findViewById(R.id.timerButton);
+        timerbutton.setText("start");
     }
 
 
@@ -54,6 +103,7 @@ public class GameActivity extends AppCompatActivity {
             return false;
         }
     };
+
 
     View.OnDragListener dragListener = new View.OnDragListener() {
         @Override
@@ -93,4 +143,6 @@ public class GameActivity extends AppCompatActivity {
             return true;
         }
     };
+
+
 }
