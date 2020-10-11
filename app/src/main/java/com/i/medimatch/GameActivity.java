@@ -2,9 +2,12 @@ package com.i.medimatch;
 
 import android.content.ClipData;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.DragEvent;
+import android.view.SoundEffectConstants;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -12,7 +15,12 @@ import androidx.cardview.widget.CardView;
 
 public class GameActivity extends AppCompatActivity {
 
+    private TextView ScoreLabel = null;
+    private int score = 0;
+    boolean answer = false;
+
     CardView cardFun, cardName;
+
 
     public GameActivity() {
         // Empty constructor
@@ -24,11 +32,15 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        ScoreLabel = (TextView) findViewById(R.id.scoreLabel);
+
         cardFun = (CardView) findViewById(R.id.card_fun);
         cardName = (CardView) findViewById(R.id.card_name);
 
         cardFun.setOnLongClickListener(longClickListener);
         cardName.setOnDragListener(dragListener);
+
+
     }
 
 
@@ -48,18 +60,33 @@ public class GameActivity extends AppCompatActivity {
         public boolean onDrag(View v, DragEvent event) {
 
             int dragEvent = event.getAction();
+            final View view = (View) event.getLocalState();
 
             switch (dragEvent) {
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    final View view = (View) event.getLocalState();
-
                     if (view.getId() == R.id.card_fun) {
                         cardName.setCardBackgroundColor(Color.LTGRAY);
                     }
                     break;
                 case DragEvent.ACTION_DRAG_EXITED:
+                    if (view.getId() == R.id.card_fun) {
+                        cardFun.setVisibility(View.VISIBLE); // Make the card appear
+                    }
                     break;
                 case DragEvent.ACTION_DROP:
+                    if (view.getId() == R.id.card_fun) {
+                        cardName.setCardBackgroundColor(Color.WHITE);
+                        cardFun.setVisibility(View.GONE); // Make the card disappear
+
+                        /* If correct (CHECK) match, update the score */
+                        if (answer) {
+                            ScoreLabel.setText("Score: " + ++score);
+                        }
+                        else {
+                            ScoreLabel.setText("Score: " + --score);
+                        }
+
+                    }
                     break;
             }
 
