@@ -1,5 +1,8 @@
 package com.i.medimatch;
 
+
+import androidx.cardview.widget.CardView;
+
 public class FunctionCard {
 
     int id_fun;

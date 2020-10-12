@@ -1,17 +1,26 @@
 package com.i.medimatch;
 
+
 import android.content.ClipData;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.Display;
 import android.view.DragEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class GameActivity extends AppCompatActivity {
@@ -23,6 +32,10 @@ public class GameActivity extends AppCompatActivity {
     TextView TimerLabel;
     long startTime = 0;
 
+    // Timer
+    private Timer timer = new Timer();
+    private Handler handler = new Handler(Looper.getMainLooper());
+
     Handler timerHandler = new Handler(Looper.getMainLooper());
     Runnable timerRunnable = new Runnable() {
 
@@ -33,23 +46,29 @@ public class GameActivity extends AppCompatActivity {
             int minutes = seconds/60;
             seconds = seconds % 60;
 
-            TimerLabel.setText(String.format("%d:%02d", minutes, seconds));
+            TimerLabel.setText(String.format("Timer: %d:%02d", minutes, seconds));
             timerHandler.postDelayed(this, 500);
         }
     };
 
 
+    CardView cardFun, cardFunImg, cardName;
+    ImageView cardImg;
 
-    CardView cardFun, cardName;
+    private float card_fun_x, card_fun_y, card_fun_img_x, card_fun_img_y;
+    private float card_fun_speed, card_fun_img_speed;
+
+    // Size
+    private int screen_width;
+    private int screen_height;
+    private int frame_height;
 
 
-    public GameActivity() {
-        // Empty constructor
-    }
-
+    /* ON CREATE */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
@@ -58,8 +77,12 @@ public class GameActivity extends AppCompatActivity {
         TimerLabel = (TextView) findViewById(R.id.timerLabel);
         Button timerbutton = (Button) findViewById(R.id.timerButton);
 
-        timerbutton.setOnClickListener(new View.OnClickListener() {
+        /* Start timer */
 
+        startTime = System.currentTimeMillis();
+        timerHandler.postDelayed(timerRunnable, 0);
+
+        timerbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Button timerbutton = (Button) v;
@@ -67,23 +90,86 @@ public class GameActivity extends AppCompatActivity {
                     timerHandler.removeCallbacks(timerRunnable);
                     timerbutton.setText("start");
                 } else {
-                    startTime = System.currentTimeMillis();
                     timerHandler.postDelayed(timerRunnable, 0);
                     timerbutton.setText("stop");
                 }
             }
 
         });
-        ;
+
+        /* END OF ON CREATE */
 
         cardFun = (CardView) findViewById(R.id.card_fun);
+        cardFunImg = (CardView) findViewById(R.id.card_fun_img);
+        cardImg = (ImageView) findViewById(R.id.image_card);
         cardName = (CardView) findViewById(R.id.card_name);
 
+
+        // Dragging cards
         cardFun.setOnLongClickListener(longClickListener);
+        cardFunImg.setOnLongClickListener(longClickListener);
         cardName.setOnDragListener(dragListener);
+
+        // Set image in a card
+        cardImg.setImageResource(R.drawable.heart);
+
+        // Get screen size
+        WindowManager windowManager = getWindowManager();
+        Display display = windowManager.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        screen_width = size.x;
+        screen_height = size.y;
+
+        card_fun_speed = Math.round(screen_width/95.0f);
+        card_fun_img_speed = Math.round(screen_width/100.0f);
+        cardFun.setX(-80.0f);
+        cardFunImg.setX(-80.0f);
+
+
+        // Moving the cards
+
+        FrameLayout frameLayout = findViewById(R.id.frame);
+        frame_height = frameLayout.getHeight();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        changePosition();
+                    }
+                });
+            }
+        }, 0, 20);
 
     }
 
+
+    public void changePosition() {
+
+        card_fun_x -= card_fun_speed;
+        if (card_fun_x < 0) {
+            card_fun_x = screen_width;
+            card_fun_y = (float)Math.floor(Math.random() * (screen_height - cardFun.getHeight()));
+        }
+        cardFun.setX(card_fun_x);
+        cardFun.setY(card_fun_y);
+
+        card_fun_img_x -= card_fun_img_speed;
+        if (card_fun_img_x < 0) {
+            card_fun_img_x = screen_width;
+            card_fun_img_y = (float)Math.floor(Math.random() * (screen_height - cardImg.getHeight()));
+        }
+        cardFunImg.setX(card_fun_img_x);
+        cardFunImg.setY(card_fun_img_y);
+
+    }
+
+
+    // TODO: correct onPause
     @Override
     public void onPause() {
         super.onPause();
@@ -114,26 +200,25 @@ public class GameActivity extends AppCompatActivity {
 
             switch (dragEvent) {
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    if (view.getId() == R.id.card_fun) {
+                    if (view.getId() == R.id.card_fun || view.getId() == R.id.card_fun_img) {
                         cardName.setCardBackgroundColor(Color.LTGRAY);
                     }
                     break;
                 case DragEvent.ACTION_DRAG_EXITED:
-                    if (view.getId() == R.id.card_fun) {
+                    if (view.getId() == R.id.card_fun || view.getId() == R.id.card_fun_img) {
                         cardFun.setVisibility(View.VISIBLE); // Make the card appear
                     }
                     break;
                 case DragEvent.ACTION_DROP:
-                    if (view.getId() == R.id.card_fun) {
+                    if (view.getId() == R.id.card_fun || view.getId() == R.id.card_fun_img) {
                         cardName.setCardBackgroundColor(Color.WHITE);
-                        cardFun.setVisibility(View.GONE); // Make the card disappear
-
-                        /* If correct (CHECK) match, update the score */
-                        if (answer) {
-                            ScoreLabel.setText("Score: " + ++score);
-                        }
-                        else {
+                        if (view.getId() == R.id.card_fun) {
+                            cardFun.setVisibility(View.GONE); // Make the card disappear
                             ScoreLabel.setText("Score: " + --score);
+                        }
+                        else if (view.getId() == R.id.card_fun_img) {
+                            cardFunImg.setVisibility(View.GONE);
+                            ScoreLabel.setText("Score: " + ++score);
                         }
 
                     }
