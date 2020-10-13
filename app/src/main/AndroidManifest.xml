@@ -4,6 +4,9 @@
     package="com.i.medimatch">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -22,6 +25,7 @@
         </activity>
         <activity android:name="com.i.medimatch.GameActivity" />
         <activity android:name="com.i.medimatch.SettingsActivity" />
+        <activity android:name="com.i.medimatch.EndActivity" />
     </application>
 
 </manifest>

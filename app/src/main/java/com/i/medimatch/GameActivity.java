@@ -2,6 +2,7 @@ package com.i.medimatch;
 
 
 import android.content.ClipData;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -27,7 +28,6 @@ public class GameActivity extends AppCompatActivity {
 
     private TextView ScoreLabel = null;
     private int score = 0;
-    boolean answer = false;
 
     TextView TimerLabel;
     long startTime = 0;
@@ -77,8 +77,7 @@ public class GameActivity extends AppCompatActivity {
         TimerLabel = (TextView) findViewById(R.id.timerLabel);
         Button timerbutton = (Button) findViewById(R.id.timerButton);
 
-        /* Start timer */
-
+        // Start timer
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
 
@@ -97,7 +96,6 @@ public class GameActivity extends AppCompatActivity {
 
         });
 
-        /* END OF ON CREATE */
 
         cardFun = (CardView) findViewById(R.id.card_fun);
         cardFunImg = (CardView) findViewById(R.id.card_fun_img);
@@ -127,9 +125,7 @@ public class GameActivity extends AppCompatActivity {
         cardFun.setX(-80.0f);
         cardFunImg.setX(-80.0f);
 
-
         // Moving the cards
-
         FrameLayout frameLayout = findViewById(R.id.frame);
         frame_height = frameLayout.getHeight();
 
@@ -146,6 +142,10 @@ public class GameActivity extends AppCompatActivity {
         }, 0, 20);
 
     }
+
+    /* END OF ON CREATE */
+
+
 
 
     public void changePosition() {
@@ -169,17 +169,10 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    // TODO: correct onPause
-    @Override
-    public void onPause() {
-        super.onPause();
-        timerHandler.removeCallbacks(timerRunnable);
-        Button timerbutton = (Button)findViewById(R.id.timerButton);
-        timerbutton.setText("start");
-    }
 
 
     /* Drag and drop */
+    // TODO: ON SHORT CLICK
     View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
@@ -215,19 +208,35 @@ public class GameActivity extends AppCompatActivity {
                         if (view.getId() == R.id.card_fun) {
                             cardFun.setVisibility(View.GONE); // Make the card disappear
                             ScoreLabel.setText("Score: " + --score);
+                            checkVisibility();
                         }
                         else if (view.getId() == R.id.card_fun_img) {
                             cardFunImg.setVisibility(View.GONE);
                             ScoreLabel.setText("Score: " + ++score);
+                            checkVisibility();
                         }
 
                     }
+
                     break;
             }
 
             return true;
+
         }
     };
 
 
+    // TODO: CHECK IF ALL CARDS INVISIBLE, CHECK SCORE
+        public void checkVisibility() {
+        if (cardFunImg.getVisibility()  != View.VISIBLE) {
+            Intent intent = new Intent(GameActivity.this, EndActivity.class);
+            startActivity(intent);
+            }
+        }
+
 }
+
+
+
+
