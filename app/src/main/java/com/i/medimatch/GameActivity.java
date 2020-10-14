@@ -2,6 +2,7 @@ package com.i.medimatch;
 
 
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -10,7 +11,9 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.Display;
 import android.view.DragEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -37,8 +40,8 @@ public class GameActivity extends AppCompatActivity {
     private Handler handler = new Handler(Looper.getMainLooper());
 
     Handler timerHandler = new Handler(Looper.getMainLooper());
-    Runnable timerRunnable = new Runnable() {
 
+    Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
             long millis = System.currentTimeMillis() - startTime;
@@ -62,6 +65,7 @@ public class GameActivity extends AppCompatActivity {
     private int screen_width;
     private int screen_height;
     private int frame_height;
+
 
 
     /* ON CREATE */
@@ -96,6 +100,8 @@ public class GameActivity extends AppCompatActivity {
 
         });
 
+        // TODO: Dynamically add cards
+
 
         cardFun = (CardView) findViewById(R.id.card_fun);
         cardFunImg = (CardView) findViewById(R.id.card_fun_img);
@@ -125,7 +131,6 @@ public class GameActivity extends AppCompatActivity {
         cardFun.setX(-80.0f);
         cardFunImg.setX(-80.0f);
 
-        // Moving the cards
         FrameLayout frameLayout = findViewById(R.id.frame);
         frame_height = frameLayout.getHeight();
 

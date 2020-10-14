@@ -2,20 +2,28 @@ package com.i.medimatch;
 
 public class MedicationCard {
 
-    int id_med;
-    String med_name;
+    public String name;
+    public boolean checked;
 
-    public MedicationCard() {
-
+    public MedicationCard(String name, boolean checked) {
+        this.name = name;
+        this.checked = checked;
     }
 
     public String getName() {
-        return med_name;
+        return name;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setNameChecked(boolean checked) {
+        this.checked = checked;
     }
 
     public void setName(String name) {
-        this.med_name = name;
+        this.name = name;
     }
-
 
 }

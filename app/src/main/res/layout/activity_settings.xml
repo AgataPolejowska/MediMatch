@@ -9,7 +9,6 @@
     android:orientation="vertical"
     tools:context=".SettingsActivity">
 
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -24,6 +23,7 @@
         android:fontFamily="sans-serif-medium"
         android:textSize="25sp" />
 
+
     <CheckBox
         android:id="@+id/med1"
         android:layout_width="wrap_content"
@@ -32,7 +32,8 @@
         android:text="AXTIL"
         android:layout_below="@id/textView"
         android:textColor="#FFFFFF"
-        android:buttonTint="@android:color/white"/>
+        android:textSize="25dp"
+        android:buttonTint="@android:color/white" />
 
     <CheckBox
         android:id="@+id/med2"
@@ -42,6 +43,7 @@
         android:text="CheckBox"
         android:layout_below="@id/med1"
         android:textColor="#FFFFFF"
+        android:textSize="25dp"
         android:buttonTint="@android:color/white"/>
 
     <CheckBox
@@ -52,6 +54,7 @@
         android:text="CheckBox"
         android:layout_below="@id/med2"
         android:textColor="#FFFFFF"
+        android:textSize="25dp"
         android:buttonTint="@android:color/white"/>
 
     <CheckBox
@@ -62,6 +65,38 @@
         android:text="CheckBox"
         android:layout_below="@id/med3"
         android:textColor="#FFFFFF"
+        android:textSize="25dp"
         android:buttonTint="@android:color/white"/>
+
+    <CheckBox
+        android:id="@+id/med5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="CheckBox"
+        android:layout_below="@id/med4"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp"
+        android:buttonTint="@android:color/white"/>
+
+    <Button
+        android:id="@+id/buttonSetStart"
+        android:layout_width="193dp"
+        android:layout_height="65dp"
+        android:layout_below="@id/med5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/design_button"
+        android:fontFamily="sans-serif-medium"
+        android:hapticFeedbackEnabled="true"
+        android:longClickable="true"
+        android:selectAllOnFocus="true"
+        android:shadowColor="#FFFFFF"
+        android:shadowDy="10"
+        android:shadowRadius="10"
+        android:soundEffectsEnabled="true"
+        android:text="SET AND START"
+        android:textColor="#03A9F4"
+        android:onClick="setStartGameActivity"/>
 
 </RelativeLayout>
