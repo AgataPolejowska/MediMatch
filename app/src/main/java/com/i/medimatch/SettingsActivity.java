@@ -4,7 +4,10 @@ package com.i.medimatch;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 public class SettingsActivity extends AppCompatActivity {
 
     ArrayList<MedicationCard> medNames = new ArrayList<MedicationCard>();
+    ArrayList<MedicationCard> medCheckedNames = new ArrayList<MedicationCard>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,7 +33,7 @@ public class SettingsActivity extends AppCompatActivity {
         medNames.add(new MedicationCard("AXTIL", true));
         medNames.add(new MedicationCard("MED2", false));
         medNames.add(new MedicationCard("MED3", false));
-        medNames.add(new MedicationCard("MED4", true));
+        medNames.add(new MedicationCard("MED4", false));
         medNames.add(new MedicationCard("MED5", false));
 
         med1.setText((medNames.get(0)).getName());
@@ -43,54 +47,40 @@ public class SettingsActivity extends AppCompatActivity {
         med3.setChecked(medNames.get(2).isChecked());
         med4.setChecked(medNames.get(3).isChecked());
         med5.setChecked(medNames.get(4).isChecked());
-
     }
 
-    /* Called when the user taps the Set and Start button */
+
+    /* Called when the user taps the Save and Start button */
     public void setStartGameActivity(View view) {
 
+        CheckBox med1 = (CheckBox) findViewById(R.id.med1);
+        CheckBox med2 = (CheckBox) findViewById(R.id.med2);
+        CheckBox med3 = (CheckBox) findViewById(R.id.med3);
+        CheckBox med4 = (CheckBox) findViewById(R.id.med4);
+        CheckBox med5 = (CheckBox) findViewById(R.id.med5);
+
+        if (med1.isChecked()) { medCheckedNames.add(new MedicationCard ("AXTIL", true)); }
+        if (med2.isChecked()) { medCheckedNames.add(new MedicationCard ("MED2", true)); }
+        if (med3.isChecked()) { medCheckedNames.add(new MedicationCard ("MED3", true)); }
+        if (med4.isChecked()) { medCheckedNames.add(new MedicationCard ("MED4", true)); }
+        if (med5.isChecked()) { medCheckedNames.add(new MedicationCard ("MED5", true)); }
+
+        // Testing
+        StringBuilder builder = new StringBuilder();
+        builder.append("You have chosen: ");
+        for(MedicationCard i : medCheckedNames)
+        {
+            builder.append(i.getName() + " ");
+        }
+        Toast.makeText(this, builder, Toast.LENGTH_LONG).show();
+
+
+        /* Start game activity */
         Intent intent = new Intent(SettingsActivity.this, GameActivity.class);
+        intent.putExtra("Medications", medCheckedNames);
         startActivity(intent);
 
     }
 
-
-    /*
-    public void onCheckboxClicked(View view) {
-
-        ArrayList<String> namesChecked = new ArrayList<String>();
-
-        boolean checked = ((CheckBox) view).isChecked();
-
-        switch(view.getId()) {
-            case R.id.med1:
-                if (checked) {
-                    namesChecked.add("AXTIL");
-                }
-                break;
-            case R.id.med2:
-                if (checked) {
-                    namesChecked.add("MED2");
-                }
-                break;
-            case R.id.med3:
-                if (checked) {
-                    namesChecked.add("MED3");
-                }
-                break;
-            case R.id.med4:
-                if (checked) {
-                    namesChecked.add("MED4");
-                }
-                break;
-            case R.id.med5:
-                if (checked) {
-                    namesChecked.add("MED5");
-                }
-                break;
-        }
-
-    }
-*/
 
 }

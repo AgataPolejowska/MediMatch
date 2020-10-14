@@ -1,6 +1,8 @@
 package com.i.medimatch;
 
-public class MedicationCard {
+import java.io.Serializable;
+
+public class MedicationCard implements Serializable {
 
     public String name;
     public boolean checked;

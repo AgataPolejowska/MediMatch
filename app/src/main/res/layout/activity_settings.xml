@@ -85,7 +85,7 @@
         android:layout_height="65dp"
         android:layout_below="@id/med5"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/design_button"
         android:fontFamily="sans-serif-medium"
         android:hapticFeedbackEnabled="true"
@@ -95,8 +95,8 @@
         android:shadowDy="10"
         android:shadowRadius="10"
         android:soundEffectsEnabled="true"
-        android:text="SET AND START"
+        android:text="SAVE AND START"
         android:textColor="#03A9F4"
-        android:onClick="setStartGameActivity"/>
+        android:onClick="setStartGameActivity" />
 
 </RelativeLayout>

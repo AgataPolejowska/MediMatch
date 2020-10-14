@@ -2,7 +2,6 @@ package com.i.medimatch;
 
 
 import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -11,18 +10,18 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.Display;
 import android.view.DragEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -58,6 +57,8 @@ public class GameActivity extends AppCompatActivity {
     CardView cardFun, cardFunImg, cardName;
     ImageView cardImg;
 
+    TextView medNameText;
+
     private float card_fun_x, card_fun_y, card_fun_img_x, card_fun_img_y;
     private float card_fun_speed, card_fun_img_speed;
 
@@ -67,7 +68,6 @@ public class GameActivity extends AppCompatActivity {
     private int frame_height;
 
 
-
     /* ON CREATE */
 
     @Override
@@ -75,6 +75,18 @@ public class GameActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        ArrayList<MedicationCard> MedCards = (ArrayList<MedicationCard>) getIntent().getSerializableExtra("Medications");
+
+        // Testing
+        StringBuilder builder = new StringBuilder();
+        builder.append("You have chosen: ");
+        for(MedicationCard i : MedCards)
+        {
+            builder.append(i.getName() + " ");
+        }
+        Toast.makeText(this, builder, Toast.LENGTH_LONG).show();
+
 
         ScoreLabel = (TextView) findViewById(R.id.scoreLabel);
 
@@ -100,14 +112,14 @@ public class GameActivity extends AppCompatActivity {
 
         });
 
-        // TODO: Dynamically add cards
-
 
         cardFun = (CardView) findViewById(R.id.card_fun);
         cardFunImg = (CardView) findViewById(R.id.card_fun_img);
         cardImg = (ImageView) findViewById(R.id.image_card);
         cardName = (CardView) findViewById(R.id.card_name);
 
+        medNameText = (TextView) findViewById(R.id.icon_name);
+        medNameText.setText((MedCards.get(0)).getName());
 
         // Dragging cards
         cardFun.setOnLongClickListener(longClickListener);
