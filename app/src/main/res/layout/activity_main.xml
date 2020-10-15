@@ -15,7 +15,7 @@
         android:layout_height="98dp"
         android:layout_above="@id/appLogo"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="15dp"
         android:fontFamily="sans-serif-medium"
         android:outlineAmbientShadowColor="#FFFFFF"
         android:shadowColor="#03A9F4"
@@ -35,36 +35,17 @@
         tools:ignore="VectorDrawableCompat"
         android:contentDescription="@string/logo" />
 
-    <Button
-        android:id="@+id/buttonStart"
-        android:layout_width="193dp"
-        android:layout_height="65dp"
-        android:layout_below="@id/appLogo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/design_button"
-        android:fontFamily="sans-serif-medium"
-        android:hapticFeedbackEnabled="true"
-        android:longClickable="true"
-        android:selectAllOnFocus="true"
-        android:shadowColor="#FFFFFF"
-        android:shadowDy="10"
-        android:shadowRadius="10"
-        android:soundEffectsEnabled="true"
-        android:text="@string/start"
-        android:textColor="#03A9F4"
-        android:onClick="startGameActivity"/>
 
     <Button
         android:id="@+id/buttonSettings"
         android:layout_width="193dp"
         android:layout_height="65dp"
-        android:layout_below="@id/buttonStart"
+        android:layout_below="@id/appLogo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/design_button"
         android:fontFamily="sans-serif-medium"
-        android:text="@string/settings"
+        android:text="START"
         android:textColor="#03A9F4"
         android:onClick="openSettingsActivity"/>
 
@@ -74,7 +55,7 @@
         android:layout_height="65dp"
         android:layout_below="@id/buttonSettings"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/design_button"
         android:fontFamily="sans-serif-medium"
         android:onClick="onClickQuit"

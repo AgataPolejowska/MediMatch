@@ -17,8 +17,8 @@ The player has to match functions or images with a specific name of a medical dr
 When player matches correctly, then he gains a positive point and score counter is updated. When matching is incorrect, player losses points. When matching is completed correctly, player can proceed to the next medication name.
 
 ### Features (in progress)
-- [x] Starting menu: START, SETTINGS, QUIT
-- [ ] Settings: choosing the names to practice 
+- [x] Starting menu: START, QUIT
+- [ ] Choose the medications to practice
 - [ ] Function cards and image cards are moving
 - [ ] Matching cards by "drag-and-drop"
 - [ ] Score counter

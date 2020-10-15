@@ -10,11 +10,13 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.Display;
 import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,6 +78,10 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+
+        RelativeLayout relativeLayout = findViewById(R.id.rootLayout);
+
+
         ArrayList<MedicationCard> MedCards = (ArrayList<MedicationCard>) getIntent().getSerializableExtra("Medications");
 
         // Testing
@@ -118,12 +124,19 @@ public class GameActivity extends AppCompatActivity {
         cardImg = (ImageView) findViewById(R.id.image_card);
         cardName = (CardView) findViewById(R.id.card_name);
 
+        // Set the name of checked medication
         medNameText = (TextView) findViewById(R.id.icon_name);
         medNameText.setText((MedCards.get(0)).getName());
 
         // Dragging cards
-        cardFun.setOnLongClickListener(longClickListener);
-        cardFunImg.setOnLongClickListener(longClickListener);
+      //  cardFun.setOnLongClickListene(longClickListener);
+      //  cardFunImg.setOnLongClickListener(longClickListener);
+
+
+        cardFun.setOnTouchListener(mOnTouchListener);
+        cardFunImg.setOnTouchListener(mOnTouchListener);
+
+
         cardName.setOnDragListener(dragListener);
 
         // Set image in a card
@@ -164,7 +177,7 @@ public class GameActivity extends AppCompatActivity {
 
 
 
-
+    // TODO: IN OBJECT-ORIENTED WAY
     public void changePosition() {
 
         card_fun_x -= card_fun_speed;
@@ -187,12 +200,21 @@ public class GameActivity extends AppCompatActivity {
 
 
 
-
-    /* Drag and drop */
-    // TODO: ON SHORT CLICK
+    /*//
     View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
+            ClipData data = ClipData.newPlainText("", "");
+            View.DragShadowBuilder myShadowBuilder = new View.DragShadowBuilder(v);
+            v.startDrag(data, myShadowBuilder, v, 0);
+            return false;
+        }
+    };
+    */
+
+    View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
             ClipData data = ClipData.newPlainText("", "");
             View.DragShadowBuilder myShadowBuilder = new View.DragShadowBuilder(v);
             v.startDrag(data, myShadowBuilder, v, 0);
@@ -217,6 +239,7 @@ public class GameActivity extends AppCompatActivity {
                 case DragEvent.ACTION_DRAG_EXITED:
                     if (view.getId() == R.id.card_fun || view.getId() == R.id.card_fun_img) {
                         cardFun.setVisibility(View.VISIBLE); // Make the card appear
+                        cardName.setCardBackgroundColor(Color.WHITE);
                     }
                     break;
                 case DragEvent.ACTION_DROP:

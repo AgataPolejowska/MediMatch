@@ -95,7 +95,7 @@
         android:shadowDy="10"
         android:shadowRadius="10"
         android:soundEffectsEnabled="true"
-        android:text="SAVE AND START"
+        android:text="SAVE AND PLAY"
         android:textColor="#03A9F4"
         android:onClick="setStartGameActivity" />
 

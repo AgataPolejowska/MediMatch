@@ -16,13 +16,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    /* Called when the user taps the Start button */
-    public void startGameActivity(View view) {
-        Intent intent = new Intent(MainActivity.this, GameActivity.class);
-        startActivity(intent);
-    }
 
-    /* Called when the user taps the Settings button */
+    /* Called when the user taps the Start button */
     public void openSettingsActivity(View view) {
         Intent intent2 = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(intent2);
