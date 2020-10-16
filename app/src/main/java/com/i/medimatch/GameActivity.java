@@ -55,6 +55,8 @@ public class GameActivity extends AppCompatActivity {
         }
     };
 
+    // Array for function cards
+    ArrayList<FunctionCard> cardsFun = new ArrayList<FunctionCard>();
 
     CardView cardFun, cardFunImg, cardName;
     ImageView cardImg;
@@ -79,9 +81,6 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
 
-        RelativeLayout relativeLayout = findViewById(R.id.rootLayout);
-
-
         ArrayList<MedicationCard> MedCards = (ArrayList<MedicationCard>) getIntent().getSerializableExtra("Medications");
 
         // Testing
@@ -92,6 +91,7 @@ public class GameActivity extends AppCompatActivity {
             builder.append(i.getName() + " ");
         }
         Toast.makeText(this, builder, Toast.LENGTH_LONG).show();
+
 
 
         ScoreLabel = (TextView) findViewById(R.id.scoreLabel);
@@ -118,6 +118,7 @@ public class GameActivity extends AppCompatActivity {
 
         });
 
+        
 
         cardFun = (CardView) findViewById(R.id.card_fun);
         cardFunImg = (CardView) findViewById(R.id.card_fun_img);
@@ -128,7 +129,7 @@ public class GameActivity extends AppCompatActivity {
         medNameText = (TextView) findViewById(R.id.icon_name);
         medNameText.setText((MedCards.get(0)).getName());
 
-        // Dragging cards
+
       //  cardFun.setOnLongClickListene(longClickListener);
       //  cardFunImg.setOnLongClickListener(longClickListener);
 
@@ -211,6 +212,7 @@ public class GameActivity extends AppCompatActivity {
         }
     };
     */
+
 
     View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {
         @Override
