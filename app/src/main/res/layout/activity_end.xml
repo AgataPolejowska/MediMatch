@@ -11,13 +11,66 @@
     tools:context=".EndActivity">
 
     <TextView
-        android:id="@+id/endLabel"
-        android:layout_width="match_parent"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="40dp"
-        android:text="END"
-        android:textSize="50dp"
-        android:textColor="@android:color/black" />
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true"
+        android:padding="35dp"
+        android:shadowColor="#03A9F4"
+        android:shadowDy="50"
+        android:shadowRadius="10"
+        android:text="THE END"
+        android:textColor="#FFFFFF"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="40sp" />
 
+    <Button
+        android:id="@+id/buttonTryAgain"
+        android:layout_width="193dp"
+        android:layout_height="65dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="260dp"
+        android:background="@drawable/design_button"
+        android:fontFamily="sans-serif-medium"
+        android:text="TRY AGAIN"
+        android:textColor="#03A9F4"
+        android:onClick="tryAgain"/>
+
+    <Button
+        android:id="@+id/buttonSaveResults"
+        android:layout_width="193dp"
+        android:layout_height="65dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/buttonTryAgain"
+        android:background="@drawable/design_button"
+        android:fontFamily="sans-serif-medium"
+        android:text="SAVE RESULTS"
+        android:textColor="#03A9F4"/>
+
+    <Button
+        android:id="@+id/buttonSaveAnswers"
+        android:layout_width="193dp"
+        android:layout_height="65dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/buttonSaveResults"
+        android:background="@drawable/design_button"
+        android:fontFamily="sans-serif-medium"
+        android:text="SAVE ANSWERS"
+        android:textColor="#03A9F4"/>
+
+    <Button
+        android:id="@+id/buttonQuit"
+        android:layout_width="193dp"
+        android:layout_height="65dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/buttonSaveAnswers"
+        android:background="@drawable/design_button"
+        android:fontFamily="sans-serif-medium"
+        android:text="QUIT"
+        android:textColor="#03A9F4"/>
 
 </RelativeLayout>

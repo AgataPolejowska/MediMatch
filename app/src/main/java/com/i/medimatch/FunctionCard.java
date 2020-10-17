@@ -2,35 +2,39 @@ package com.i.medimatch;
 
 import androidx.cardview.widget.CardView;
 
-public class FunctionCard {
+public class FunctionCard  {
 
-    public float x, y, height, width;
+    public float card_x, card_y, card_height, card_width;
     public float speed;
     public CardView cardView;
 
 
-    public FunctionCard(CardView cardView) {
+    public FunctionCard(CardView cardView, float x, float y) {
 
-        cardView.setX(-80.0f);
-        this.height = cardView.getHeight();
-        this.width = cardView.getWidth();
+        this.cardView = cardView;
+        this.card_height = cardView.getHeight();
+        this.card_width = cardView.getWidth();
+        this.card_x = x;
+        this.card_y = y;
 
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
     }
 
 
     public void changePosition(float screen_width, float screen_height) {
 
-        speed = Math.round(screen_width/95.0f);
+        card_x -= speed;
 
-        x -= speed;
-
-        if(x < 0) {
-            x = screen_width;
-            y = (float) Math.floor(Math.random() * (screen_height - height));
+        if(card_x < -700) {
+            card_x = screen_width;
+            card_y = (float) Math.floor(Math.random() * (screen_height - card_height));
         }
 
-        cardView.setX(x);
-        cardView.setY(y);
+        cardView.setX(card_x);
+        cardView.setY(card_y);
 
     }
 

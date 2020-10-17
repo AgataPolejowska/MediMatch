@@ -58,7 +58,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         if (med1.isChecked()) { medCheckedNames.add(new MedicationCard ("AXTIL", true)); }
-        if (med2.isChecked()) { medCheckedNames.add(new MedicationCard ("MED2", true)); }
+        if (med2.isChecked()) { medCheckedNames.add(new MedicationCard ("RIDLIP", true)); }
         if (med3.isChecked()) { medCheckedNames.add(new MedicationCard ("MED3", true)); }
         if (med4.isChecked()) { medCheckedNames.add(new MedicationCard ("MED4", true)); }
 

@@ -26,6 +26,7 @@ When player matches correctly, then he gains a positive point and score counter 
 - [ ] Menu: RESTART, INFO, QUIT
 - [ ] Saving results to a file
 - [ ] Saving answers to a file
+- [ ] Sounds
 
 
 ### Status

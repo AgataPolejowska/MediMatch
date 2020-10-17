@@ -146,6 +146,38 @@
                 android:contentDescription="TODO" />
         </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_fun_img_3"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="120dp"
+            app:cardCornerRadius="15dp">
+
+            <ImageView
+                android:id="@+id/image_card_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@android:color/black"
+                android:contentDescription="TODO" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_fun_img_4"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="120dp"
+            app:cardCornerRadius="15dp">
+
+            <ImageView
+                android:id="@+id/image_card_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@android:color/black"
+                android:contentDescription="TODO" />
+        </androidx.cardview.widget.CardView>
+
     </FrameLayout>
 
 
@@ -154,7 +186,7 @@
         android:layout_width="200dp"
         android:layout_height="75dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="600dp"
+        android:layout_marginTop="400dp"
         android:focusable="auto"
         android:hapticFeedbackEnabled="true"
         android:outlineAmbientShadowColor="#FFFFFF"

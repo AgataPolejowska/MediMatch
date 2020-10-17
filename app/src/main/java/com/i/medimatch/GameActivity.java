@@ -56,14 +56,21 @@ public class GameActivity extends AppCompatActivity {
     };
 
 
+    ArrayList<CardView> cardsFun = new ArrayList<>();
+    ArrayList<CardView> cardsFunImg = new ArrayList<>();
+    ArrayList<FunctionCard> funCards = new ArrayList<>();
+    ArrayList<FunctionCard> funImgCards = new ArrayList<>();
+
+
     CardView cardFun1, cardFun2, cardFun3, cardFun4;
     TextView cardFunText1, cardFunText2, cardFunText3, cardFunText4;
 
-    CardView cardFunImg1, cardFunImg2;
-    ImageView cardImg1, cardImg2;
+    CardView cardFunImg1, cardFunImg2, cardFunImg3, cardFunImg4;
+    ImageView cardImg1, cardImg2, cardImg3, cardImg4;
 
     CardView cardName;
     TextView medNameText;
+
 
     public float cardFun1_x, cardFun1_y;
     public float cardFun2_x, cardFun2_y;
@@ -71,7 +78,8 @@ public class GameActivity extends AppCompatActivity {
     public float cardFun4_x, cardFun4_y;
     public float cardFunImg1_x, cardFunImg1_y;
     public float cardFunImg2_x, cardFunImg2_y;
-
+    public float cardFunImg3_x, cardFunImg3_y;
+    public float cardFunImg4_x, cardFunImg4_y;
 
     // Size
     public float frame_height;
@@ -136,11 +144,20 @@ public class GameActivity extends AppCompatActivity {
         screen_width = size.x;
         screen_height = size.y;
 
-
         cardFun1 = findViewById(R.id.card_fun_1);
         cardFun2 = findViewById(R.id.card_fun_2);
         cardFun3 = findViewById(R.id.card_fun_3);
         cardFun4 = findViewById(R.id.card_fun_4);
+
+        cardsFun.add(cardFun1);
+        cardsFun.add(cardFun2);
+        cardsFun.add(cardFun3);
+        cardsFun.add(cardFun4);
+
+        float [] cardFunX = new float[] {cardFun1_x, cardFun2_x, cardFun3_x, cardFun4_x};
+        float [] cardFunY = new float[]{cardFun1_y, cardFun2_y, cardFun3_y, cardFun4_y};
+        float [] cardFunImgX = new float[] {cardFunImg1_x, cardFunImg2_x, cardFunImg3_x, cardFunImg4_x};
+        float [] cardFunImgY = new float[]{cardFunImg1_y, cardFunImg2_y, cardFunImg3_y, cardFunImg4_y};
 
         cardFunText1 = findViewById(R.id.card_fun_text_1);
         cardFunText2 = findViewById(R.id.card_fun_text_2);
@@ -149,9 +166,23 @@ public class GameActivity extends AppCompatActivity {
 
         cardFunImg1 = findViewById(R.id.card_fun_img_1);
         cardFunImg2 = findViewById(R.id.card_fun_img_2);
+        cardFunImg3 = findViewById(R.id.card_fun_img_3);
+        cardFunImg4 = findViewById(R.id.card_fun_img_4);
+
+        cardsFunImg.add(cardFunImg1);
+        cardsFunImg.add(cardFunImg2);
+        cardsFunImg.add(cardFunImg3);
+        cardsFunImg.add(cardFunImg4);
 
         cardImg1 = findViewById(R.id.image_card_1);
         cardImg2 = findViewById(R.id.image_card_2);
+        cardImg3 = findViewById(R.id.image_card_3);
+        cardImg4 = findViewById(R.id.image_card_4);
+
+        for (int i = 0; i < cardsFun.size(); i++) {
+            funCards.add(new FunctionCard(cardsFun.get(i), cardFunX[i], cardFunY[i]));
+            funImgCards.add(new FunctionCard(cardsFunImg.get(i), cardFunImgX[i], cardFunImgY[i]));
+        }
 
 
         cardName = findViewById(R.id.card_name);
@@ -162,14 +193,16 @@ public class GameActivity extends AppCompatActivity {
         medNameText.setText((MedCards.get(0)).getName());
 
 
-        cardFun1.setOnTouchListener(mOnTouchListener);
-        cardFun2.setOnTouchListener(mOnTouchListener);
-        cardFun3.setOnTouchListener(mOnTouchListener);
-        cardFun4.setOnTouchListener(mOnTouchListener);
-        cardFunImg1.setOnTouchListener(mOnTouchListener);
-        cardFunImg2.setOnTouchListener(mOnTouchListener);
+       for(CardView card : cardsFun) {
+            card.setOnTouchListener(mOnTouchListener);
+        }
+
+        for(CardView cardImg : cardsFunImg) {
+            cardImg.setOnTouchListener(mOnTouchListener);
+        }
 
         cardName.setOnDragListener(dragListener);
+
 
         // Set image in a card
         cardImg1.setImageResource(R.drawable.heart);
@@ -187,10 +220,12 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void run() {
 
-                        changePosition(cardFun1, Math.round(screen_width/100.0f));
-                        changePosition(cardFun2, Math.round(screen_width/120.0f));
-                        changePosition(cardFunImg1, Math.round(screen_width/90.0f));
-
+                        for (int k = 0; k < funCards.size(); k++) {
+                            (funCards.get(k)).setSpeed(Math.round(screen_width / (95.0+(k*10))));
+                            (funCards.get(k)).changePosition(screen_width, screen_height);
+                            (funImgCards.get(k)).setSpeed(Math.round(screen_width / (120.0+(k*10))));
+                            (funImgCards.get(k)).changePosition(screen_width, screen_height);
+                        }
 
                     }
                 });
@@ -204,51 +239,6 @@ public class GameActivity extends AppCompatActivity {
 
 
     /* END OF ON CREATE */
-
-
-
-    public void changePosition(CardView view, float speed) {
-
-        switch((view.getId())) {
-
-            case R.id.card_fun_1:
-
-                cardFun1_x -= speed;
-                if (cardFun1_x < -700) {
-                    cardFun1_x = screen_width;
-                    cardFun1_y = (float)Math.floor(Math.random() * (screen_height - view.getHeight()));
-                }
-                view.setX(cardFun1_x);
-                view.setY(cardFun1_y);
-                break;
-
-            case R.id.card_fun_2:
-
-                cardFun2_x -= speed;
-                if (cardFun2_x < -700) {
-                    cardFun2_x = screen_width;
-                    cardFun2_y = (float)Math.floor(Math.random() * (screen_height - view.getHeight()));
-                }
-                view.setX(cardFun2_x);
-                view.setY(cardFun2_y);
-                break;
-
-            case R.id.card_fun_img_1:
-
-                cardFunImg1_x -= speed;
-                if (cardFunImg1_x < -700) {
-                    cardFunImg1_x = screen_width;
-                    cardFunImg1_y = (float)Math.floor(Math.random() * (screen_height - view.getHeight()));
-                }
-                view.setX(cardFunImg1_x);
-                view.setY(cardFunImg1_y);
-                break;
-
-        }
-
-    }
-
-
 
 
 
