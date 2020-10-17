@@ -22,14 +22,14 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        CheckBox med1 = (CheckBox) findViewById(R.id.med1);
-        CheckBox med2 = (CheckBox) findViewById(R.id.med2);
-        CheckBox med3 = (CheckBox) findViewById(R.id.med3);
-        CheckBox med4 = (CheckBox) findViewById(R.id.med4);
-        CheckBox med5 = (CheckBox) findViewById(R.id.med5);
+        CheckBox med1 = findViewById(R.id.med1);
+        CheckBox med2 = findViewById(R.id.med2);
+        CheckBox med3 = findViewById(R.id.med3);
+        CheckBox med4 = findViewById(R.id.med4);
+        CheckBox med5 = findViewById(R.id.med5);
 
         medNames.add(new MedicationCard("AXTIL", true));
-        medNames.add(new MedicationCard("MED2", false));
+        medNames.add(new MedicationCard("RIDLIP", false));
         medNames.add(new MedicationCard("MED3", false));
         medNames.add(new MedicationCard("MED4", false));
         medNames.add(new MedicationCard("MED5", false));
@@ -51,11 +51,11 @@ public class SettingsActivity extends AppCompatActivity {
     /* Called when the user taps the Save and Start button */
     public void setStartGameActivity(View view) {
 
-        CheckBox med1 = (CheckBox) findViewById(R.id.med1);
-        CheckBox med2 = (CheckBox) findViewById(R.id.med2);
-        CheckBox med3 = (CheckBox) findViewById(R.id.med3);
-        CheckBox med4 = (CheckBox) findViewById(R.id.med4);
-        CheckBox med5 = (CheckBox) findViewById(R.id.med5);
+        CheckBox med1 = findViewById(R.id.med1);
+        CheckBox med2 = findViewById(R.id.med2);
+        CheckBox med3 = findViewById(R.id.med3);
+        CheckBox med4 = findViewById(R.id.med4);
+        CheckBox med5 = findViewById(R.id.med5);
 
         if (med1.isChecked()) { medCheckedNames.add(new MedicationCard ("AXTIL", true)); }
         if (med2.isChecked()) { medCheckedNames.add(new MedicationCard ("MED2", true)); }

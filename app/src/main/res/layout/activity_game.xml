@@ -47,29 +47,27 @@
         android:layout_marginBottom="20dp">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card_fun"
+            android:id="@+id/card_fun_1"
             android:layout_width="200dp"
             android:layout_height="40dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="200dp"
             app:cardCornerRadius="15dp">
 
             <TextView
-                android:id="@+id/card_fun_text"
+                android:id="@+id/card_fun_text_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Function"
+                android:text="Function1"
                 android:textColor="@android:color/black"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@id/card_name"
-                app:layout_constraintTop_toTopOf="@id/card_name" />
+                android:textSize="14sp" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_fun_2"
-            android:layout_width="150dp"
+            android:layout_width="200dp"
             android:layout_height="40dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="150dp"
             app:cardCornerRadius="15dp">
 
             <TextView
@@ -77,45 +75,96 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Function"
+                android:text="Function2"
                 android:textColor="@android:color/black"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@id/card_name"
-                app:layout_constraintTop_toTopOf="@id/card_name" />
+                android:textSize="14sp" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card_fun_img"
+            android:id="@+id/card_fun_3"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="50dp"
+            app:cardCornerRadius="15dp">
+
+            <TextView
+                android:id="@+id/card_fun_text_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Function3"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_fun_4"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="100dp"
+            app:cardCornerRadius="15dp">
+
+            <TextView
+                android:id="@+id/card_fun_text_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Function4"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_fun_img_1"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="170dp"
             app:cardCornerRadius="15dp">
 
             <ImageView
-                android:id="@+id/image_card"
+                android:id="@+id/image_card_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="@android:color/black"
-                app:layout_constraintStart_toStartOf="@id/card_name"
-                app:layout_constraintTop_toTopOf="@id/card_name" />
+                android:contentDescription="TODO" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_fun_img_2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="120dp"
+            app:cardCornerRadius="15dp">
+
+            <ImageView
+                android:id="@+id/image_card_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@android:color/black"
+                android:contentDescription="TODO" />
         </androidx.cardview.widget.CardView>
 
     </FrameLayout>
 
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_name"
         android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="400dp"
-        app:cardCornerRadius="15dp"
+        android:layout_height="75dp"
         android:layout_centerHorizontal="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="600dp"
+        android:focusable="auto"
+        android:hapticFeedbackEnabled="true"
+        android:outlineAmbientShadowColor="#FFFFFF"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/frame"
+        app:strokeColor="#03A9F4">
 
         <TextView
-            android:id="@+id/icon_name"
+            android:id="@+id/med_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -125,6 +174,7 @@
             app:layout_constraintStart_toStartOf="@id/card_name"
             app:layout_constraintTop_toTopOf="@id/card_name" />
     </androidx.cardview.widget.CardView>
+
 
 
 </RelativeLayout>

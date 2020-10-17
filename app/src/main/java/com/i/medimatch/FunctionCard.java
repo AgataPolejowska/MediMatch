@@ -5,22 +5,22 @@ import androidx.cardview.widget.CardView;
 public class FunctionCard {
 
     public float x, y, height, width;
-    public double speed;
-    public float screen_height, screen_width;
+    public float speed;
     public CardView cardView;
 
-    public FunctionCard(float x, float y, CardView cardView) {
-        this.x = x;
-        this.y = y;
+
+    public FunctionCard(CardView cardView) {
+
+        cardView.setX(-80.0f);
         this.height = cardView.getHeight();
         this.width = cardView.getWidth();
+
     }
 
-    public void setSpeed(double v) {
-        this.speed = v;
-    }
 
-    public void changePosition() {
+    public void changePosition(float screen_width, float screen_height) {
+
+        speed = Math.round(screen_width/95.0f);
 
         x -= speed;
 

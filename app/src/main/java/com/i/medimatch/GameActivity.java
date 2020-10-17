@@ -1,6 +1,7 @@
 package com.i.medimatch;
 
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,7 +17,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,13 +36,13 @@ public class GameActivity extends AppCompatActivity {
     TextView TimerLabel;
     long startTime = 0;
 
-    // Timer
     private Timer timer = new Timer();
     private Handler handler = new Handler(Looper.getMainLooper());
 
     Handler timerHandler = new Handler(Looper.getMainLooper());
 
     Runnable timerRunnable = new Runnable() {
+        @SuppressLint("DefaultLocale")
         @Override
         public void run() {
             long millis = System.currentTimeMillis() - startTime;
@@ -55,25 +55,33 @@ public class GameActivity extends AppCompatActivity {
         }
     };
 
-    // Array for function cards
-    ArrayList<FunctionCard> cardsFun = new ArrayList<FunctionCard>();
 
-    CardView cardFun, cardFunImg, cardName;
-    ImageView cardImg;
+    CardView cardFun1, cardFun2, cardFun3, cardFun4;
+    TextView cardFunText1, cardFunText2, cardFunText3, cardFunText4;
 
+    CardView cardFunImg1, cardFunImg2;
+    ImageView cardImg1, cardImg2;
+
+    CardView cardName;
     TextView medNameText;
 
-    private float card_fun_x, card_fun_y, card_fun_img_x, card_fun_img_y;
-    private float card_fun_speed, card_fun_img_speed;
+    public float cardFun1_x, cardFun1_y;
+    public float cardFun2_x, cardFun2_y;
+    public float cardFun3_x, cardFun3_y;
+    public float cardFun4_x, cardFun4_y;
+    public float cardFunImg1_x, cardFunImg1_y;
+    public float cardFunImg2_x, cardFunImg2_y;
+
 
     // Size
-    private int screen_width;
-    private int screen_height;
-    private int frame_height;
+    public float frame_height;
+    public float screen_width, screen_height;
+
 
 
     /* ON CREATE */
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -84,7 +92,7 @@ public class GameActivity extends AppCompatActivity {
         ArrayList<MedicationCard> MedCards = (ArrayList<MedicationCard>) getIntent().getSerializableExtra("Medications");
 
         // Testing
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         builder.append("You have chosen: ");
         for(MedicationCard i : MedCards)
         {
@@ -94,10 +102,10 @@ public class GameActivity extends AppCompatActivity {
 
 
 
-        ScoreLabel = (TextView) findViewById(R.id.scoreLabel);
+        ScoreLabel = findViewById(R.id.scoreLabel);
 
-        TimerLabel = (TextView) findViewById(R.id.timerLabel);
-        Button timerbutton = (Button) findViewById(R.id.timerButton);
+        TimerLabel = findViewById(R.id.timerLabel);
+        Button timerbutton = findViewById(R.id.timerButton);
 
         // Start timer
         startTime = System.currentTimeMillis();
@@ -118,47 +126,59 @@ public class GameActivity extends AppCompatActivity {
 
         });
 
-        
-
-        cardFun = (CardView) findViewById(R.id.card_fun);
-        cardFunImg = (CardView) findViewById(R.id.card_fun_img);
-        cardImg = (ImageView) findViewById(R.id.image_card);
-        cardName = (CardView) findViewById(R.id.card_name);
-
-        // Set the name of checked medication
-        medNameText = (TextView) findViewById(R.id.icon_name);
-        medNameText.setText((MedCards.get(0)).getName());
-
-
-      //  cardFun.setOnLongClickListene(longClickListener);
-      //  cardFunImg.setOnLongClickListener(longClickListener);
-
-
-        cardFun.setOnTouchListener(mOnTouchListener);
-        cardFunImg.setOnTouchListener(mOnTouchListener);
-
-
-        cardName.setOnDragListener(dragListener);
-
-        // Set image in a card
-        cardImg.setImageResource(R.drawable.heart);
 
         // Get screen size
         WindowManager windowManager = getWindowManager();
         Display display = windowManager.getDefaultDisplay();
-        Point size = new Point();
+        final Point size = new Point();
         display.getSize(size);
 
         screen_width = size.x;
         screen_height = size.y;
 
-        card_fun_speed = Math.round(screen_width/95.0f);
-        card_fun_img_speed = Math.round(screen_width/100.0f);
-        cardFun.setX(-80.0f);
-        cardFunImg.setX(-80.0f);
+
+        cardFun1 = findViewById(R.id.card_fun_1);
+        cardFun2 = findViewById(R.id.card_fun_2);
+        cardFun3 = findViewById(R.id.card_fun_3);
+        cardFun4 = findViewById(R.id.card_fun_4);
+
+        cardFunText1 = findViewById(R.id.card_fun_text_1);
+        cardFunText2 = findViewById(R.id.card_fun_text_2);
+        cardFunText3 = findViewById(R.id.card_fun_text_3);
+        cardFunText4 = findViewById(R.id.card_fun_text_4);
+
+        cardFunImg1 = findViewById(R.id.card_fun_img_1);
+        cardFunImg2 = findViewById(R.id.card_fun_img_2);
+
+        cardImg1 = findViewById(R.id.image_card_1);
+        cardImg2 = findViewById(R.id.image_card_2);
+
+
+        cardName = findViewById(R.id.card_name);
+
+
+        // Set the name of checked medication
+        medNameText = findViewById(R.id.med_name);
+        medNameText.setText((MedCards.get(0)).getName());
+
+
+        cardFun1.setOnTouchListener(mOnTouchListener);
+        cardFun2.setOnTouchListener(mOnTouchListener);
+        cardFun3.setOnTouchListener(mOnTouchListener);
+        cardFun4.setOnTouchListener(mOnTouchListener);
+        cardFunImg1.setOnTouchListener(mOnTouchListener);
+        cardFunImg2.setOnTouchListener(mOnTouchListener);
+
+        cardName.setOnDragListener(dragListener);
+
+        // Set image in a card
+        cardImg1.setImageResource(R.drawable.heart);
+        cardImg2.setImageResource(R.drawable.heart);
+
 
         FrameLayout frameLayout = findViewById(R.id.frame);
         frame_height = frameLayout.getHeight();
+
 
         timer.schedule(new TimerTask() {
             @Override
@@ -166,55 +186,74 @@ public class GameActivity extends AppCompatActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        changePosition();
+
+                        changePosition(cardFun1, Math.round(screen_width/100.0f));
+                        changePosition(cardFun2, Math.round(screen_width/120.0f));
+                        changePosition(cardFunImg1, Math.round(screen_width/90.0f));
+
+
                     }
                 });
             }
         }, 0, 20);
 
+
+
     }
+
+
 
     /* END OF ON CREATE */
 
 
 
-    // TODO: IN OBJECT-ORIENTED WAY
-    public void changePosition() {
+    public void changePosition(CardView view, float speed) {
 
-        card_fun_x -= card_fun_speed;
-        if (card_fun_x < 0) {
-            card_fun_x = screen_width;
-            card_fun_y = (float)Math.floor(Math.random() * (screen_height - cardFun.getHeight()));
-        }
-        cardFun.setX(card_fun_x);
-        cardFun.setY(card_fun_y);
+        switch((view.getId())) {
 
-        card_fun_img_x -= card_fun_img_speed;
-        if (card_fun_img_x < 0) {
-            card_fun_img_x = screen_width;
-            card_fun_img_y = (float)Math.floor(Math.random() * (screen_height - cardImg.getHeight()));
+            case R.id.card_fun_1:
+
+                cardFun1_x -= speed;
+                if (cardFun1_x < -700) {
+                    cardFun1_x = screen_width;
+                    cardFun1_y = (float)Math.floor(Math.random() * (screen_height - view.getHeight()));
+                }
+                view.setX(cardFun1_x);
+                view.setY(cardFun1_y);
+                break;
+
+            case R.id.card_fun_2:
+
+                cardFun2_x -= speed;
+                if (cardFun2_x < -700) {
+                    cardFun2_x = screen_width;
+                    cardFun2_y = (float)Math.floor(Math.random() * (screen_height - view.getHeight()));
+                }
+                view.setX(cardFun2_x);
+                view.setY(cardFun2_y);
+                break;
+
+            case R.id.card_fun_img_1:
+
+                cardFunImg1_x -= speed;
+                if (cardFunImg1_x < -700) {
+                    cardFunImg1_x = screen_width;
+                    cardFunImg1_y = (float)Math.floor(Math.random() * (screen_height - view.getHeight()));
+                }
+                view.setX(cardFunImg1_x);
+                view.setY(cardFunImg1_y);
+                break;
+
         }
-        cardFunImg.setX(card_fun_img_x);
-        cardFunImg.setY(card_fun_img_y);
 
     }
 
 
 
-    /*//
-    View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View v) {
-            ClipData data = ClipData.newPlainText("", "");
-            View.DragShadowBuilder myShadowBuilder = new View.DragShadowBuilder(v);
-            v.startDrag(data, myShadowBuilder, v, 0);
-            return false;
-        }
-    };
-    */
 
 
     View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {
+        @SuppressLint("ClickableViewAccessibility")
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             ClipData data = ClipData.newPlainText("", "");
@@ -234,26 +273,24 @@ public class GameActivity extends AppCompatActivity {
 
             switch (dragEvent) {
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    if (view.getId() == R.id.card_fun || view.getId() == R.id.card_fun_img) {
-                        cardName.setCardBackgroundColor(Color.LTGRAY);
-                    }
+                    cardName.setCardBackgroundColor(Color.LTGRAY);
                     break;
                 case DragEvent.ACTION_DRAG_EXITED:
-                    if (view.getId() == R.id.card_fun || view.getId() == R.id.card_fun_img) {
-                        cardFun.setVisibility(View.VISIBLE); // Make the card appear
-                        cardName.setCardBackgroundColor(Color.WHITE);
+                    cardName.setCardBackgroundColor(Color.WHITE);
+                    if (view.getId() == R.id.card_fun_1 || view.getId() == R.id.card_fun_img_1) {
+                        cardFun1.setVisibility(View.VISIBLE); // Make the card appear
                     }
                     break;
                 case DragEvent.ACTION_DROP:
-                    if (view.getId() == R.id.card_fun || view.getId() == R.id.card_fun_img) {
+                    if (view.getId() == R.id.card_fun_1 || view.getId() == R.id.card_fun_img_1) {
                         cardName.setCardBackgroundColor(Color.WHITE);
-                        if (view.getId() == R.id.card_fun) {
-                            cardFun.setVisibility(View.GONE); // Make the card disappear
+                        if (view.getId() == R.id.card_fun_1) {
+                            cardFun1.setVisibility(View.GONE); // Make the card disappear
                             ScoreLabel.setText("Score: " + --score);
                             checkVisibility();
                         }
-                        else if (view.getId() == R.id.card_fun_img) {
-                            cardFunImg.setVisibility(View.GONE);
+                        else if (view.getId() == R.id.card_fun_img_1) {
+                            cardFunImg1.setVisibility(View.GONE);
                             ScoreLabel.setText("Score: " + ++score);
                             checkVisibility();
                         }
@@ -271,7 +308,7 @@ public class GameActivity extends AppCompatActivity {
 
     // TODO: CHECK IF ALL CARDS INVISIBLE, CHECK SCORE
         public void checkVisibility() {
-        if (cardFunImg.getVisibility()  != View.VISIBLE) {
+        if (cardFunImg1.getVisibility()  != View.VISIBLE) {
             Intent intent = new Intent(GameActivity.this, EndActivity.class);
             startActivity(intent);
             }
