@@ -83,7 +83,8 @@ public class GameActivity extends AppCompatActivity {
 
     // Size
     public float frame_height;
-    public float screen_width, screen_height;
+   // public float screen_width, screen_height;
+
 
 
 
@@ -141,8 +142,8 @@ public class GameActivity extends AppCompatActivity {
         final Point size = new Point();
         display.getSize(size);
 
-        screen_width = size.x;
-        screen_height = size.y;
+        FunctionCard.screen_width = size.x;
+        FunctionCard.screen_height = size.y;
 
         cardFun1 = findViewById(R.id.card_fun_1);
         cardFun2 = findViewById(R.id.card_fun_2);
@@ -221,10 +222,10 @@ public class GameActivity extends AppCompatActivity {
                     public void run() {
 
                         for (int k = 0; k < funCards.size(); k++) {
-                            (funCards.get(k)).setSpeed(Math.round(screen_width / (95.0+(k*10))));
-                            (funCards.get(k)).changePosition(screen_width, screen_height);
-                            (funImgCards.get(k)).setSpeed(Math.round(screen_width / (120.0+(k*10))));
-                            (funImgCards.get(k)).changePosition(screen_width, screen_height);
+                            (funCards.get(k)).setSpeed(Math.round(FunctionCard.screen_width / (95.0+(k*10))));
+                            (funCards.get(k)).changePosition();
+                            (funImgCards.get(k)).setSpeed(Math.round(FunctionCard.screen_width / (120.0+(k*10))));
+                            (funImgCards.get(k)).changePosition();
                         }
 
                     }
@@ -235,7 +236,6 @@ public class GameActivity extends AppCompatActivity {
 
 
     }
-
 
 
     /* END OF ON CREATE */

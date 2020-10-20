@@ -5,6 +5,8 @@ import androidx.cardview.widget.CardView;
 public class FunctionCard  {
 
     public float card_x, card_y, card_height, card_width;
+    public static float screen_width;
+    public static float screen_height;
     public float speed;
     public CardView cardView;
 
@@ -24,7 +26,7 @@ public class FunctionCard  {
     }
 
 
-    public void changePosition(float screen_width, float screen_height) {
+    public void changePosition() {
 
         card_x -= speed;
 
