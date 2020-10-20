@@ -11,40 +11,65 @@
     android:soundEffectsEnabled="true"
     tools:context=".GameActivity">
 
+
+    <TextView
+        android:id="@+id/timerLabel"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:padding="15dp"
+        android:text="Timer: "
+        android:textColor="#FDFAFA"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="20sp"
+        android:shadowColor="#03A9F4"
+        android:shadowDy="20"
+        android:shadowRadius="10"/>
+
     <TextView
         android:id="@+id/scoreLabel"
         android:layout_width="100dp"
         android:layout_height="50dp"
+        android:layout_below="@id/timerLabel"
         android:padding="15dp"
         android:text="@string/score"
-        android:textColor="#FDFAFA" />
+        android:textColor="#FDFAFA"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="20sp"
+        android:shadowColor="#03A9F4"
+        android:shadowDy="20"
+        android:shadowRadius="10"/>
 
-    <TextView
-        android:id="@+id/timerLabel"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:padding="15dp"
-        android:layout_toEndOf="@+id/scoreLabel"
-        android:layout_marginStart="70dp"
-        android:text="Timer: "
-        android:textColor="#FDFAFA" />
+
+    <Button
+        android:id="@+id/popup_menu"
+        android:layout_width="150dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="0dp"
+        android:layout_toEndOf="@id/timerButton"
+        android:background="@drawable/buttons_menu"
+        android:text="MENU" />
 
     <Button
         android:id="@+id/timerButton"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="40dp"
-        android:layout_toEndOf="@+id/timerLabel"
+        android:layout_width="100dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="70dp"
+        android:layout_toEndOf="@id/timerLabel"
+        android:background="@drawable/buttons_menu"
         android:text="stop"
-        android:textSize="10dp"/>
+        android:textColor="#980000"
+        android:textSize="10dp" />
 
     <FrameLayout
         android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="635dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="150dp"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="0dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_fun_1"
@@ -126,8 +151,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@android:color/black"
-                android:contentDescription="TODO" />
+                android:contentDescription="TODO"
+                android:textColor="@android:color/black" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -142,8 +167,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@android:color/black"
-                android:contentDescription="TODO" />
+                android:contentDescription="TODO"
+                android:textColor="@android:color/black" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -158,8 +183,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@android:color/black"
-                android:contentDescription="TODO" />
+                android:contentDescription="TODO"
+                android:textColor="@android:color/black" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -174,19 +199,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@android:color/black"
-                android:contentDescription="TODO" />
+                android:contentDescription="TODO"
+                android:textColor="@android:color/black" />
         </androidx.cardview.widget.CardView>
+
 
     </FrameLayout>
 
-
     <androidx.cardview.widget.CardView
         android:id="@+id/card_name"
-        android:layout_width="200dp"
-        android:layout_height="75dp"
+        android:layout_width="220dp"
+        android:layout_height="77dp"
+        android:layout_marginTop="450dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="400dp"
         android:focusable="auto"
         android:hapticFeedbackEnabled="true"
         android:outlineAmbientShadowColor="#FFFFFF"
@@ -206,7 +231,6 @@
             app:layout_constraintStart_toStartOf="@id/card_name"
             app:layout_constraintTop_toTopOf="@id/card_name" />
     </androidx.cardview.widget.CardView>
-
 
 
 </RelativeLayout>

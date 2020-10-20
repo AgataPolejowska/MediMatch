@@ -11,12 +11,15 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.Display;
 import android.view.DragEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +58,7 @@ public class GameActivity extends AppCompatActivity {
         }
     };
 
+    Button openMenu;
 
     ArrayList<CardView> cardsFun = new ArrayList<>();
     ArrayList<CardView> cardsFunImg = new ArrayList<>();
@@ -83,8 +87,6 @@ public class GameActivity extends AppCompatActivity {
 
     // Size
     public float frame_height;
-   // public float screen_width, screen_height;
-
 
 
 
@@ -98,7 +100,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
 
-        ArrayList<MedicationCard> MedCards = (ArrayList<MedicationCard>) getIntent().getSerializableExtra("Medications");
+        ArrayList<MedicationCard> MedCards = (ArrayList<MedicationCard>)getIntent().getSerializableExtra("Medications");
 
         // Testing
         final StringBuilder builder = new StringBuilder();
@@ -134,6 +136,39 @@ public class GameActivity extends AppCompatActivity {
             }
 
         });
+
+
+        // Menu
+        openMenu = findViewById(R.id.popup_menu);
+
+        openMenu.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(GameActivity.this, v);
+                popupMenu.getMenuInflater().inflate(R.menu.menu_popup, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.item_startagain:
+                                startActivity(new Intent(GameActivity.this, MainActivity.class));
+                                return true;
+                            case R.id.item_info:
+                                startActivity(new Intent(GameActivity.this, MainActivity.class));
+                                return true;
+                            case R.id.item_quit:
+                                int pid = android.os.Process.myPid();
+                                android.os.Process.killProcess(pid);
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+                popupMenu.show();
+            }
+        });
+
 
 
         // Get screen size
