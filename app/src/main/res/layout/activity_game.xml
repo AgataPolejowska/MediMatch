@@ -14,24 +14,25 @@
 
     <TextView
         android:id="@+id/timerLabel"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_width="140dp"
+        android:layout_height="26dp"
         android:layout_marginTop="15dp"
-        android:padding="15dp"
+        android:paddingLeft="15dp"
         android:text="Timer: "
         android:textColor="#FDFAFA"
         android:fontFamily="sans-serif-medium"
         android:textSize="20sp"
         android:shadowColor="#03A9F4"
         android:shadowDy="20"
-        android:shadowRadius="10"/>
+        android:shadowRadius="10"
+        />
 
     <TextView
         android:id="@+id/scoreLabel"
         android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_height="26dp"
         android:layout_below="@id/timerLabel"
-        android:padding="15dp"
+        android:paddingLeft="15dp"
         android:text="@string/score"
         android:textColor="#FDFAFA"
         android:fontFamily="sans-serif-medium"
@@ -74,7 +75,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_fun_1"
             android:layout_width="200dp"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_marginTop="200dp"
             app:cardCornerRadius="15dp">
 
@@ -83,15 +84,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textAlignment="center"
                 android:text="Function1"
                 android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_fun_2"
             android:layout_width="200dp"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_marginTop="150dp"
             app:cardCornerRadius="15dp">
 
@@ -100,15 +102,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textAlignment="center"
                 android:text="Function2"
                 android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_fun_3"
             android:layout_width="200dp"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
             android:layout_marginTop="50dp"
             app:cardCornerRadius="15dp">
 
@@ -117,15 +121,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textAlignment="center"
                 android:text="Function3"
                 android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_fun_4"
             android:layout_width="200dp"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_marginTop="100dp"
             app:cardCornerRadius="15dp">
 
@@ -134,9 +139,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textAlignment="center"
                 android:text="Function4"
                 android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -157,8 +163,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_fun_img_2"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_marginTop="120dp"
             app:cardCornerRadius="15dp">
 
@@ -227,8 +233,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/axtil"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-medium"
             app:layout_constraintStart_toStartOf="@id/card_name"
             app:layout_constraintTop_toTopOf="@id/card_name" />
     </androidx.cardview.widget.CardView>

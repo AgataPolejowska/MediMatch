@@ -65,9 +65,14 @@ public class GameActivity extends AppCompatActivity {
     ArrayList<FunctionCard> funCards = new ArrayList<>();
     ArrayList<FunctionCard> funImgCards = new ArrayList<>();
 
-    int[] imageList = new int[]{R.drawable.heart, R.drawable.cholesterol, R.drawable.liver, R.drawable.brain} ;
+    String [] strFunctions = new String[]{
+            "Ułatwienie pompowania krwi",
+            "Zmniejszenie stężenia cholesterolu LDL we krwi",
+            "Regeneracja i odbudowa uszkodzonej wątroby",
+            "Leczenie zaburzeń pracy mózgu"
+    };
 
-    HashMap<MedicationCard, ArrayList<FunctionCard>> mednameFunctions = new HashMap<MedicationCard, ArrayList<FunctionCard>>();
+    int[] imageList = new int[]{R.drawable.heart, R.drawable.cholesterol, R.drawable.liver, R.drawable.brain} ;
 
     CardView cardFun1, cardFun2, cardFun3, cardFun4;
     TextView cardFunText1, cardFunText2, cardFunText3, cardFunText4;
@@ -100,13 +105,14 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-
-        ArrayList<MedicationCard> MedCards = (ArrayList<MedicationCard>)getIntent().getSerializableExtra("Medications");
+        // Receive data from Settings Activity
+        ArrayList<MedicationCard> MedCardsObjects = (ArrayList<MedicationCard>)getIntent().getSerializableExtra("Medications");
+        ArrayList<MedicationCard> MedCardsChecked = (ArrayList<MedicationCard>)getIntent().getSerializableExtra("MedicationsChecked");
 
         // Testing
         final StringBuilder builder = new StringBuilder();
         builder.append("You have chosen: ");
-        for(MedicationCard i : MedCards)
+        for(MedicationCard i : MedCardsChecked)
         {
             builder.append(i.getName() + " ");
         }
@@ -154,7 +160,6 @@ public class GameActivity extends AppCompatActivity {
         });
 
 
-
         // Get screen size
         WindowManager windowManager = getWindowManager();
         Display display = windowManager.getDefaultDisplay();
@@ -164,36 +169,27 @@ public class GameActivity extends AppCompatActivity {
         FunctionCard.screen_width = size.x;
         FunctionCard.screen_height = size.y;
 
-        cardFun1 = findViewById(R.id.card_fun_1);
-        cardFun2 = findViewById(R.id.card_fun_2);
-        cardFun3 = findViewById(R.id.card_fun_3);
-        cardFun4 = findViewById(R.id.card_fun_4);
+        cardsFun.add(cardFun1 = findViewById(R.id.card_fun_1));
+        cardsFun.add(cardFun2 = findViewById(R.id.card_fun_2));
+        cardsFun.add(cardFun3 = findViewById(R.id.card_fun_3));
+        cardsFun.add(cardFun4 = findViewById(R.id.card_fun_4));
 
-        cardsFun.add(cardFun1);
-        cardsFun.add(cardFun2);
-        cardsFun.add(cardFun3);
-        cardsFun.add(cardFun4);
+        cardsFunImg.add(cardFunImg1 = findViewById(R.id.card_fun_img_1));
+        cardsFunImg.add(cardFunImg2 = findViewById(R.id.card_fun_img_2));
+        cardsFunImg.add(cardFunImg3 = findViewById(R.id.card_fun_img_3));
+        cardsFunImg.add(cardFunImg4 = findViewById(R.id.card_fun_img_4));
 
+        // Cards coordinates
         float [] cardFunX = new float[] {cardFun1_x, cardFun2_x, cardFun3_x, cardFun4_x};
         float [] cardFunY = new float[]{cardFun1_y, cardFun2_y, cardFun3_y, cardFun4_y};
         float [] cardFunImgX = new float[] {cardFunImg1_x, cardFunImg2_x, cardFunImg3_x, cardFunImg4_x};
         float [] cardFunImgY = new float[]{cardFunImg1_y, cardFunImg2_y, cardFunImg3_y, cardFunImg4_y};
 
-        cardFunText1 = findViewById(R.id.card_fun_text_1);
-        cardFunText2 = findViewById(R.id.card_fun_text_2);
-        cardFunText3 = findViewById(R.id.card_fun_text_3);
-        cardFunText4 = findViewById(R.id.card_fun_text_4);
-
-        cardFunImg1 = findViewById(R.id.card_fun_img_1);
-        cardFunImg2 = findViewById(R.id.card_fun_img_2);
-        cardFunImg3 = findViewById(R.id.card_fun_img_3);
-        cardFunImg4 = findViewById(R.id.card_fun_img_4);
-
-        cardsFunImg.add(cardFunImg1);
-        cardsFunImg.add(cardFunImg2);
-        cardsFunImg.add(cardFunImg3);
-        cardsFunImg.add(cardFunImg4);
-
+        ArrayList<TextView> cardsFunText = new ArrayList<>();
+        cardsFunText.add(cardFunText1 = findViewById(R.id.card_fun_text_1));
+        cardsFunText.add(cardFunText2 = findViewById(R.id.card_fun_text_2));
+        cardsFunText.add(cardFunText3 = findViewById(R.id.card_fun_text_3));
+        cardsFunText.add(cardFunText4 = findViewById(R.id.card_fun_text_4));
 
         ArrayList<ImageView> cardImages = new ArrayList<>();
         cardImages.add(cardImg1 = findViewById(R.id.image_card_1));
@@ -201,23 +197,27 @@ public class GameActivity extends AppCompatActivity {
         cardImages.add(cardImg3 = findViewById(R.id.image_card_3));
         cardImages.add(cardImg4 = findViewById(R.id.image_card_4));
 
-
+        // Create FunctionCard objects and add to array
         for (int i = 0; i < cardsFun.size(); i++) {
             funCards.add(new FunctionCard(cardsFun.get(i), cardFunX[i], cardFunY[i]));
             funImgCards.add(new FunctionCard(cardsFunImg.get(i), cardFunImgX[i], cardFunImgY[i]));
         }
 
-        // Set image
+        // Set image in function cards
         for (int c = 0; c < imageList.length; c++) {
             funImgCards.get(c).setImage(cardImages.get(c), imageList[c]);
         }
 
+        // Set text in function cards
+        for (int t = 0; t < strFunctions.length; t++) {
+            funCards.get(t).setFunctionText(cardsFunText.get(t), strFunctions[t]);
+        }
 
         cardName = findViewById(R.id.card_name);
 
         // Set the name of checked medication
         medNameText = findViewById(R.id.med_name);
-        medNameText.setText((MedCards.get(0)).getName());
+        medNameText.setText((MedCardsChecked.get(0)).getName());
 
 
        for(CardView card : cardsFun) {
@@ -284,15 +284,19 @@ public class GameActivity extends AppCompatActivity {
 
             switch (dragEvent) {
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    cardName.setCardBackgroundColor(Color.LTGRAY);
+                    cardName.setCardBackgroundColor(Color.parseColor("#01A9F2"));
+                    medNameText.setTextColor(Color.WHITE);
                     break;
                 case DragEvent.ACTION_DRAG_EXITED:
                     cardName.setCardBackgroundColor(Color.WHITE);
+                    medNameText.setTextColor(Color.parseColor("#01A9F2"));
                     if (view.getId() == R.id.card_fun_1 || view.getId() == R.id.card_fun_img_1) {
                         cardFun1.setVisibility(View.VISIBLE); // Make the card appear
                     }
                     break;
                 case DragEvent.ACTION_DROP:
+                    cardName.setCardBackgroundColor(Color.WHITE);
+                    medNameText.setTextColor(Color.parseColor("#01A9F2"));
                     if (view.getId() == R.id.card_fun_1 || view.getId() == R.id.card_fun_img_1) {
                         cardName.setCardBackgroundColor(Color.WHITE);
                         if (view.getId() == R.id.card_fun_1) {
@@ -305,14 +309,10 @@ public class GameActivity extends AppCompatActivity {
                             ScoreLabel.setText("Score: " + ++score);
                             checkVisibility();
                         }
-
                     }
-
                     break;
             }
-
             return true;
-
         }
     };
 

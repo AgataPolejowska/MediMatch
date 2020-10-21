@@ -28,9 +28,9 @@ public class FunctionCard  {
 
     }
 
-    public void setFunctionText(String functionText, TextView cardFunText) {
-        this.functionText = functionText;
+    public TextView setFunctionText(TextView cardFunText, String functionText) {
         cardFunText.setText(functionText);
+        return cardFunText;
     }
 
     public ImageView setImage(ImageView imgCard, int resourceId) {
@@ -45,9 +45,6 @@ public class FunctionCard  {
 
 
     public void changePosition(String direction) {
-
-        cardView.setX(-100.0f);
-        cardView.setY(-100.0f);
 
         switch(direction) {
             case "DOWN":

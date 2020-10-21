@@ -14,8 +14,10 @@ import java.util.ArrayList;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    ArrayList<MedicationCard> medNames = new ArrayList<MedicationCard>();
-    ArrayList<MedicationCard> medCheckedNames = new ArrayList<MedicationCard>();
+    ArrayList<MedicationCard> medObjects = new ArrayList<>();
+    ArrayList<MedicationCard> medCheckedNames = new ArrayList<>();
+
+    CheckBox [] medCheckbox;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,41 +29,28 @@ public class SettingsActivity extends AppCompatActivity {
         CheckBox med3 = findViewById(R.id.med3);
         CheckBox med4 = findViewById(R.id.med4);
 
+        medObjects.add(new MedicationCard("AXTIL", true));
+        medObjects.add(new MedicationCard("RIDLIP", false));
+        medObjects.add(new MedicationCard("SYLIMAROL", false));
+        medObjects.add(new MedicationCard("ENCEPHABOL", false));
 
-        medNames.add(new MedicationCard("AXTIL", true));
-        medNames.add(new MedicationCard("RIDLIP", false));
-        medNames.add(new MedicationCard("SYLIMAROL", false));
-        medNames.add(new MedicationCard("ENCEPHABOL", false));
+        medCheckbox = new CheckBox[]{med1, med2, med3, med4};
 
-
-        med1.setText((medNames.get(0)).getName());
-        med2.setText((medNames.get(1)).getName());
-        med3.setText((medNames.get(2)).getName());
-        med4.setText((medNames.get(3)).getName());
-
-
-        med1.setChecked((medNames.get(0)).isChecked());
-        med2.setChecked(medNames.get(1).isChecked());
-        med3.setChecked(medNames.get(2).isChecked());
-        med4.setChecked(medNames.get(3).isChecked());
-
+        for (int i = 0; i < medObjects.size(); i++) {
+            medCheckbox[i].setText((medObjects.get(i).getName()));
+            medCheckbox[i].setChecked(medObjects.get(i).isChecked());
+        }
     }
-
 
     /* Called when the user taps the Save and Start button */
     public void setStartGameActivity(View view) {
 
-        CheckBox med1 = findViewById(R.id.med1);
-        CheckBox med2 = findViewById(R.id.med2);
-        CheckBox med3 = findViewById(R.id.med3);
-        CheckBox med4 = findViewById(R.id.med4);
-
-
-        if (med1.isChecked()) { medCheckedNames.add(new MedicationCard ((medNames.get(0)).getName(), true)); }
-        if (med2.isChecked()) { medCheckedNames.add(new MedicationCard ((medNames.get(1)).getName(), true)); }
-        if (med3.isChecked()) { medCheckedNames.add(new MedicationCard ((medNames.get(2)).getName(), true)); }
-        if (med4.isChecked()) { medCheckedNames.add(new MedicationCard ((medNames.get(3)).getName(), true)); }
-
+        // If a medication name is checked, create the object and add to the arraylist
+        for (int j = 0; j < medObjects.size(); j++) {
+            if (medCheckbox[j].isChecked()) {
+                medCheckedNames.add(new MedicationCard((medObjects.get(j)).getName(), true));
+            }
+        }
 
         // Testing
         StringBuilder builder = new StringBuilder();
@@ -72,10 +61,13 @@ public class SettingsActivity extends AppCompatActivity {
         }
         Toast.makeText(this, builder, Toast.LENGTH_LONG).show();
 
-
         /* Start game activity */
         Intent intent = new Intent(SettingsActivity.this, GameActivity.class);
-        intent.putExtra("Medications", medCheckedNames);
+        // Pass objects to game activity
+        intent.putExtra("Medications", medObjects);
+        // Pass checked medications to next the game activity
+        intent.putExtra("MedicationsChecked", medCheckedNames);
+      //  intent.putExtra();
         startActivity(intent);
 
     }
