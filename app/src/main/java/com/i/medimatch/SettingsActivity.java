@@ -30,8 +30,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         medNames.add(new MedicationCard("AXTIL", true));
         medNames.add(new MedicationCard("RIDLIP", false));
-        medNames.add(new MedicationCard("MED3", false));
-        medNames.add(new MedicationCard("MED4", false));
+        medNames.add(new MedicationCard("SYLIMAROL", false));
+        medNames.add(new MedicationCard("ENCEPHABOL", false));
 
 
         med1.setText((medNames.get(0)).getName());
@@ -57,10 +57,10 @@ public class SettingsActivity extends AppCompatActivity {
         CheckBox med4 = findViewById(R.id.med4);
 
 
-        if (med1.isChecked()) { medCheckedNames.add(new MedicationCard ("AXTIL", true)); }
-        if (med2.isChecked()) { medCheckedNames.add(new MedicationCard ("RIDLIP", true)); }
-        if (med3.isChecked()) { medCheckedNames.add(new MedicationCard ("MED3", true)); }
-        if (med4.isChecked()) { medCheckedNames.add(new MedicationCard ("MED4", true)); }
+        if (med1.isChecked()) { medCheckedNames.add(new MedicationCard ((medNames.get(0)).getName(), true)); }
+        if (med2.isChecked()) { medCheckedNames.add(new MedicationCard ((medNames.get(1)).getName(), true)); }
+        if (med3.isChecked()) { medCheckedNames.add(new MedicationCard ((medNames.get(2)).getName(), true)); }
+        if (med4.isChecked()) { medCheckedNames.add(new MedicationCard ((medNames.get(3)).getName(), true)); }
 
 
         // Testing

@@ -27,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,13 +37,11 @@ public class GameActivity extends AppCompatActivity {
     private TextView ScoreLabel = null;
     private int score = 0;
 
-    TextView TimerLabel;
-    long startTime = 0;
+    private TextView TimerLabel;
+    private long startTime = 0;
 
     private Timer timer = new Timer();
-    private Handler handler = new Handler(Looper.getMainLooper());
-
-    Handler timerHandler = new Handler(Looper.getMainLooper());
+    private Handler timerHandler = new Handler(Looper.getMainLooper());
 
     Runnable timerRunnable = new Runnable() {
         @SuppressLint("DefaultLocale")
@@ -58,13 +57,17 @@ public class GameActivity extends AppCompatActivity {
         }
     };
 
-    Button openMenu;
+    private Button timerButton;
+    private boolean pause_flag = false;
 
     ArrayList<CardView> cardsFun = new ArrayList<>();
     ArrayList<CardView> cardsFunImg = new ArrayList<>();
     ArrayList<FunctionCard> funCards = new ArrayList<>();
     ArrayList<FunctionCard> funImgCards = new ArrayList<>();
 
+    int[] imageList = new int[]{R.drawable.heart, R.drawable.cholesterol, R.drawable.liver, R.drawable.brain} ;
+
+    HashMap<MedicationCard, ArrayList<FunctionCard>> mednameFunctions = new HashMap<MedicationCard, ArrayList<FunctionCard>>();
 
     CardView cardFun1, cardFun2, cardFun3, cardFun4;
     TextView cardFunText1, cardFunText2, cardFunText3, cardFunText4;
@@ -75,7 +78,6 @@ public class GameActivity extends AppCompatActivity {
     CardView cardName;
     TextView medNameText;
 
-
     public float cardFun1_x, cardFun1_y;
     public float cardFun2_x, cardFun2_y;
     public float cardFun3_x, cardFun3_y;
@@ -85,7 +87,6 @@ public class GameActivity extends AppCompatActivity {
     public float cardFunImg3_x, cardFunImg3_y;
     public float cardFunImg4_x, cardFunImg4_y;
 
-    // Size
     public float frame_height;
 
 
@@ -112,34 +113,17 @@ public class GameActivity extends AppCompatActivity {
         Toast.makeText(this, builder, Toast.LENGTH_LONG).show();
 
 
-
         ScoreLabel = findViewById(R.id.scoreLabel);
 
         TimerLabel = findViewById(R.id.timerLabel);
-        Button timerbutton = findViewById(R.id.timerButton);
+        timerButton = findViewById(R.id.timerButton);
 
         // Start timer
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
 
-        timerbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Button timerbutton = (Button) v;
-                if (timerbutton.getText().equals("stop")) {
-                    timerHandler.removeCallbacks(timerRunnable);
-                    timerbutton.setText("start");
-                } else {
-                    timerHandler.postDelayed(timerRunnable, 0);
-                    timerbutton.setText("stop");
-                }
-            }
-
-        });
-
-
         // Menu
-        openMenu = findViewById(R.id.popup_menu);
+        Button openMenu = findViewById(R.id.popup_menu);
 
         openMenu.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -210,19 +194,26 @@ public class GameActivity extends AppCompatActivity {
         cardsFunImg.add(cardFunImg3);
         cardsFunImg.add(cardFunImg4);
 
-        cardImg1 = findViewById(R.id.image_card_1);
-        cardImg2 = findViewById(R.id.image_card_2);
-        cardImg3 = findViewById(R.id.image_card_3);
-        cardImg4 = findViewById(R.id.image_card_4);
+
+        ArrayList<ImageView> cardImages = new ArrayList<>();
+        cardImages.add(cardImg1 = findViewById(R.id.image_card_1));
+        cardImages.add(cardImg2 = findViewById(R.id.image_card_2));
+        cardImages.add(cardImg3 = findViewById(R.id.image_card_3));
+        cardImages.add(cardImg4 = findViewById(R.id.image_card_4));
+
 
         for (int i = 0; i < cardsFun.size(); i++) {
             funCards.add(new FunctionCard(cardsFun.get(i), cardFunX[i], cardFunY[i]));
             funImgCards.add(new FunctionCard(cardsFunImg.get(i), cardFunImgX[i], cardFunImgY[i]));
         }
 
+        // Set image
+        for (int c = 0; c < imageList.length; c++) {
+            funImgCards.get(c).setImage(cardImages.get(c), imageList[c]);
+        }
+
 
         cardName = findViewById(R.id.card_name);
-
 
         // Set the name of checked medication
         medNameText = findViewById(R.id.med_name);
@@ -240,11 +231,6 @@ public class GameActivity extends AppCompatActivity {
         cardName.setOnDragListener(dragListener);
 
 
-        // Set image in a card
-        cardImg1.setImageResource(R.drawable.heart);
-        cardImg2.setImageResource(R.drawable.heart);
-
-
         FrameLayout frameLayout = findViewById(R.id.frame);
         frame_height = frameLayout.getHeight();
 
@@ -252,15 +238,15 @@ public class GameActivity extends AppCompatActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                handler.post(new Runnable() {
+                timerHandler.post(new Runnable() {
                     @Override
                     public void run() {
 
                         for (int k = 0; k < funCards.size(); k++) {
                             (funCards.get(k)).setSpeed(Math.round(FunctionCard.screen_width / (95.0+(k*10))));
-                            (funCards.get(k)).changePosition();
+                            (funCards.get(k)).changePosition("LEFT");
                             (funImgCards.get(k)).setSpeed(Math.round(FunctionCard.screen_width / (120.0+(k*10))));
-                            (funImgCards.get(k)).changePosition();
+                            (funImgCards.get(k)).changePosition("RIGHT");
                         }
 
                     }
@@ -329,6 +315,53 @@ public class GameActivity extends AppCompatActivity {
 
         }
     };
+
+
+    public void pauseGame(View view) {
+        if (pause_flag == false) {
+
+            pause_flag = true;
+
+            // Stop the timer
+            timer.cancel();
+            timer = null;
+
+            timerHandler.removeCallbacks(timerRunnable);
+
+            // Change button text
+            timerButton.setText("START");
+        }
+        else {
+
+            pause_flag = false;
+            timerButton.setText("PAUSE");
+
+            timerHandler.postDelayed(timerRunnable, 0);
+
+            // Create new timer
+            timer = new Timer();
+
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    timerHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            for (int k = 0; k < funCards.size(); k++) {
+                                (funCards.get(k)).setSpeed(Math.round(FunctionCard.screen_width / (95.0+(k*10))));
+                                (funCards.get(k)).changePosition("LEFT");
+                                (funImgCards.get(k)).setSpeed(Math.round(FunctionCard.screen_width / (120.0+(k*10))));
+                                (funImgCards.get(k)).changePosition("RIGHT");
+                            }
+
+                        }
+                    });
+                }
+            }, 0, 20);
+
+        }
+    }
 
 
     // TODO: CHECK IF ALL CARDS INVISIBLE, CHECK SCORE

@@ -16,7 +16,7 @@
         android:id="@+id/timerLabel"
         android:layout_width="120dp"
         android:layout_height="50dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="15dp"
         android:padding="15dp"
         android:text="Timer: "
         android:textColor="#FDFAFA"
@@ -40,7 +40,6 @@
         android:shadowDy="20"
         android:shadowRadius="10"/>
 
-
     <Button
         android:id="@+id/popup_menu"
         android:layout_width="150dp"
@@ -61,7 +60,8 @@
         android:background="@drawable/buttons_menu"
         android:text="stop"
         android:textColor="#980000"
-        android:textSize="10dp" />
+        android:textSize="10dp"
+        android:onClick="pauseGame"/>
 
     <FrameLayout
         android:id="@+id/frame"
@@ -173,8 +173,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_fun_img_3"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
             android:layout_marginTop="120dp"
             app:cardCornerRadius="15dp">
 
@@ -183,14 +183,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:padding="10dp"
                 android:contentDescription="TODO"
                 android:textColor="@android:color/black" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_fun_img_4"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_marginTop="120dp"
             app:cardCornerRadius="15dp">
 
