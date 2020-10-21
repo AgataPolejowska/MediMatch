@@ -27,7 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -65,6 +65,10 @@ public class GameActivity extends AppCompatActivity {
     ArrayList<FunctionCard> funCards = new ArrayList<>();
     ArrayList<FunctionCard> funImgCards = new ArrayList<>();
 
+    ArrayList<MedicationCard> MedCardsObjects = new ArrayList<>();
+
+    MedicationCard MedCardSelected;
+
     String [] strFunctions = new String[]{
             "Ułatwienie pompowania krwi",
             "Zmniejszenie stężenia cholesterolu LDL we krwi",
@@ -95,7 +99,6 @@ public class GameActivity extends AppCompatActivity {
     public float frame_height;
 
 
-
     /* ON CREATE */
 
     @SuppressLint("ClickableViewAccessibility")
@@ -106,20 +109,18 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         // Receive data from Settings Activity
-        ArrayList<MedicationCard> MedCardsObjects = (ArrayList<MedicationCard>)getIntent().getSerializableExtra("Medications");
-        ArrayList<MedicationCard> MedCardsChecked = (ArrayList<MedicationCard>)getIntent().getSerializableExtra("MedicationsChecked");
+        MedCardsObjects = (ArrayList<MedicationCard>)getIntent().getSerializableExtra("Medications");
+        MedCardSelected = (MedicationCard) getIntent().getSerializableExtra("MedicationSelected");
 
         // Testing
         final StringBuilder builder = new StringBuilder();
         builder.append("You have chosen: ");
-        for(MedicationCard i : MedCardsChecked)
-        {
-            builder.append(i.getName() + " ");
-        }
+        builder.append(MedCardSelected.getName() + " ");
         Toast.makeText(this, builder, Toast.LENGTH_LONG).show();
 
 
         ScoreLabel = findViewById(R.id.scoreLabel);
+        ScoreLabel.setText("Score: " + score);
 
         TimerLabel = findViewById(R.id.timerLabel);
         timerButton = findViewById(R.id.timerButton);
@@ -217,7 +218,7 @@ public class GameActivity extends AppCompatActivity {
 
         // Set the name of checked medication
         medNameText = findViewById(R.id.med_name);
-        medNameText.setText((MedCardsChecked.get(0)).getName());
+        medNameText.setText(MedCardSelected.getName());
 
 
        for(CardView card : cardsFun) {
@@ -233,6 +234,11 @@ public class GameActivity extends AppCompatActivity {
 
         FrameLayout frameLayout = findViewById(R.id.frame);
         frame_height = frameLayout.getHeight();
+
+
+        for (int r = 0; r < MedCardsObjects.size(); r++) {
+            MedCardsObjects.get(r).setFunctions(new ArrayList<FunctionCard>(Arrays.asList(funCards.get(r), funImgCards.get(r))));
+        }
 
 
         timer.schedule(new TimerTask() {
@@ -257,7 +263,6 @@ public class GameActivity extends AppCompatActivity {
 
 
     }
-
 
     /* END OF ON CREATE */
 
@@ -318,7 +323,7 @@ public class GameActivity extends AppCompatActivity {
 
 
     public void pauseGame(View view) {
-        if (pause_flag == false) {
+        if (!pause_flag) {
 
             pause_flag = true;
 

@@ -20,66 +20,67 @@
         android:shadowColor="#03A9F4"
         android:shadowDy="20"
         android:shadowRadius="10"
-        android:text="Choose the names of medications you want to learn"
+        android:text="Choose the name of medication you want to learn"
         android:textColor="#FFFFFF"
         android:fontFamily="sans-serif-medium"
-        android:textSize="25sp" />
+        android:textSize="30sp" />
 
-
-    <CheckBox
-        android:id="@+id/med1"
+    <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="AXTIL"
         android:layout_below="@id/textView"
-        android:textColor="#FFFFFF"
-        android:textSize="25dp"
-        android:buttonTint="@android:color/white" />
+        android:layout_marginTop="10dp"
+        android:layout_centerInParent="true">
 
-    <CheckBox
-        android:id="@+id/med2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="CheckBox"
-        android:layout_below="@id/med1"
-        android:textColor="#FFFFFF"
-        android:textSize="25dp"
-        android:buttonTint="@android:color/white"/>
+        <RadioButton
+            android:id="@+id/med1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            android:onClick="checkButton"
+            android:buttonTint="@android:color/white"/>
 
-    <CheckBox
-        android:id="@+id/med3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="CheckBox"
-        android:layout_below="@id/med2"
-        android:textColor="#FFFFFF"
-        android:textSize="25dp"
-        android:buttonTint="@android:color/white"/>
+        <RadioButton
+            android:id="@+id/med2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            android:onClick="checkButton"
+            android:buttonTint="@android:color/white"/>
 
-    <CheckBox
-        android:id="@+id/med4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="CheckBox"
-        android:layout_below="@id/med3"
-        android:textColor="#FFFFFF"
-        android:textSize="25dp"
-        android:buttonTint="@android:color/white"/>
+        <RadioButton
+            android:id="@+id/med3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            android:onClick="checkButton"
+            android:buttonTint="@android:color/white"/>
+
+        <RadioButton
+            android:id="@+id/med4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            android:onClick="checkButton"
+            android:buttonTint="@android:color/white"/>
+
+    </RadioGroup>
 
     <Button
         android:id="@+id/buttonSetStart"
-        android:layout_width="193dp"
-        android:layout_height="65dp"
-        android:layout_below="@id/med4"
+        android:layout_width="220dp"
+        android:layout_height="75dp"
+        android:layout_below="@id/radioGroup"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="45dp"
         android:background="@drawable/design_button"
         android:fontFamily="sans-serif-medium"
         android:hapticFeedbackEnabled="true"
@@ -91,6 +92,7 @@
         android:soundEffectsEnabled="true"
         android:text="SAVE AND PLAY"
         android:textColor="#03A9F4"
+        android:textSize="20sp"
         android:onClick="setStartGameActivity" />
 
 </RelativeLayout>

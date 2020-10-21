@@ -1,5 +1,6 @@
 package com.i.medimatch;
 
+import android.graphics.Typeface;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,14 +29,13 @@ public class FunctionCard  {
 
     }
 
-    public TextView setFunctionText(TextView cardFunText, String functionText) {
+    public void setFunctionText(TextView cardFunText, String functionText) {
         cardFunText.setText(functionText);
-        return cardFunText;
+        cardFunText.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
     }
 
-    public ImageView setImage(ImageView imgCard, int resourceId) {
+    public void setImage(ImageView imgCard, int resourceId) {
         imgCard.setImageResource(resourceId);
-        return imgCard;
     }
 
 
@@ -65,7 +65,7 @@ public class FunctionCard  {
 
                 card_x -= (speed-2);
 
-                if(card_x < -700) {
+                if(card_x < -700.0f) {
                     card_x = screen_width;
                     card_y = (float) Math.floor(Math.random() * (screen_height - card_height));
                 }
@@ -80,7 +80,7 @@ public class FunctionCard  {
                 card_x += (speed-2);
 
                 if(card_x > screen_width) {
-                    card_x = -100.0f;
+                    card_x = -700.0f;
                     card_y = (float) Math.floor(Math.random() * (screen_height - card_height));
                 }
 

@@ -23,53 +23,57 @@
         android:text="THE END"
         android:textColor="#FFFFFF"
         android:fontFamily="sans-serif-medium"
-        android:textSize="40sp" />
+        android:textSize="50sp" />
 
     <Button
         android:id="@+id/buttonTryAgain"
-        android:layout_width="193dp"
-        android:layout_height="65dp"
+        android:layout_width="220dp"
+        android:layout_height="75dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="260dp"
         android:background="@drawable/design_button"
         android:fontFamily="sans-serif-medium"
+        android:textSize="20sp"
         android:text="TRY AGAIN"
         android:textColor="#03A9F4"
         android:onClick="tryAgain"/>
 
     <Button
         android:id="@+id/buttonSaveResults"
-        android:layout_width="193dp"
-        android:layout_height="65dp"
+        android:layout_width="220dp"
+        android:layout_height="75dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_below="@id/buttonTryAgain"
         android:background="@drawable/design_button"
         android:fontFamily="sans-serif-medium"
+        android:textSize="20sp"
         android:text="SAVE RESULTS"
         android:textColor="#03A9F4"/>
 
     <Button
         android:id="@+id/buttonSaveAnswers"
-        android:layout_width="193dp"
-        android:layout_height="65dp"
+        android:layout_width="220dp"
+        android:layout_height="75dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_below="@id/buttonSaveResults"
         android:background="@drawable/design_button"
         android:fontFamily="sans-serif-medium"
+        android:textSize="20sp"
         android:text="SAVE ANSWERS"
         android:textColor="#03A9F4"/>
 
     <Button
         android:id="@+id/buttonQuit"
-        android:layout_width="193dp"
-        android:layout_height="65dp"
+        android:layout_width="220dp"
+        android:layout_height="75dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_below="@id/buttonSaveAnswers"
         android:background="@drawable/design_button"
         android:fontFamily="sans-serif-medium"
+        android:textSize="20sp"
         android:text="QUIT"
         android:textColor="#03A9F4"/>
 
