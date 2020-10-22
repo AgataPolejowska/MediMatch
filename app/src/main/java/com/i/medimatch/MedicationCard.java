@@ -8,7 +8,7 @@ public class MedicationCard implements Serializable {
 
     public String name;
     public boolean selected;
-    public ArrayList<FunctionCard> functions = new ArrayList<>();
+    public ArrayList<FunctionCard> functionsList = new ArrayList<>();
 
     public MedicationCard(String name, boolean selected) {
         this.name = name;
@@ -19,16 +19,13 @@ public class MedicationCard implements Serializable {
         return name;
     }
 
-    public void setFunctions(ArrayList <FunctionCard> funCards) {
-        this.functions = funCards;
+    public void setFunctions(FunctionCard funCard, FunctionCard funImgCard) {
+        this.functionsList.add(funCard);
+        this.functionsList.add(funImgCard);
     }
 
     public ArrayList<FunctionCard> getFunctions() {
-        return functions;
-    }
-
-    public boolean isSelected() {
-        return selected;
+        return functionsList;
     }
 
     public void setNameSelected(boolean selected) {

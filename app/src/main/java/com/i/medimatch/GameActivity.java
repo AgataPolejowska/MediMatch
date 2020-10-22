@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.Display;
 import android.view.DragEvent;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,7 +26,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -78,6 +76,8 @@ public class GameActivity extends AppCompatActivity {
 
     int[] imageList = new int[]{R.drawable.heart, R.drawable.cholesterol, R.drawable.liver, R.drawable.brain} ;
 
+    String [] answers;
+
     CardView cardFun1, cardFun2, cardFun3, cardFun4;
     TextView cardFunText1, cardFunText2, cardFunText3, cardFunText4;
 
@@ -98,7 +98,6 @@ public class GameActivity extends AppCompatActivity {
 
     public float frame_height;
 
-
     /* ON CREATE */
 
     @SuppressLint("ClickableViewAccessibility")
@@ -115,8 +114,8 @@ public class GameActivity extends AppCompatActivity {
         // Testing
         final StringBuilder builder = new StringBuilder();
         builder.append("You have chosen: ");
-        builder.append(MedCardSelected.getName() + " ");
-        Toast.makeText(this, builder, Toast.LENGTH_LONG).show();
+        builder.append(MedCardSelected.getName());
+        Toast.makeText(this, builder, Toast.LENGTH_SHORT).show();
 
 
         ScoreLabel = findViewById(R.id.scoreLabel);
@@ -229,18 +228,28 @@ public class GameActivity extends AppCompatActivity {
             cardImg.setOnTouchListener(mOnTouchListener);
         }
 
+        // DragListener
         cardName.setOnDragListener(dragListener);
 
-
+        // Frame size
         FrameLayout frameLayout = findViewById(R.id.frame);
         frame_height = frameLayout.getHeight();
 
 
+        // Set objects functions: text and image cards
         for (int r = 0; r < MedCardsObjects.size(); r++) {
-            MedCardsObjects.get(r).setFunctions(new ArrayList<FunctionCard>(Arrays.asList(funCards.get(r), funImgCards.get(r))));
+            MedCardsObjects.get(r).setFunctions(funCards.get(r), funImgCards.get(r));
         }
 
 
+        // Associate functions with selected object
+        for (MedicationCard med : MedCardsObjects) {
+             if (MedCardSelected.getName().equals(med.getName())) {
+                MedCardSelected.setFunctions(((med.getFunctions()).get(0)), (med.getFunctions()).get(1));
+            }
+        }
+
+        // Move cards
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -259,6 +268,17 @@ public class GameActivity extends AppCompatActivity {
                 });
             }
         }, 0, 20);
+
+
+        // Save answers
+        answers = new String[MedCardsObjects.size()];
+
+        for (int i = 0; i < MedCardsObjects.size(); i++) {
+            answers[i] = MedCardsObjects.get(i).getName();
+            for (int j = 0; j < (MedCardsObjects.get(i).getFunctions()).size(); j++) {
+                answers[i] += " " + (MedCardsObjects.get(i).getFunctions()).get(j).toString().toLowerCase();
+            }
+        }
 
 
 
@@ -288,34 +308,44 @@ public class GameActivity extends AppCompatActivity {
             final View view = (View) event.getLocalState();
 
             switch (dragEvent) {
+
                 case DragEvent.ACTION_DRAG_ENTERED:
+
                     cardName.setCardBackgroundColor(Color.parseColor("#01A9F2"));
                     medNameText.setTextColor(Color.WHITE);
+
                     break;
+
                 case DragEvent.ACTION_DRAG_EXITED:
+
                     cardName.setCardBackgroundColor(Color.WHITE);
                     medNameText.setTextColor(Color.parseColor("#01A9F2"));
-                    if (view.getId() == R.id.card_fun_1 || view.getId() == R.id.card_fun_img_1) {
-                        cardFun1.setVisibility(View.VISIBLE); // Make the card appear
-                    }
+
                     break;
+
                 case DragEvent.ACTION_DROP:
+
                     cardName.setCardBackgroundColor(Color.WHITE);
                     medNameText.setTextColor(Color.parseColor("#01A9F2"));
-                    if (view.getId() == R.id.card_fun_1 || view.getId() == R.id.card_fun_img_1) {
-                        cardName.setCardBackgroundColor(Color.WHITE);
-                        if (view.getId() == R.id.card_fun_1) {
-                            cardFun1.setVisibility(View.GONE); // Make the card disappear
-                            ScoreLabel.setText("Score: " + --score);
-                            checkVisibility();
-                        }
-                        else if (view.getId() == R.id.card_fun_img_1) {
-                            cardFunImg1.setVisibility(View.GONE);
-                            ScoreLabel.setText("Score: " + ++score);
-                            checkVisibility();
+                    view.setVisibility(View.GONE);
+
+                    if (view.getId() == (MedCardSelected.getFunctions().get(0)).getCardViewId() ||
+                            view.getId() == (MedCardSelected.getFunctions().get(1)).getCardViewId()) {
+                        ScoreLabel.setText("Score: " + ++score);
+                        Toast.makeText(getApplicationContext(),"Correct!", Toast.LENGTH_SHORT).show();
+                        checkVisibility();
+                        if (score == 2) {
+                            cardName.setCardBackgroundColor(Color.BLACK);
                         }
                     }
+                    else {
+                        ScoreLabel.setText("Score: " + --score);
+                        Toast.makeText(getApplicationContext(),"Incorrect :(",Toast.LENGTH_SHORT).show();
+                        checkVisibility();
+                    }
+
                     break;
+
             }
             return true;
         }
@@ -323,6 +353,7 @@ public class GameActivity extends AppCompatActivity {
 
 
     public void pauseGame(View view) {
+
         if (!pause_flag) {
 
             pause_flag = true;
@@ -371,10 +402,30 @@ public class GameActivity extends AppCompatActivity {
 
     // TODO: CHECK IF ALL CARDS INVISIBLE, CHECK SCORE
         public void checkVisibility() {
-        if (cardFunImg1.getVisibility()  != View.VISIBLE) {
-            Intent intent = new Intent(GameActivity.this, EndActivity.class);
-            startActivity(intent);
+
+            int counter = 0;
+
+            for (int i = 0; i < funCards.size(); i++) {
+                if (cardsFun.get(i).getVisibility() != View.VISIBLE) {
+                    counter++;
+                }
+                if (cardsFunImg.get(i).getVisibility() != View.VISIBLE) {
+                    counter++;
+                }
             }
+
+            if (counter == (cardsFun.size() + cardsFunImg.size())) {
+                // Start End Activity with delay
+                timerHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent2 = new Intent(GameActivity.this, EndActivity.class);
+                        intent2.putExtra("answers", answers);
+                        startActivity(intent2);
+                    }
+                }, 1500);
+            }
+
         }
 
 }

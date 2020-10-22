@@ -4,7 +4,6 @@ package com.i.medimatch;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -59,11 +58,12 @@ public class SettingsActivity extends AppCompatActivity {
     public void setStartGameActivity(View view) {
 
         medSelected = new MedicationCard(radioButton.getText().toString(), true);
+        medSelected.setNameSelected(true);
 
         // Testing
         StringBuilder builder = new StringBuilder();
         builder.append("You have chosen: " + medSelected.getName());
-        Toast.makeText(this, builder, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, builder, Toast.LENGTH_SHORT).show();
 
         /* Start game activity */
         Intent intent = new Intent(SettingsActivity.this, GameActivity.class);

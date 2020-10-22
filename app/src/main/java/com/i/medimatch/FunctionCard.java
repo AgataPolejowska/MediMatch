@@ -6,17 +6,14 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 
-import java.util.ArrayList;
 
-public class FunctionCard  {
+public class FunctionCard {
 
     public float card_x, card_y, card_height, card_width;
     public static float screen_width;
     public static float screen_height;
     public float speed;
     public CardView cardView;
-    public TextView cardFunText;
-    public String functionText;
 
 
     public FunctionCard(CardView cardView, float x, float y) {
@@ -38,6 +35,9 @@ public class FunctionCard  {
         imgCard.setImageResource(resourceId);
     }
 
+    public int getCardViewId() {
+        return cardView.getId();
+    }
 
     public void setSpeed(float speed) {
         this.speed = speed;
