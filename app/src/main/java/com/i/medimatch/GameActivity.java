@@ -6,6 +6,10 @@ import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -31,6 +35,12 @@ import java.util.TimerTask;
 
 
 public class GameActivity extends AppCompatActivity {
+
+    private enum State {
+        PAUSED, WON, LOST, RUNNING;
+    }
+
+    private State state = State.RUNNING;
 
     private TextView ScoreLabel = null;
     private int score = 0;
@@ -98,6 +108,12 @@ public class GameActivity extends AppCompatActivity {
 
     public float frame_height;
 
+    private SoundPool soundPool;
+    private int click_sound, tap_sound, correct_sound, incorrect_sound;
+
+
+
+
     /* ON CREATE */
 
     @SuppressLint("ClickableViewAccessibility")
@@ -134,6 +150,7 @@ public class GameActivity extends AppCompatActivity {
         openMenu.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                soundPool.play(click_sound, 1, 1, 0, 0, 1);
                 PopupMenu popupMenu = new PopupMenu(GameActivity.this, v);
                 popupMenu.getMenuInflater().inflate(R.menu.menu_popup, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -281,6 +298,23 @@ public class GameActivity extends AppCompatActivity {
         }
 
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build();
+            soundPool = new SoundPool.Builder()
+                    .setMaxStreams(6)
+                    .setAudioAttributes(audioAttributes)
+                    .build();
+        } else {
+            soundPool = new SoundPool(6, AudioManager.STREAM_MUSIC, 0);
+        }
+
+        click_sound = soundPool.load(this, R.raw.click, 1);
+        tap_sound = soundPool.load(this, R.raw.tap, 1);
+        correct_sound = soundPool.load(this, R.raw.correct, 1);
+        incorrect_sound = soundPool.load(this, R.raw.incorrect, 1);
 
     }
 
@@ -292,6 +326,7 @@ public class GameActivity extends AppCompatActivity {
         @SuppressLint("ClickableViewAccessibility")
         @Override
         public boolean onTouch(View v, MotionEvent event) {
+            soundPool.play(tap_sound, 1, 1, 0, 0, 1);
             ClipData data = ClipData.newPlainText("", "");
             View.DragShadowBuilder myShadowBuilder = new View.DragShadowBuilder(v);
             v.startDrag(data, myShadowBuilder, v, 0);
@@ -332,13 +367,18 @@ public class GameActivity extends AppCompatActivity {
                     if (view.getId() == (MedCardSelected.getFunctions().get(0)).getCardViewId() ||
                             view.getId() == (MedCardSelected.getFunctions().get(1)).getCardViewId()) {
                         ScoreLabel.setText("Score: " + ++score);
+                        soundPool.play(correct_sound, 1, 1, 0, 0, 1);
+
+
                         Toast.makeText(getApplicationContext(),"Correct!", Toast.LENGTH_SHORT).show();
-                        checkVisibility();
                         if (score == 2) {
                             cardName.setCardBackgroundColor(Color.BLACK);
+                            State state = State.WON;
                         }
+                        checkVisibility();
                     }
                     else {
+                        soundPool.play(incorrect_sound, 1, 1, 0, 0, 1);
                         ScoreLabel.setText("Score: " + --score);
                         Toast.makeText(getApplicationContext(),"Incorrect :(",Toast.LENGTH_SHORT).show();
                         checkVisibility();
@@ -356,7 +396,10 @@ public class GameActivity extends AppCompatActivity {
 
         if (!pause_flag) {
 
+            soundPool.play(click_sound, 1, 1, 0, 0, 1);
+
             pause_flag = true;
+            State state = State.PAUSED;
 
             // Stop the timer
             timer.cancel();
@@ -415,6 +458,7 @@ public class GameActivity extends AppCompatActivity {
             }
 
             if (counter == (cardsFun.size() + cardsFunImg.size())) {
+                State state = State.LOST;
                 // Start End Activity with delay
                 timerHandler.postDelayed(new Runnable() {
                     @Override

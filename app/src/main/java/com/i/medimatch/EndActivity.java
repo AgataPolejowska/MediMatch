@@ -2,7 +2,11 @@ package com.i.medimatch;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -26,6 +30,8 @@ public class EndActivity extends AppCompatActivity {
     private static final String FILE_NAME = "answers.txt";
     String [] strAnswers;
 
+    private SoundPool soundPool;
+    private int click_sound;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,23 @@ public class EndActivity extends AppCompatActivity {
 
         Intent receivedIntent = getIntent();
         strAnswers = receivedIntent.getStringArrayExtra("answers");
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build();
+            soundPool = new SoundPool.Builder()
+                    .setMaxStreams(6)
+                    .setAudioAttributes(audioAttributes)
+                    .build();
+        } else {
+            soundPool = new SoundPool(6, AudioManager.STREAM_MUSIC, 0);
+        }
+
+        click_sound = soundPool.load(this, R.raw.click, 1);
+
     }
 
     /* Called when the user taps the Start button */
@@ -45,6 +68,9 @@ public class EndActivity extends AppCompatActivity {
 
     /* Called when the user taps the Save button */
     public void save(View v) {
+
+        soundPool.play(click_sound, 0.75f, 0.75f, 0, 0, 1);
+
         Intent newIntent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
 
         newIntent.addCategory(Intent.CATEGORY_OPENABLE);
