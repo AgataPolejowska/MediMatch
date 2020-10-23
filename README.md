@@ -18,15 +18,16 @@ When player matches correctly, then he gains a positive point and score counter 
 
 ### Features (in progress)
 - [x] Starting menu: START, QUIT
-- [ ] Choose the medications to practice
-- [ ] Function cards and image cards are moving
-- [ ] Matching cards by "drag-and-drop"
-- [ ] Score counter
-- [ ] Timer: START, PAUSE, RESUME
-- [ ] Menu: RESTART, INFO, QUIT
+- [x] Choose the medications to practice
+- [x] Function cards and image cards are moving
+- [x] Matching cards by "drag-and-drop"
+- [x] Score counter
+- [x] Timer: START, PAUSE
+- [x] Menu: START AGAIN, INFO, QUIT
 - [ ] Saving results to a file
-- [ ] Saving answers to a file
-- [ ] Sounds
+- [x] Saving answers to a file
+- [x] Sounds (source: freesound.org)
+- [x] Animation
 
 
 ### Status
