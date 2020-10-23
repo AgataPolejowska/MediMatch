@@ -3,6 +3,7 @@ package com.i.medimatch;
 
 import android.annotation.SuppressLint;
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -19,6 +20,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -26,6 +29,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -111,7 +115,7 @@ public class GameActivity extends AppCompatActivity {
     private SoundPool soundPool;
     private int click_sound, tap_sound, correct_sound, incorrect_sound;
 
-
+    Animation animRotate;
 
 
     /* ON CREATE */
@@ -164,8 +168,21 @@ public class GameActivity extends AppCompatActivity {
                                 startActivity(new Intent(GameActivity.this, MainActivity.class));
                                 return true;
                             case R.id.item_quit:
-                                int pid = android.os.Process.myPid();
-                                android.os.Process.killProcess(pid);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+                                builder.setMessage("Are you sure you want to exit?")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                finishAffinity();
+                                            }
+                                        })
+                                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                                AlertDialog alert = builder.create();
+                                alert.show();
                                 return true;
                             default:
                                 return false;
@@ -316,6 +333,8 @@ public class GameActivity extends AppCompatActivity {
         correct_sound = soundPool.load(this, R.raw.correct, 1);
         incorrect_sound = soundPool.load(this, R.raw.incorrect, 1);
 
+        animRotate = AnimationUtils.loadAnimation(this, R.anim.rotate);
+
     }
 
     /* END OF ON CREATE */
@@ -367,12 +386,13 @@ public class GameActivity extends AppCompatActivity {
                     if (view.getId() == (MedCardSelected.getFunctions().get(0)).getCardViewId() ||
                             view.getId() == (MedCardSelected.getFunctions().get(1)).getCardViewId()) {
                         ScoreLabel.setText("Score: " + ++score);
+                        cardName.startAnimation(animRotate);
                         soundPool.play(correct_sound, 1, 1, 0, 0, 1);
 
 
                         Toast.makeText(getApplicationContext(),"Correct!", Toast.LENGTH_SHORT).show();
                         if (score == 2) {
-                            cardName.setCardBackgroundColor(Color.BLACK);
+                            cardName.setCardBackgroundColor(Color.GREEN);
                             State state = State.WON;
                         }
                         checkVisibility();

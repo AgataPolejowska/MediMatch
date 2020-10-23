@@ -76,6 +76,7 @@
         android:fontFamily="sans-serif-medium"
         android:textSize="20sp"
         android:text="QUIT"
-        android:textColor="#03A9F4"/>
+        android:textColor="#03A9F4"
+        android:onClick="quitGame"/>
 
 </RelativeLayout>

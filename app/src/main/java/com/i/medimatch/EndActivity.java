@@ -80,10 +80,14 @@ public class EndActivity extends AppCompatActivity {
         startActivityForResult(newIntent, 1);
     }
 
+    /* Called when the user taps the Quit button */
+    public void quitGame() {
+        finishAffinity();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 try {
