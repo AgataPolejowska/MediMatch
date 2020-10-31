@@ -81,6 +81,7 @@ public class GameActivity extends AppCompatActivity {
     ArrayList<FunctionCard> funImgCards = new ArrayList<>();
 
     ArrayList<MedicationCard> MedCardsObjects = new ArrayList<>();
+    ArrayList<String> playedName = new ArrayList<>();
 
     MedicationCard MedCardSelected;
 
@@ -129,6 +130,7 @@ public class GameActivity extends AppCompatActivity {
         // Receive data from Settings Activity
         MedCardsObjects = (ArrayList<MedicationCard>)getIntent().getSerializableExtra("Medications");
         MedCardSelected = (MedicationCard) getIntent().getSerializableExtra("MedicationSelected");
+        playedName.add(MedCardSelected.getName());
 
         // Testing
         final StringBuilder builder = new StringBuilder();
@@ -442,26 +444,31 @@ public class GameActivity extends AppCompatActivity {
 
     private void playNext() {
 
-            boolean next = false;
+            boolean flag = false;
 
+    /*        for(int k = 0; k < playedName.size(); k++) {
+                if (medNameText.getText() == playedName.get(k)) {
+                    flag = false;
+                }
+                else {
+                    flag = true;
+                }
+            }
+*/
             for(int i = 0; i < MedCardsObjects.size(); i++) {
                 if (medNameText.getText() != MedCardsObjects.get(i).getName()) {
-                    MedCardSelected = MedCardsObjects.get(i);
-                    next = true;
+                        MedCardSelected = MedCardsObjects.get(i);
+                        flag = true;
                 }
             }
 
-            if(next) {
+            if(flag) {
                 medNameText.setText(MedCardSelected.getName());
-
                 cardName.setVisibility(View.VISIBLE);
                 YoYo.with(Techniques.FlipInY)
                         .duration(900)
                         .playOn(cardName);
             }
-
-            // cardName.setOnDragListener(dragListener);
-
 
     }
 
