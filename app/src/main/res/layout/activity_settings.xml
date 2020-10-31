@@ -25,6 +25,7 @@
         android:fontFamily="sans-serif-medium"
         android:textSize="30sp" />
 
+
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
@@ -46,7 +47,6 @@
             android:id="@+id/med2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:textColor="#FFFFFF"
             android:textSize="25sp"
             android:onClick="checkButton"
@@ -56,7 +56,6 @@
             android:id="@+id/med3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:textColor="#FFFFFF"
             android:textSize="25sp"
             android:onClick="checkButton"
@@ -66,16 +65,18 @@
             android:id="@+id/med4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:textColor="#FFFFFF"
             android:textSize="25sp"
             android:onClick="checkButton"
             android:buttonTint="@android:color/white"/>
 
+
     </RadioGroup>
 
+
+
     <Button
-        android:id="@+id/buttonSetStart"
+        android:id="@+id/buttonAddNew"
         android:layout_width="220dp"
         android:layout_height="75dp"
         android:layout_below="@id/radioGroup"
@@ -90,9 +91,31 @@
         android:shadowDy="10"
         android:shadowRadius="10"
         android:soundEffectsEnabled="true"
+        android:text="ADD NEW"
+        android:textColor="#03A9F4"
+        android:textSize="20sp"
+        android:onClick="addNew" />
+
+    <Button
+        android:id="@+id/buttonSetStart"
+        android:layout_width="220dp"
+        android:layout_height="75dp"
+        android:layout_below="@id/buttonAddNew"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/design_button"
+        android:fontFamily="sans-serif-medium"
+        android:hapticFeedbackEnabled="true"
+        android:longClickable="true"
+        android:selectAllOnFocus="true"
+        android:shadowColor="#FFFFFF"
+        android:shadowDy="10"
+        android:shadowRadius="10"
+        android:soundEffectsEnabled="true"
         android:text="SAVE AND PLAY"
         android:textColor="#03A9F4"
         android:textSize="20sp"
         android:onClick="setStartGameActivity" />
+
 
 </RelativeLayout>

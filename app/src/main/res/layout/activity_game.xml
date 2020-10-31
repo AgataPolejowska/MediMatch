@@ -56,15 +56,15 @@
         android:id="@+id/timerButton"
         android:layout_width="100dp"
         android:layout_height="52dp"
-        android:layout_marginTop="15dp"
         android:layout_marginStart="35dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
         android:layout_toEndOf="@id/timerLabel"
         android:background="@drawable/bg_button"
-        android:text="stop"
-        android:textColor="#980000"
-        android:textSize="16sp"
-        android:onClick="pauseGame"/>
+        android:onClick="pauseGame"
+        android:text="PAUSE"
+        android:textColor="#FF3636"
+        android:textSize="16sp" />
 
     <FrameLayout
         android:id="@+id/frame"
@@ -77,7 +77,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_fun_1"
             android:layout_width="200dp"
-            android:layout_height="60dp"
+            android:layout_height="80dp"
             app:cardCornerRadius="15dp">
 
             <TextView
@@ -85,6 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:padding="10dp"
                 android:textAlignment="center"
                 android:text="Function1"
                 android:textColor="@android:color/black"
@@ -94,8 +95,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_fun_2"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
+            android:layout_width="220dp"
+            android:layout_height="85dp"
             app:cardCornerRadius="15dp">
 
             <TextView
@@ -104,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textAlignment="center"
+                android:padding="10dp"
                 android:text="Function2"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
@@ -121,6 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:padding="10dp"
                 android:textAlignment="center"
                 android:text="Function3"
                 android:textColor="@android:color/black"
@@ -138,6 +141,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:text="Function4"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_fun_5"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="15dp">
+
+            <TextView
+                android:id="@+id/card_fun_text_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
                 android:textAlignment="center"
                 android:text="Function4"
                 android:textColor="@android:color/black"
@@ -146,8 +168,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_fun_img_1"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
             app:cardCornerRadius="15dp">
 
             <ImageView
@@ -155,14 +177,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:padding="10dp"
                 android:contentDescription="TODO"
                 android:textColor="@android:color/black" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_fun_img_2"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
             app:cardCornerRadius="15dp">
 
             <ImageView
@@ -170,6 +193,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:padding="10dp"
                 android:contentDescription="TODO"
                 android:textColor="@android:color/black" />
 
@@ -202,9 +226,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:padding="10dp"
                 android:contentDescription="TODO"
                 android:textColor="@android:color/black" />
         </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_fun_img_5"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            app:cardCornerRadius="15dp">
+
+            <ImageView
+                android:id="@+id/image_card_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:contentDescription="TODO"
+                android:textColor="@android:color/black" />
+        </androidx.cardview.widget.CardView>
+
 
 
     </FrameLayout>

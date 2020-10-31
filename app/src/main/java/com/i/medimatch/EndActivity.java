@@ -1,6 +1,5 @@
 package com.i.medimatch;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -8,22 +7,15 @@ import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+
 
 public class EndActivity extends AppCompatActivity {
 
@@ -68,7 +60,6 @@ public class EndActivity extends AppCompatActivity {
 
     /* Called when the user taps the Save button */
     public void save(View v) {
-
         soundPool.play(click_sound, 0.75f, 0.75f, 0, 0, 1);
 
         Intent newIntent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
@@ -80,10 +71,12 @@ public class EndActivity extends AppCompatActivity {
         startActivityForResult(newIntent, 1);
     }
 
+
     /* Called when the user taps the Quit button */
     public void quitGame() {
         finishAffinity();
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -93,15 +86,16 @@ public class EndActivity extends AppCompatActivity {
                 try {
                     Uri uri = data.getData();
                     OutputStream outputStream =getContentResolver().openOutputStream(uri);
-                    outputStream.write(strAnswers[0].getBytes());
-                    outputStream.write(strAnswers[1].getBytes());
+                    for(String s: strAnswers) {
+                        outputStream.write(s.getBytes());
+                    }
                     outputStream.close();
                     Toast.makeText(this, "Answers saved successfully", Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
-                Toast.makeText(this, "File has not been saved", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Answers have not been saved", Toast.LENGTH_LONG).show();
             }
         }
 

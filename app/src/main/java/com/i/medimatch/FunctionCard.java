@@ -17,13 +17,11 @@ public class FunctionCard {
 
 
     public FunctionCard(CardView cardView, float x, float y) {
-
         this.cardView = cardView;
         this.card_height = cardView.getHeight();
         this.card_width = cardView.getWidth();
         this.card_x = x;
         this.card_y = y;
-
     }
 
     public void setFunctionText(TextView cardFunText, String functionText) {
@@ -42,7 +40,6 @@ public class FunctionCard {
     public void setSpeed(float speed) {
         this.speed = speed;
     }
-
 
     public void changePosition(String direction) {
 

@@ -33,6 +33,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -81,22 +84,15 @@ public class GameActivity extends AppCompatActivity {
 
     MedicationCard MedCardSelected;
 
-    String [] strFunctions = new String[]{
-            "Ułatwienie pompowania krwi",
-            "Zmniejszenie stężenia cholesterolu LDL we krwi",
-            "Regeneracja i odbudowa uszkodzonej wątroby",
-            "Leczenie zaburzeń pracy mózgu"
-    };
-
-    int[] imageList = new int[]{R.drawable.heart, R.drawable.cholesterol, R.drawable.liver, R.drawable.brain} ;
+    int[] imageList = new int[] {R.drawable.cholesterol, R.drawable.liver, R.drawable.brain, R.drawable.heart};
 
     String [] answers;
 
-    CardView cardFun1, cardFun2, cardFun3, cardFun4;
-    TextView cardFunText1, cardFunText2, cardFunText3, cardFunText4;
+    CardView cardFun1, cardFun2, cardFun3, cardFun4, cardFun5;
+    TextView cardFunText1, cardFunText2, cardFunText3, cardFunText4, cardFunText5;
 
-    CardView cardFunImg1, cardFunImg2, cardFunImg3, cardFunImg4;
-    ImageView cardImg1, cardImg2, cardImg3, cardImg4;
+    CardView cardFunImg1, cardFunImg2, cardFunImg3, cardFunImg4, cardFunImg5;
+    ImageView cardImg1, cardImg2, cardImg3, cardImg4, cardImg5;
 
     CardView cardName;
     TextView medNameText;
@@ -105,10 +101,13 @@ public class GameActivity extends AppCompatActivity {
     public float cardFun2_x, cardFun2_y;
     public float cardFun3_x, cardFun3_y;
     public float cardFun4_x, cardFun4_y;
+    public float cardFun5_x, cardFun5_y;
+
     public float cardFunImg1_x, cardFunImg1_y;
     public float cardFunImg2_x, cardFunImg2_y;
     public float cardFunImg3_x, cardFunImg3_y;
     public float cardFunImg4_x, cardFunImg4_y;
+    public float cardFunImg5_x, cardFunImg5_y;
 
     public float frame_height;
 
@@ -207,29 +206,33 @@ public class GameActivity extends AppCompatActivity {
         cardsFun.add(cardFun2 = findViewById(R.id.card_fun_2));
         cardsFun.add(cardFun3 = findViewById(R.id.card_fun_3));
         cardsFun.add(cardFun4 = findViewById(R.id.card_fun_4));
+        cardsFun.add(cardFun5 = findViewById(R.id.card_fun_5));
 
         cardsFunImg.add(cardFunImg1 = findViewById(R.id.card_fun_img_1));
         cardsFunImg.add(cardFunImg2 = findViewById(R.id.card_fun_img_2));
         cardsFunImg.add(cardFunImg3 = findViewById(R.id.card_fun_img_3));
         cardsFunImg.add(cardFunImg4 = findViewById(R.id.card_fun_img_4));
+        cardsFunImg.add(cardFunImg5 = findViewById(R.id.card_fun_img_5));
 
         // Cards coordinates
-        float [] cardFunX = new float[] {cardFun1_x, cardFun2_x, cardFun3_x, cardFun4_x};
-        float [] cardFunY = new float[]{cardFun1_y, cardFun2_y, cardFun3_y, cardFun4_y};
-        float [] cardFunImgX = new float[] {cardFunImg1_x, cardFunImg2_x, cardFunImg3_x, cardFunImg4_x};
-        float [] cardFunImgY = new float[]{cardFunImg1_y, cardFunImg2_y, cardFunImg3_y, cardFunImg4_y};
+        float [] cardFunX = new float[] {cardFun1_x, cardFun2_x, cardFun3_x, cardFun4_x, cardFun5_x};
+        float [] cardFunY = new float[]{cardFun1_y, cardFun2_y, cardFun3_y, cardFun4_y, cardFun5_y};
+        float [] cardFunImgX = new float[] {cardFunImg1_x, cardFunImg2_x, cardFunImg3_x, cardFunImg4_x, cardFun5_x};
+        float [] cardFunImgY = new float[]{cardFunImg1_y, cardFunImg2_y, cardFunImg3_y, cardFunImg4_y, cardFun5_y};
 
         ArrayList<TextView> cardsFunText = new ArrayList<>();
         cardsFunText.add(cardFunText1 = findViewById(R.id.card_fun_text_1));
         cardsFunText.add(cardFunText2 = findViewById(R.id.card_fun_text_2));
         cardsFunText.add(cardFunText3 = findViewById(R.id.card_fun_text_3));
         cardsFunText.add(cardFunText4 = findViewById(R.id.card_fun_text_4));
+        cardsFunText.add(cardFunText5 = findViewById(R.id.card_fun_text_5));
 
         ArrayList<ImageView> cardImages = new ArrayList<>();
         cardImages.add(cardImg1 = findViewById(R.id.image_card_1));
         cardImages.add(cardImg2 = findViewById(R.id.image_card_2));
         cardImages.add(cardImg3 = findViewById(R.id.image_card_3));
         cardImages.add(cardImg4 = findViewById(R.id.image_card_4));
+        cardImages.add(cardImg5 = findViewById(R.id.image_card_5));
 
         // Create FunctionCard objects and add to array
         for (int i = 0; i < cardsFun.size(); i++) {
@@ -242,9 +245,29 @@ public class GameActivity extends AppCompatActivity {
             funImgCards.get(c).setImage(cardImages.get(c), imageList[c]);
         }
 
+        // Different approach
+ /*       for(MedicationCard MedCardObj : MedCardsObjects) {
+
+            switch(MedCardObj.getName()) {
+                case "AXTIL":
+                    MedCardObj.setImgId(R.drawable.heart);
+                    break;
+                case "RIDLIP":
+                    MedCardObj.setImgId(R.drawable.cholesterol);
+                    break;
+                case "SYLIMAROL":
+                    MedCardObj.setImgId(R.drawable.liver);
+                    break;
+                case "ENCEPHABOL":
+                    MedCardObj.setImgId(R.drawable.brain);
+                    break;
+            }
+
+        }
+*/
         // Set text in function cards
-        for (int t = 0; t < strFunctions.length; t++) {
-            funCards.get(t).setFunctionText(cardsFunText.get(t), strFunctions[t]);
+        for (int t = 0; t < MedCardsObjects.size(); t++) {
+            funCards.get(t).setFunctionText(cardsFunText.get(t), (MedCardsObjects.get(t)).getFunctionsText());
         }
 
         cardName = findViewById(R.id.card_name);
@@ -290,29 +313,17 @@ public class GameActivity extends AppCompatActivity {
                 timerHandler.post(new Runnable() {
                     @Override
                     public void run() {
-
                         for (int k = 0; k < funCards.size(); k++) {
                             (funCards.get(k)).setSpeed(Math.round(FunctionCard.screen_width / (95.0+(k*10))));
                             (funCards.get(k)).changePosition("LEFT");
                             (funImgCards.get(k)).setSpeed(Math.round(FunctionCard.screen_width / (120.0+(k*10))));
                             (funImgCards.get(k)).changePosition("RIGHT");
                         }
-
                     }
                 });
             }
         }, 0, 20);
 
-
-        // Save answers
-        answers = new String[MedCardsObjects.size()];
-
-        for (int i = 0; i < MedCardsObjects.size(); i++) {
-            answers[i] = MedCardsObjects.get(i).getName();
-            for (int j = 0; j < (MedCardsObjects.get(i).getFunctions()).size(); j++) {
-                answers[i] += " " + (MedCardsObjects.get(i).getFunctions()).get(j).toString().toLowerCase();
-            }
-        }
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -338,6 +349,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /* END OF ON CREATE */
+
 
 
 
@@ -381,6 +393,7 @@ public class GameActivity extends AppCompatActivity {
 
                     cardName.setCardBackgroundColor(Color.WHITE);
                     medNameText.setTextColor(Color.parseColor("#01A9F2"));
+
                     view.setVisibility(View.GONE);
 
                     if (view.getId() == (MedCardSelected.getFunctions().get(0)).getCardViewId() ||
@@ -389,6 +402,10 @@ public class GameActivity extends AppCompatActivity {
                         cardName.startAnimation(animRotate);
                         soundPool.play(correct_sound, 1, 1, 0, 0, 1);
 
+                        YoYo.with(Techniques.RubberBand)
+                                .duration(700)
+                                .repeat(1)
+                                .playOn(cardName);
 
                         Toast.makeText(getApplicationContext(),"Correct!", Toast.LENGTH_SHORT).show();
                         if (score == 2) {
@@ -400,6 +417,12 @@ public class GameActivity extends AppCompatActivity {
                     else {
                         soundPool.play(incorrect_sound, 1, 1, 0, 0, 1);
                         ScoreLabel.setText("Score: " + --score);
+
+                        YoYo.with(Techniques.Shake)
+                                .duration(700)
+                                .repeat(1)
+                                .playOn(cardName);
+
                         Toast.makeText(getApplicationContext(),"Incorrect :(",Toast.LENGTH_SHORT).show();
                         checkVisibility();
                     }
@@ -414,9 +437,9 @@ public class GameActivity extends AppCompatActivity {
 
     public void pauseGame(View view) {
 
-        if (!pause_flag) {
+        soundPool.play(click_sound, 1, 1, 0, 0, 1);
 
-            soundPool.play(click_sound, 1, 1, 0, 0, 1);
+        if (!pause_flag) {
 
             pause_flag = true;
             State state = State.PAUSED;
@@ -463,34 +486,43 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    // TODO: CHECK IF ALL CARDS INVISIBLE, CHECK SCORE
-        public void checkVisibility() {
+    public void saveAnswers() {
+        answers = new String[4];
 
-            int counter = 0;
-
-            for (int i = 0; i < funCards.size(); i++) {
-                if (cardsFun.get(i).getVisibility() != View.VISIBLE) {
-                    counter++;
-                }
-                if (cardsFunImg.get(i).getVisibility() != View.VISIBLE) {
-                    counter++;
-                }
-            }
-
-            if (counter == (cardsFun.size() + cardsFunImg.size())) {
-                State state = State.LOST;
-                // Start End Activity with delay
-                timerHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent2 = new Intent(GameActivity.this, EndActivity.class);
-                        intent2.putExtra("answers", answers);
-                        startActivity(intent2);
-                    }
-                }, 1500);
-            }
-
+        for (int i = 0; i < 4; i++) {
+            answers[i] = MedCardsObjects.get(i).getName();
+            answers[i] += " - " + (MedCardsObjects.get(i).getFunctionsText().toLowerCase()) + "\n";
         }
+    }
+
+
+    public void checkVisibility() {
+        int counter = 0;
+
+        for (int i = 0; i < funCards.size(); i++) {
+            if (cardsFun.get(i).getVisibility() != View.VISIBLE) {
+                counter++;
+            }
+            if (cardsFunImg.get(i).getVisibility() != View.VISIBLE) {
+                counter++;
+            }
+        }
+
+        if (counter == (cardsFun.size() + cardsFunImg.size())) {
+            State state = State.LOST;
+            // Start End Activity with delay
+            timerHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent2 = new Intent(GameActivity.this, EndActivity.class);
+                    saveAnswers();
+                    intent2.putExtra("answers", answers);
+                    startActivity(intent2);
+                }
+            }, 1000);
+        }
+
+    }
 
 }
 

@@ -1,22 +1,30 @@
 package com.i.medimatch;
 
 
+import android.widget.ImageView;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MedicationCard implements Serializable {
 
     public String name;
-    public boolean selected;
+    public String function;
+    public int image_id;
+    public boolean selected = false;
     public ArrayList<FunctionCard> functionsList = new ArrayList<>();
 
-    public MedicationCard(String name, boolean selected) {
+    public MedicationCard(String name, String function) {
         this.name = name;
-        this.selected = selected;
+        this.function = function;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getFunctionsText() {
+        return function;
     }
 
     public void setFunctions(FunctionCard funCard, FunctionCard funImgCard) {
