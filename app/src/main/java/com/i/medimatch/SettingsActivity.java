@@ -17,6 +17,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -95,6 +98,9 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
         soundPool.play(start_sound, 0.75f, 0.75f, 0, 0, 1);
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
+        YoYo.with(Techniques.Swing)
+                .duration(700)
+                .playOn(radioButton);
     }
 
     /* Called when the user taps the Add New button */

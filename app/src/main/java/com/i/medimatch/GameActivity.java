@@ -398,19 +398,27 @@ public class GameActivity extends AppCompatActivity {
 
                     if (view.getId() == (MedCardSelected.getFunctions().get(0)).getCardViewId() ||
                             view.getId() == (MedCardSelected.getFunctions().get(1)).getCardViewId()) {
-                        ScoreLabel.setText("Score: " + ++score);
-                        cardName.startAnimation(animRotate);
-                        soundPool.play(correct_sound, 1, 1, 0, 0, 1);
 
-                        YoYo.with(Techniques.RubberBand)
+                        ScoreLabel.setText("Score: " + ++score);
+
+                        YoYo.with(Techniques.Tada)
                                 .duration(700)
-                                .repeat(1)
                                 .playOn(cardName);
 
+                        soundPool.play(correct_sound, 1, 1, 0, 0, 1);
                         Toast.makeText(getApplicationContext(),"Correct!", Toast.LENGTH_SHORT).show();
-                        if (score == 2) {
+
+                        if (score%2 == 0) {
+
                             cardName.setCardBackgroundColor(Color.GREEN);
+                            cardName.startAnimation(animRotate);
+                            YoYo.with(Techniques.FlipOutY)
+                                    .duration(700)
+                                    .playOn(cardName);
+
                             State state = State.WON;
+                            playNext();
+
                         }
                         checkVisibility();
                     }
@@ -419,8 +427,7 @@ public class GameActivity extends AppCompatActivity {
                         ScoreLabel.setText("Score: " + --score);
 
                         YoYo.with(Techniques.Shake)
-                                .duration(700)
-                                .repeat(1)
+                                .duration(900)
                                 .playOn(cardName);
 
                         Toast.makeText(getApplicationContext(),"Incorrect :(",Toast.LENGTH_SHORT).show();
@@ -428,16 +435,44 @@ public class GameActivity extends AppCompatActivity {
                     }
 
                     break;
-
             }
             return true;
         }
     };
 
+    private void playNext() {
+
+            boolean next = false;
+
+            for(int i = 0; i < MedCardsObjects.size(); i++) {
+                if (medNameText.getText() != MedCardsObjects.get(i).getName()) {
+                    MedCardSelected = MedCardsObjects.get(i);
+                    next = true;
+                }
+            }
+
+            if(next) {
+                medNameText.setText(MedCardSelected.getName());
+
+                cardName.setVisibility(View.VISIBLE);
+                YoYo.with(Techniques.FlipInY)
+                        .duration(900)
+                        .playOn(cardName);
+            }
+
+            // cardName.setOnDragListener(dragListener);
+
+
+    }
+
 
     public void pauseGame(View view) {
 
         soundPool.play(click_sound, 1, 1, 0, 0, 1);
+
+        YoYo.with(Techniques.Pulse)
+                .duration(700)
+                .playOn(view);
 
         if (!pause_flag) {
 
