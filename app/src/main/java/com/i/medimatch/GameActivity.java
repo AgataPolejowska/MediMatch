@@ -412,6 +412,8 @@ public class GameActivity extends AppCompatActivity {
 
                         if (score%2 == 0) {
 
+                            playedName.add(medNameText.getText().toString());
+
                             cardName.setCardBackgroundColor(Color.GREEN);
                             cardName.startAnimation(animRotate);
                             YoYo.with(Techniques.FlipOutY)
@@ -445,8 +447,8 @@ public class GameActivity extends AppCompatActivity {
     private void playNext() {
 
             boolean flag = false;
-
-    /*        for(int k = 0; k < playedName.size(); k++) {
+/*
+            for(int k = 0; k < playedName.size(); k++) {
                 if (medNameText.getText() == playedName.get(k)) {
                     flag = false;
                 }
@@ -459,6 +461,12 @@ public class GameActivity extends AppCompatActivity {
                 if (medNameText.getText() != MedCardsObjects.get(i).getName()) {
                         MedCardSelected = MedCardsObjects.get(i);
                         flag = true;
+                        for(int j = 0; j < playedName.size(); j++) {
+                            if (MedCardSelected.getName() == playedName.get(j)) {
+                                flag = false;
+                                break;
+                            }
+                        }
                 }
             }
 
