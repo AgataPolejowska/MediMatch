@@ -70,6 +70,14 @@
             android:onClick="checkButton"
             android:buttonTint="@android:color/white"/>
 
+        <RadioButton
+            android:id="@+id/med5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            android:onClick="checkButton"
+            android:buttonTint="@android:color/white"/>
 
     </RadioGroup>
 

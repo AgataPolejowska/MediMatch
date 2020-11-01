@@ -161,10 +161,29 @@
                 android:layout_gravity="center"
                 android:padding="10dp"
                 android:textAlignment="center"
-                android:text="Function4"
+                android:text="Function5"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_fun_6"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="15dp">
+
+            <TextView
+                android:id="@+id/card_fun_text_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:text="Function6"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </androidx.cardview.widget.CardView>
+
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_fun_img_1"
@@ -247,6 +266,21 @@
                 android:textColor="@android:color/black" />
         </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_fun_img_6"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            app:cardCornerRadius="15dp">
+
+            <ImageView
+                android:id="@+id/image_card_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:contentDescription="TODO"
+                android:textColor="@android:color/black" />
+        </androidx.cardview.widget.CardView>
 
 
     </FrameLayout>

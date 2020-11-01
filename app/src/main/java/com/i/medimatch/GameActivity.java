@@ -85,15 +85,15 @@ public class GameActivity extends AppCompatActivity {
 
     MedicationCard MedCardSelected;
 
-    int[] imageList = new int[] {R.drawable.cholesterol, R.drawable.liver, R.drawable.brain, R.drawable.heart};
+    int[] imageList = new int[] { R.drawable.thyroid, R.drawable.cholesterol, R.drawable.liver, R.drawable.brain, R.drawable.heart};
 
     String [] answers;
 
-    CardView cardFun1, cardFun2, cardFun3, cardFun4, cardFun5;
-    TextView cardFunText1, cardFunText2, cardFunText3, cardFunText4, cardFunText5;
+    CardView cardFun1, cardFun2, cardFun3, cardFun4, cardFun5, cardFun6;
+    TextView cardFunText1, cardFunText2, cardFunText3, cardFunText4, cardFunText5, cardFunText6;
 
-    CardView cardFunImg1, cardFunImg2, cardFunImg3, cardFunImg4, cardFunImg5;
-    ImageView cardImg1, cardImg2, cardImg3, cardImg4, cardImg5;
+    CardView cardFunImg1, cardFunImg2, cardFunImg3, cardFunImg4, cardFunImg5, cardFunImg6;
+    ImageView cardImg1, cardImg2, cardImg3, cardImg4, cardImg5, cardImg6;
 
     CardView cardName;
     TextView medNameText;
@@ -103,12 +103,14 @@ public class GameActivity extends AppCompatActivity {
     public float cardFun3_x, cardFun3_y;
     public float cardFun4_x, cardFun4_y;
     public float cardFun5_x, cardFun5_y;
+    public float cardFun6_x, cardFun6_y;
 
     public float cardFunImg1_x, cardFunImg1_y;
     public float cardFunImg2_x, cardFunImg2_y;
     public float cardFunImg3_x, cardFunImg3_y;
     public float cardFunImg4_x, cardFunImg4_y;
     public float cardFunImg5_x, cardFunImg5_y;
+    public float cardFunImg6_x, cardFunImg6_y;
 
     public float frame_height;
 
@@ -210,10 +212,10 @@ public class GameActivity extends AppCompatActivity {
         FunctionCard.screen_height = size.y;
 
         // Cards coordinates
-        float [] cardFunX = new float[] {cardFun1_x, cardFun2_x, cardFun3_x, cardFun4_x, cardFun5_x};
-        float [] cardFunY = new float[]{cardFun1_y, cardFun2_y, cardFun3_y, cardFun4_y, cardFun5_y};
-        float [] cardFunImgX = new float[] {cardFunImg1_x, cardFunImg2_x, cardFunImg3_x, cardFunImg4_x, cardFun5_x};
-        float [] cardFunImgY = new float[]{cardFunImg1_y, cardFunImg2_y, cardFunImg3_y, cardFunImg4_y, cardFun5_y};
+        float [] cardFunX = new float[] {cardFun1_x, cardFun2_x, cardFun3_x, cardFun4_x, cardFun5_x, cardFun6_x};
+        float [] cardFunY = new float[]{cardFun1_y, cardFun2_y, cardFun3_y, cardFun4_y, cardFun5_y, cardFun6_y};
+        float [] cardFunImgX = new float[] {cardFunImg1_x, cardFunImg2_x, cardFunImg3_x, cardFunImg4_x, cardFunImg5_x, cardFunImg6_x};
+        float [] cardFunImgY = new float[]{cardFunImg1_y, cardFunImg2_y, cardFunImg3_y, cardFunImg4_y, cardFunImg5_y, cardFunImg6_y};
 
         // Find cards elements and store in arrays
         cardsFun.add(cardFun1 = findViewById(R.id.card_fun_1));
@@ -221,12 +223,14 @@ public class GameActivity extends AppCompatActivity {
         cardsFun.add(cardFun3 = findViewById(R.id.card_fun_3));
         cardsFun.add(cardFun4 = findViewById(R.id.card_fun_4));
         cardsFun.add(cardFun5 = findViewById(R.id.card_fun_5));
+        cardsFun.add(cardFun6 = findViewById(R.id.card_fun_6));
 
         cardsFunImg.add(cardFunImg1 = findViewById(R.id.card_fun_img_1));
         cardsFunImg.add(cardFunImg2 = findViewById(R.id.card_fun_img_2));
         cardsFunImg.add(cardFunImg3 = findViewById(R.id.card_fun_img_3));
         cardsFunImg.add(cardFunImg4 = findViewById(R.id.card_fun_img_4));
         cardsFunImg.add(cardFunImg5 = findViewById(R.id.card_fun_img_5));
+        cardsFunImg.add(cardFunImg6 = findViewById(R.id.card_fun_img_6));
 
         ArrayList<TextView> cardsFunText = new ArrayList<>();
         cardsFunText.add(cardFunText1 = findViewById(R.id.card_fun_text_1));
@@ -234,6 +238,7 @@ public class GameActivity extends AppCompatActivity {
         cardsFunText.add(cardFunText3 = findViewById(R.id.card_fun_text_3));
         cardsFunText.add(cardFunText4 = findViewById(R.id.card_fun_text_4));
         cardsFunText.add(cardFunText5 = findViewById(R.id.card_fun_text_5));
+        cardsFunText.add(cardFunText6 = findViewById(R.id.card_fun_text_6));
 
         ArrayList<ImageView> cardImages = new ArrayList<>();
         cardImages.add(cardImg1 = findViewById(R.id.image_card_1));
@@ -241,13 +246,21 @@ public class GameActivity extends AppCompatActivity {
         cardImages.add(cardImg3 = findViewById(R.id.image_card_3));
         cardImages.add(cardImg4 = findViewById(R.id.image_card_4));
         cardImages.add(cardImg5 = findViewById(R.id.image_card_5));
+        cardImages.add(cardImg6 = findViewById(R.id.image_card_6));
+
 
         for (int t = 0; t < MedCardsObjects.size(); t++) {
-            if(MedCardsObjects.get(t).newCard) {
-                Picasso.get().load(MedCardsObjects.get(t).getImageURL()).into(cardImg5);
+            if(MedCardsObjects.get(t).getNew()) {
+                Picasso.get().load(MedCardsObjects.get(t).getImageURL()).into(cardImg6);
+                cardFunImg6.setVisibility(View.VISIBLE);
+                cardFun6.setVisibility(View.VISIBLE);
+                break;
+            }
+            else{
+                cardFunImg6.setVisibility(View.GONE);
+                cardFun6.setVisibility(View.GONE);
             }
         }
-
 
         // Create FunctionCard objects and add to array
         for (int i = 0; i < cardsFun.size(); i++) {
@@ -259,8 +272,6 @@ public class GameActivity extends AppCompatActivity {
         for (int c = 0; c < imageList.length; c++) {
             funImgCards.get(c).setImage(cardImages.get(c), imageList[c]);
         }
-
-        // Set image in new added
 
 
         // Set text in function cards

@@ -50,7 +50,7 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
         medNameFunction.put("RIDLIP", "Reduction in the amount of LDL cholesterol in the blood");
         medNameFunction.put("SYLIMAROL", "Regeneration and reconstruction of damaged liver");
         medNameFunction.put("ENCEPHABOL", "Treatment of brain disorders");
-
+        medNameFunction.put("LEVOTHYROXINE", "Treatment of thyroid hormone deficiency");
 
         radioGroup = findViewById(R.id.radioGroup);
 
@@ -58,12 +58,13 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
         RadioButton med2 = findViewById(R.id.med2);
         RadioButton med3 = findViewById(R.id.med3);
         RadioButton med4 = findViewById(R.id.med4);
+        RadioButton med5 = findViewById(R.id.med5);
 
         for(Map.Entry<String, String> entry : medNameFunction.entrySet()) {
             medObjects.add((new MedicationCard(entry.getKey(), entry.getValue())));
         }
 
-        medRadioButton = new RadioButton[]{med1, med2, med3, med4};
+        medRadioButton = new RadioButton[]{med1, med2, med3, med4, med5};
 
         for (int i = 0; i < medObjects.size(); i++) {
             medRadioButton[i].setText((medObjects.get(i).getName()));
