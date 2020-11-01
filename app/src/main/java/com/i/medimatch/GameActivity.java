@@ -249,26 +249,6 @@ public class GameActivity extends AppCompatActivity {
             funImgCards.get(c).setImage(cardImages.get(c), imageList[c]);
         }
 
-        // Different approach
- /*       for(MedicationCard MedCardObj : MedCardsObjects) {
-
-            switch(MedCardObj.getName()) {
-                case "AXTIL":
-                    MedCardObj.setImgId(R.drawable.heart);
-                    break;
-                case "RIDLIP":
-                    MedCardObj.setImgId(R.drawable.cholesterol);
-                    break;
-                case "SYLIMAROL":
-                    MedCardObj.setImgId(R.drawable.liver);
-                    break;
-                case "ENCEPHABOL":
-                    MedCardObj.setImgId(R.drawable.brain);
-                    break;
-            }
-
-        }
-*/
         // Set text in function cards
         for (int t = 0; t < MedCardsObjects.size(); t++) {
             funCards.get(t).setFunctionText(cardsFunText.get(t), (MedCardsObjects.get(t)).getFunctionsText());
@@ -445,45 +425,23 @@ public class GameActivity extends AppCompatActivity {
         }
     };
 
+
+    // Go to the next medication
     private void playNext(String currentName) {
 
         playedName.add(currentName);
 
         // Testing
         final StringBuilder builder = new StringBuilder();
-        builder.append("You completed: ");
+        builder.append("You have completed: ");
         for(int j = 0; j < playedName.size(); j++) {
-            builder.append(playedName.get(j));
+            builder.append(" " +playedName.get(j));
         }
         Toast.makeText(this, builder, Toast.LENGTH_SHORT).show();
 
-        int index = MedCardsObjects.indexOf(MedCardSelected);
-
-        // Testing
-        final StringBuilder builder3 = new StringBuilder();
-        builder3.append("Selected before: ");
-        builder3.append(MedCardSelected.getName());
-        builder3.append(index);
-        Toast.makeText(this, builder3, Toast.LENGTH_SHORT).show();
-
-
-        // Testing
-        final StringBuilder builder4 = new StringBuilder();
-        builder4.append("Contains before: ");
-        builder4.append((playedName).contains(MedCardSelected.getName()));
-        Toast.makeText(this, builder4, Toast.LENGTH_SHORT).show();
-
-     //   String currentName = medNameText.getText().toString();
-
-        //for(int i = 0; i < MedCardsObjects.size(); i++)
 
         for (MedicationCard MedCard : MedCardsObjects){
             if (currentName.equals(MedCard.getName())){
-                final StringBuilder builder6 = new StringBuilder();
-                builder6.append("Loop again! Detected the same:  ");
-                builder6.append(((MedCardSelected.getName())));
-                builder6.append(((MedCard.getName())));
-                Toast.makeText(this, builder6, Toast.LENGTH_LONG).show();
                 continue;
             }
                 MedCardSelected = MedCard;
@@ -492,7 +450,6 @@ public class GameActivity extends AppCompatActivity {
                 }
 
                 medNameText.setText(MedCardSelected.getName());
-                //playedName.add(medNameText.getText().toString());
                 YoYo.with(Techniques.FlipInY)
                         .duration(900)
                         .playOn(cardName);
@@ -500,36 +457,11 @@ public class GameActivity extends AppCompatActivity {
                 break;
 
         }
-
-        // Testing
-        final StringBuilder builder2 = new StringBuilder();
-        builder2.append("Selected after: ");
-        builder2.append(MedCardSelected.getName());
-        Toast.makeText(this, builder2, Toast.LENGTH_SHORT).show();
-
-        index = MedCardsObjects.indexOf(MedCardSelected);
-
-        // Testing
-        final StringBuilder builder7= new StringBuilder();
-        builder7.append("Contains after: ");
-        builder7.append((playedName).contains(MedCardSelected.getName()));
-        builder7.append(index);
-        Toast.makeText(this, builder7, Toast.LENGTH_SHORT).show();
-/*
-        if(!flag) {
-            medNameText.setText(MedCardSelected.getName());
-            YoYo.with(Techniques.FlipInY)
-                    .duration(900)
-                    .playOn(cardName);
-        }
-*/
-    }
-
-    public void loopOver() {
-
     }
 
 
+
+    // Called when user taps the PAUSE Button
     public void pauseGame(View view) {
 
         soundPool.play(click_sound, 1, 1, 0, 0, 1);

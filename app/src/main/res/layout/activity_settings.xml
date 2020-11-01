@@ -20,7 +20,7 @@
         android:shadowColor="#03A9F4"
         android:shadowDy="20"
         android:shadowRadius="10"
-        android:text="Choose the name of medication you want to learn"
+        android:text="Choose the name of medication you want to start with"
         android:textColor="#FFFFFF"
         android:fontFamily="sans-serif-medium"
         android:textSize="30sp" />

@@ -12,8 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 
 public class MainActivity extends AppCompatActivity {
 

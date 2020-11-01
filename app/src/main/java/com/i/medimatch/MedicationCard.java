@@ -1,7 +1,6 @@
 package com.i.medimatch;
 
 
-import android.widget.ImageView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ public class MedicationCard implements Serializable {
 
     public String name;
     public String function;
-    public int image_id;
     public boolean selected = false;
     public ArrayList<FunctionCard> functionsList = new ArrayList<>();
 

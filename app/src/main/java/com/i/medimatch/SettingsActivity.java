@@ -8,7 +8,6 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -22,7 +21,6 @@ import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -30,7 +28,6 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
 
     ArrayList<MedicationCard> medObjects = new ArrayList<>();
     HashMap<String, String> medNameFunction = new HashMap<>();
-    ArrayList<Integer> imageViews = new ArrayList<>();
 
     RadioGroup radioGroup;
     RadioButton radioButton;
@@ -106,10 +103,6 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
     /* Called when the user taps the Add New button */
     public void addNew(View view) {
         openDialog();
-
-        MedicationCard medCard;
-       // medCard = new MedicationCard(-1, )
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(SettingsActivity.this);
     }
 
     public void openDialog() {
