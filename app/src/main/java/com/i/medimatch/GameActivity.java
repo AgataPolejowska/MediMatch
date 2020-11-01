@@ -37,6 +37,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -48,6 +49,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private State state = State.RUNNING;
+    boolean flag;
 
     private TextView ScoreLabel = null;
     private int score = 0;
@@ -130,7 +132,7 @@ public class GameActivity extends AppCompatActivity {
         // Receive data from Settings Activity
         MedCardsObjects = (ArrayList<MedicationCard>)getIntent().getSerializableExtra("Medications");
         MedCardSelected = (MedicationCard) getIntent().getSerializableExtra("MedicationSelected");
-        playedName.add(MedCardSelected.getName());
+    //    playedName.add(MedCardSelected.getName());
 
         // Testing
         final StringBuilder builder = new StringBuilder();
@@ -412,8 +414,6 @@ public class GameActivity extends AppCompatActivity {
 
                         if (score%2 == 0) {
 
-                            playedName.add(medNameText.getText().toString());
-
                             cardName.setCardBackgroundColor(Color.GREEN);
                             cardName.startAnimation(animRotate);
                             YoYo.with(Techniques.FlipOutY)
@@ -421,7 +421,8 @@ public class GameActivity extends AppCompatActivity {
                                     .playOn(cardName);
 
                             State state = State.WON;
-                            playNext();
+
+                            playNext((MedCardSelected.getName()));
 
                         }
                         checkVisibility();
@@ -444,39 +445,87 @@ public class GameActivity extends AppCompatActivity {
         }
     };
 
-    private void playNext() {
+    private void playNext(String currentName) {
 
-            boolean flag = false;
-/*
-            for(int k = 0; k < playedName.size(); k++) {
-                if (medNameText.getText() == playedName.get(k)) {
-                    flag = false;
-                }
-                else {
-                    flag = true;
-                }
-            }
-*/
-            for(int i = 0; i < MedCardsObjects.size(); i++) {
-                if (medNameText.getText() != MedCardsObjects.get(i).getName()) {
-                        MedCardSelected = MedCardsObjects.get(i);
-                        flag = true;
-                        for(int j = 0; j < playedName.size(); j++) {
-                            if (MedCardSelected.getName() == playedName.get(j)) {
-                                flag = false;
-                                break;
-                            }
-                        }
-                }
-            }
+        playedName.add(currentName);
 
-            if(flag) {
+        // Testing
+        final StringBuilder builder = new StringBuilder();
+        builder.append("You completed: ");
+        for(int j = 0; j < playedName.size(); j++) {
+            builder.append(playedName.get(j));
+        }
+        Toast.makeText(this, builder, Toast.LENGTH_SHORT).show();
+
+        int index = MedCardsObjects.indexOf(MedCardSelected);
+
+        // Testing
+        final StringBuilder builder3 = new StringBuilder();
+        builder3.append("Selected before: ");
+        builder3.append(MedCardSelected.getName());
+        builder3.append(index);
+        Toast.makeText(this, builder3, Toast.LENGTH_SHORT).show();
+
+
+        // Testing
+        final StringBuilder builder4 = new StringBuilder();
+        builder4.append("Contains before: ");
+        builder4.append((playedName).contains(MedCardSelected.getName()));
+        Toast.makeText(this, builder4, Toast.LENGTH_SHORT).show();
+
+     //   String currentName = medNameText.getText().toString();
+
+        //for(int i = 0; i < MedCardsObjects.size(); i++)
+
+        for (MedicationCard MedCard : MedCardsObjects){
+            if (currentName.equals(MedCard.getName())){
+                final StringBuilder builder6 = new StringBuilder();
+                builder6.append("Loop again! Detected the same:  ");
+                builder6.append(((MedCardSelected.getName())));
+                builder6.append(((MedCard.getName())));
+                Toast.makeText(this, builder6, Toast.LENGTH_LONG).show();
+                continue;
+            }
+                MedCardSelected = MedCard;
+                if((playedName).contains(MedCardSelected.getName())) {
+                    continue;
+                }
+
                 medNameText.setText(MedCardSelected.getName());
-                cardName.setVisibility(View.VISIBLE);
+                //playedName.add(medNameText.getText().toString());
                 YoYo.with(Techniques.FlipInY)
                         .duration(900)
                         .playOn(cardName);
-            }
+                flag = false;
+                break;
+
+        }
+
+        // Testing
+        final StringBuilder builder2 = new StringBuilder();
+        builder2.append("Selected after: ");
+        builder2.append(MedCardSelected.getName());
+        Toast.makeText(this, builder2, Toast.LENGTH_SHORT).show();
+
+        index = MedCardsObjects.indexOf(MedCardSelected);
+
+        // Testing
+        final StringBuilder builder7= new StringBuilder();
+        builder7.append("Contains after: ");
+        builder7.append((playedName).contains(MedCardSelected.getName()));
+        builder7.append(index);
+        Toast.makeText(this, builder7, Toast.LENGTH_SHORT).show();
+/*
+        if(!flag) {
+            medNameText.setText(MedCardSelected.getName());
+            YoYo.with(Techniques.FlipInY)
+                    .duration(900)
+                    .playOn(cardName);
+        }
+*/
+    }
+
+    public void loopOver() {
 
     }
 
