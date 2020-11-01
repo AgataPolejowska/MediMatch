@@ -2,11 +2,14 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/item_startagain"
-        android:title="Start again" />
     <item android:title="MediMatch Info"
         android:id="@+id/item_info"/>
+    <item android:id="@+id/item_mainmenu"
+        android:title="Go to the main menu" />
+    <item android:title="Start again"
+        android:id="@+id/item_settings" />
+    <item android:title="End game"
+        android:id="@+id/item_end" />
     <item android:title="Quit game"
         android:id="@+id/item_quit" />
 

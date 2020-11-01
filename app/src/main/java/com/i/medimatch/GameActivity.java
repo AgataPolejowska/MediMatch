@@ -1,6 +1,5 @@
 package com.i.medimatch;
 
-
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.DialogInterface;
@@ -35,9 +34,9 @@ import androidx.cardview.widget.CardView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -49,7 +48,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private State state = State.RUNNING;
-    boolean flag;
 
     private TextView ScoreLabel = null;
     private int score = 0;
@@ -132,13 +130,6 @@ public class GameActivity extends AppCompatActivity {
         // Receive data from Settings Activity
         MedCardsObjects = (ArrayList<MedicationCard>)getIntent().getSerializableExtra("Medications");
         MedCardSelected = (MedicationCard) getIntent().getSerializableExtra("MedicationSelected");
-    //    playedName.add(MedCardSelected.getName());
-
-        // Testing
-        final StringBuilder builder = new StringBuilder();
-        builder.append("You have chosen: ");
-        builder.append(MedCardSelected.getName());
-        Toast.makeText(this, builder, Toast.LENGTH_SHORT).show();
 
 
         ScoreLabel = findViewById(R.id.scoreLabel);
@@ -164,11 +155,17 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
-                            case R.id.item_startagain:
-                                startActivity(new Intent(GameActivity.this, MainActivity.class));
-                                return true;
                             case R.id.item_info:
                                 startActivity(new Intent(GameActivity.this, MainActivity.class));
+                                return true;
+                            case R.id.item_mainmenu:
+                                startActivity(new Intent(GameActivity.this, MainActivity.class));
+                                return true;
+                            case R.id.item_settings:
+                                startActivity(new Intent(GameActivity.this, SettingsActivity.class));
+                                return true;
+                            case R.id.item_end:
+                                startActivity(new Intent(GameActivity.this, EndActivity.class));
                                 return true;
                             case R.id.item_quit:
                                 AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
@@ -177,6 +174,7 @@ public class GameActivity extends AppCompatActivity {
                                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
                                                 finishAffinity();
+                                                System.exit(0);
                                             }
                                         })
                                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -203,9 +201,21 @@ public class GameActivity extends AppCompatActivity {
         final Point size = new Point();
         display.getSize(size);
 
+        // Get frame size
+        FrameLayout frameLayout = findViewById(R.id.frame);
+        frame_height = frameLayout.getHeight();
+
+        // Get card size
         FunctionCard.screen_width = size.x;
         FunctionCard.screen_height = size.y;
 
+        // Cards coordinates
+        float [] cardFunX = new float[] {cardFun1_x, cardFun2_x, cardFun3_x, cardFun4_x, cardFun5_x};
+        float [] cardFunY = new float[]{cardFun1_y, cardFun2_y, cardFun3_y, cardFun4_y, cardFun5_y};
+        float [] cardFunImgX = new float[] {cardFunImg1_x, cardFunImg2_x, cardFunImg3_x, cardFunImg4_x, cardFun5_x};
+        float [] cardFunImgY = new float[]{cardFunImg1_y, cardFunImg2_y, cardFunImg3_y, cardFunImg4_y, cardFun5_y};
+
+        // Find cards elements and store in arrays
         cardsFun.add(cardFun1 = findViewById(R.id.card_fun_1));
         cardsFun.add(cardFun2 = findViewById(R.id.card_fun_2));
         cardsFun.add(cardFun3 = findViewById(R.id.card_fun_3));
@@ -217,12 +227,6 @@ public class GameActivity extends AppCompatActivity {
         cardsFunImg.add(cardFunImg3 = findViewById(R.id.card_fun_img_3));
         cardsFunImg.add(cardFunImg4 = findViewById(R.id.card_fun_img_4));
         cardsFunImg.add(cardFunImg5 = findViewById(R.id.card_fun_img_5));
-
-        // Cards coordinates
-        float [] cardFunX = new float[] {cardFun1_x, cardFun2_x, cardFun3_x, cardFun4_x, cardFun5_x};
-        float [] cardFunY = new float[]{cardFun1_y, cardFun2_y, cardFun3_y, cardFun4_y, cardFun5_y};
-        float [] cardFunImgX = new float[] {cardFunImg1_x, cardFunImg2_x, cardFunImg3_x, cardFunImg4_x, cardFun5_x};
-        float [] cardFunImgY = new float[]{cardFunImg1_y, cardFunImg2_y, cardFunImg3_y, cardFunImg4_y, cardFun5_y};
 
         ArrayList<TextView> cardsFunText = new ArrayList<>();
         cardsFunText.add(cardFunText1 = findViewById(R.id.card_fun_text_1));
@@ -238,6 +242,13 @@ public class GameActivity extends AppCompatActivity {
         cardImages.add(cardImg4 = findViewById(R.id.image_card_4));
         cardImages.add(cardImg5 = findViewById(R.id.image_card_5));
 
+        for (int t = 0; t < MedCardsObjects.size(); t++) {
+            if(MedCardsObjects.get(t).newCard) {
+                Picasso.get().load(MedCardsObjects.get(t).getImageURL()).into(cardImg5);
+            }
+        }
+
+
         // Create FunctionCard objects and add to array
         for (int i = 0; i < cardsFun.size(); i++) {
             funCards.add(new FunctionCard(cardsFun.get(i), cardFunX[i], cardFunY[i]));
@@ -249,33 +260,13 @@ public class GameActivity extends AppCompatActivity {
             funImgCards.get(c).setImage(cardImages.get(c), imageList[c]);
         }
 
+        // Set image in new added
+
+
         // Set text in function cards
         for (int t = 0; t < MedCardsObjects.size(); t++) {
             funCards.get(t).setFunctionText(cardsFunText.get(t), (MedCardsObjects.get(t)).getFunctionsText());
         }
-
-        cardName = findViewById(R.id.card_name);
-
-        // Set the name of checked medication
-        medNameText = findViewById(R.id.med_name);
-        medNameText.setText(MedCardSelected.getName());
-
-
-       for(CardView card : cardsFun) {
-            card.setOnTouchListener(mOnTouchListener);
-        }
-
-        for(CardView cardImg : cardsFunImg) {
-            cardImg.setOnTouchListener(mOnTouchListener);
-        }
-
-        // DragListener
-        cardName.setOnDragListener(dragListener);
-
-        // Frame size
-        FrameLayout frameLayout = findViewById(R.id.frame);
-        frame_height = frameLayout.getHeight();
-
 
         // Set objects functions: text and image cards
         for (int r = 0; r < MedCardsObjects.size(); r++) {
@@ -285,10 +276,28 @@ public class GameActivity extends AppCompatActivity {
 
         // Associate functions with selected object
         for (MedicationCard med : MedCardsObjects) {
-             if (MedCardSelected.getName().equals(med.getName())) {
+            if (MedCardSelected.getName().equals(med.getName())) {
                 MedCardSelected.setFunctions(((med.getFunctions()).get(0)), (med.getFunctions()).get(1));
             }
         }
+
+        // Set the name of checked medication
+        medNameText = findViewById(R.id.med_name);
+        medNameText.setText(MedCardSelected.getName());
+
+
+        // Touch listener on cards
+       for(CardView card : cardsFun) {
+            card.setOnTouchListener(mOnTouchListener);
+       }
+       for(CardView cardImg : cardsFunImg) {
+            cardImg.setOnTouchListener(mOnTouchListener);
+       }
+
+        // DragListener on the main card
+        cardName = findViewById(R.id.card_name);
+        cardName.setOnDragListener(dragListener);
+
 
         // Move cards
         timer.schedule(new TimerTask() {
@@ -309,7 +318,7 @@ public class GameActivity extends AppCompatActivity {
         }, 0, 20);
 
 
-
+        // Implement sound effects
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
@@ -328,6 +337,7 @@ public class GameActivity extends AppCompatActivity {
         correct_sound = soundPool.load(this, R.raw.correct, 1);
         incorrect_sound = soundPool.load(this, R.raw.incorrect, 1);
 
+        // Add animation
         animRotate = AnimationUtils.loadAnimation(this, R.anim.rotate);
 
     }
@@ -453,7 +463,6 @@ public class GameActivity extends AppCompatActivity {
                 YoYo.with(Techniques.FlipInY)
                         .duration(900)
                         .playOn(cardName);
-                flag = false;
                 break;
 
         }
@@ -526,6 +535,10 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    public void saveResult() {
+        //
+    }
+
 
     public void checkVisibility() {
         int counter = 0;
@@ -550,7 +563,7 @@ public class GameActivity extends AppCompatActivity {
                     intent2.putExtra("answers", answers);
                     startActivity(intent2);
                 }
-            }, 1000);
+            }, 1200);
         }
 
     }

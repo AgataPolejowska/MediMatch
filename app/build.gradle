@@ -28,4 +28,5 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.daimajia.androidanimations:library:2.4@aar'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

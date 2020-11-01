@@ -112,7 +112,7 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void applyValues(String med_name, String med_function) {
+    public void applyValues(String med_name, String med_function, String med_img) {
         RadioButton rb = new RadioButton(SettingsActivity.this);
         rb.setText(med_name);
         rb.setTextColor(ContextCompat.getColorStateList(SettingsActivity.this, R.color.colorWhite));
@@ -126,8 +126,9 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
         });
 
         NewMed = new MedicationCard(med_name, med_function);
+        NewMed.setImageURL(med_img);
+        NewMed.setNew(true);
         medObjects.add(NewMed);
-
 
         radioGroup.addView(rb);
     }
