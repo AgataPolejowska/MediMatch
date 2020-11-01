@@ -30,7 +30,8 @@ When player matches correctly, then he gains a positive point and score counter 
 - [x] Animation effects
 
 
-![20201101_143222](https://user-images.githubusercontent.com/44722312/97804370-b8999880-1c4f-11eb-8f53-ea6a7a45a8a6.gif)
+![20201101_144722](https://user-images.githubusercontent.com/44722312/97804613-648fb380-1c51-11eb-86d5-1f9416a37af8.gif)
+
 
 
 ### Status
