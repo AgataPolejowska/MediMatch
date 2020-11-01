@@ -7,10 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
@@ -22,8 +19,6 @@ public class AddNewDialog extends AppCompatDialogFragment {
     private EditText editMedName;
     private EditText editMedFunction;
     private EditText editMedUrl;
-    private ImageView mImageView;
-    private Button loadButton;
     private AddNewMedDialogListener listener;
 
     @NonNull
@@ -37,7 +32,6 @@ public class AddNewDialog extends AppCompatDialogFragment {
         editMedName = view.findViewById(R.id.med_name);
         editMedFunction = view.findViewById(R.id.med_function);
         editMedUrl = view.findViewById(R.id.med_img_url);
-
 
 
         builder.setView(view)

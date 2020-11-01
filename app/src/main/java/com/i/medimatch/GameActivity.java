@@ -133,7 +133,6 @@ public class GameActivity extends AppCompatActivity {
         MedCardsObjects = (ArrayList<MedicationCard>)getIntent().getSerializableExtra("Medications");
         MedCardSelected = (MedicationCard) getIntent().getSerializableExtra("MedicationSelected");
 
-
         ScoreLabel = findViewById(R.id.scoreLabel);
         ScoreLabel.setText("Score: " + score);
 
@@ -158,7 +157,8 @@ public class GameActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.item_info:
-                                startActivity(new Intent(GameActivity.this, MainActivity.class));
+                                InfoDialog infoDialog = new InfoDialog();
+                                infoDialog.show(getSupportFragmentManager(), "Information");
                                 return true;
                             case R.id.item_mainmenu:
                                 startActivity(new Intent(GameActivity.this, MainActivity.class));
@@ -249,6 +249,7 @@ public class GameActivity extends AppCompatActivity {
         cardImages.add(cardImg6 = findViewById(R.id.image_card_6));
 
 
+        // Check if new card is added, if yes set visible associated fun cards
         for (int t = 0; t < MedCardsObjects.size(); t++) {
             if(MedCardsObjects.get(t).getNew()) {
                 Picasso.get().load(MedCardsObjects.get(t).getImageURL()).into(cardImg6);
@@ -273,7 +274,6 @@ public class GameActivity extends AppCompatActivity {
             funImgCards.get(c).setImage(cardImages.get(c), imageList[c]);
         }
 
-
         // Set text in function cards
         for (int t = 0; t < MedCardsObjects.size(); t++) {
             funCards.get(t).setFunctionText(cardsFunText.get(t), (MedCardsObjects.get(t)).getFunctionsText());
@@ -283,7 +283,6 @@ public class GameActivity extends AppCompatActivity {
         for (int r = 0; r < MedCardsObjects.size(); r++) {
             MedCardsObjects.get(r).setFunctions(funCards.get(r), funImgCards.get(r));
         }
-
 
         // Associate functions with selected object
         for (MedicationCard med : MedCardsObjects) {
@@ -295,7 +294,6 @@ public class GameActivity extends AppCompatActivity {
         // Set the name of checked medication
         medNameText = findViewById(R.id.med_name);
         medNameText.setText(MedCardSelected.getName());
-
 
         // Touch listener on cards
        for(CardView card : cardsFun) {
@@ -449,7 +447,6 @@ public class GameActivity extends AppCompatActivity {
 
     // Go to the next medication
     private void playNext(String currentName) {
-
         playedName.add(currentName);
 
         // Testing
@@ -459,7 +456,6 @@ public class GameActivity extends AppCompatActivity {
             builder.append(" " +playedName.get(j));
         }
         Toast.makeText(this, builder, Toast.LENGTH_SHORT).show();
-
 
         for (MedicationCard MedCard : MedCardsObjects){
             if (currentName.equals(MedCard.getName())){
@@ -475,7 +471,6 @@ public class GameActivity extends AppCompatActivity {
                         .duration(900)
                         .playOn(cardName);
                 break;
-
         }
     }
 
