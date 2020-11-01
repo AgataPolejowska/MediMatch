@@ -73,8 +73,9 @@ public class EndActivity extends AppCompatActivity {
 
 
     /* Called when the user taps the Quit button */
-    public void quitGame() {
+    public void quitGame(View v) {
         finishAffinity();
+        System.exit(0);
     }
 
 

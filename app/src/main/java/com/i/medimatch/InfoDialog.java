@@ -62,7 +62,7 @@ public class InfoDialog extends AppCompatDialogFragment  {
                     //log the exception
                 }
             }
-            
+
         }
 
         textView.setText((CharSequence) text);
