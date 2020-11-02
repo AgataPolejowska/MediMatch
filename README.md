@@ -33,7 +33,7 @@ When player matches correctly, then he gains a positive point and score counter 
 ### Game Preview
 ![20201101_150452](https://user-images.githubusercontent.com/44722312/97805010-b9342e00-1c53-11eb-9275-8cea725ed72b.gif)
 <br>
-Notice: the smoothness of the game is much more better in reality. (GIF compression)
+Notice: the smoothness and quality of the game is much more better in reality. (GIF compression)
 
 
 ### Status
