@@ -16,7 +16,7 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity {
 
     private SoundPool soundPool;
-    private int click_sound;
+    private int clickSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,20 +37,20 @@ public class MainActivity extends AppCompatActivity {
             soundPool = new SoundPool(6, AudioManager.STREAM_MUSIC, 0);
         }
 
-        click_sound = soundPool.load(this, R.raw.click, 1);
+        clickSound = soundPool.load(this, R.raw.click, 1);
     }
 
 
     /* Called when the user taps the Start button */
     public void openSettingsActivity(View view) {
-        soundPool.play(click_sound, 0.75f, 0.75f, 0, 0, 1);
+        soundPool.play(clickSound, 0.75f, 0.75f, 0, 0, 1);
         Intent intent2 = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(intent2);
     }
 
     /* Called when the user presses back or the Quit Button */
     public void onClickQuit(View view) {
-        soundPool.play(click_sound, 0.75f, 0.75f, 0, 0, 1);quitDialog();
+        soundPool.play(clickSound, 0.75f, 0.75f, 0, 0, 1);quitDialog();
     }
 
     public void onBackPressed() {

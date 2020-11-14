@@ -49,10 +49,10 @@ public class GameActivity extends AppCompatActivity {
 
     private State state = State.RUNNING;
 
-    private TextView ScoreLabel = null;
+    private TextView scoreLabel = null;
     private int score = 0;
 
-    private TextView TimerLabel;
+    private TextView timerLabel;
     private long startTime = 0;
 
     private Timer timer = new Timer();
@@ -67,13 +67,13 @@ public class GameActivity extends AppCompatActivity {
             int minutes = seconds/60;
             seconds = seconds % 60;
 
-            TimerLabel.setText(String.format("Timer: %d:%02d", minutes, seconds));
+            timerLabel.setText(String.format("Timer: %d:%02d", minutes, seconds));
             timerHandler.postDelayed(this, 500);
         }
     };
 
     private Button timerButton;
-    private boolean pause_flag = false;
+    private boolean pauseFlag = false;
 
     ArrayList<CardView> cardsFun = new ArrayList<>();
     ArrayList<CardView> cardsFunImg = new ArrayList<>();
@@ -112,10 +112,10 @@ public class GameActivity extends AppCompatActivity {
     public float cardFunImg5_x, cardFunImg5_y;
     public float cardFunImg6_x, cardFunImg6_y;
 
-    public float frame_height;
+    public float frameHeight;
 
     private SoundPool soundPool;
-    private int click_sound, tap_sound, correct_sound, incorrect_sound;
+    private int clickSound, tapSound, correctSound, incorrectSound;
 
     Animation animRotate;
 
@@ -133,10 +133,10 @@ public class GameActivity extends AppCompatActivity {
         MedCardsObjects = (ArrayList<MedicationCard>)getIntent().getSerializableExtra("Medications");
         MedCardSelected = (MedicationCard) getIntent().getSerializableExtra("MedicationSelected");
 
-        ScoreLabel = findViewById(R.id.scoreLabel);
-        ScoreLabel.setText("Score: " + score);
+        scoreLabel = findViewById(R.id.scoreLabel);
+        scoreLabel.setText("Score: " + score);
 
-        TimerLabel = findViewById(R.id.timerLabel);
+        timerLabel = findViewById(R.id.timerLabel);
         timerButton = findViewById(R.id.timerButton);
 
         // Start timer
@@ -149,7 +149,7 @@ public class GameActivity extends AppCompatActivity {
         openMenu.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                soundPool.play(click_sound, 1, 1, 0, 0, 1);
+                soundPool.play(clickSound, 1, 1, 0, 0, 1);
                 PopupMenu popupMenu = new PopupMenu(GameActivity.this, v);
                 popupMenu.getMenuInflater().inflate(R.menu.menu_popup, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -205,11 +205,11 @@ public class GameActivity extends AppCompatActivity {
 
         // Get frame size
         FrameLayout frameLayout = findViewById(R.id.frame);
-        frame_height = frameLayout.getHeight();
+        frameHeight = frameLayout.getHeight();
 
         // Get card size
-        FunctionCard.screen_width = size.x;
-        FunctionCard.screen_height = size.y;
+        FunctionCard.screenWidth = size.x;
+        FunctionCard.screenHeight = size.y;
 
         // Cards coordinates
         float [] cardFunX = new float[] {cardFun1_x, cardFun2_x, cardFun3_x, cardFun4_x, cardFun5_x, cardFun6_x};
@@ -251,8 +251,8 @@ public class GameActivity extends AppCompatActivity {
 
         // Check if new card is added, if yes set visible associated fun cards
         for (int t = 0; t < MedCardsObjects.size(); t++) {
-            if(MedCardsObjects.get(t).getNew()) {
-                Picasso.get().load(MedCardsObjects.get(t).getImageURL()).into(cardImg6);
+            if(MedCardsObjects.get(t).checkNew()) {
+                Picasso.get().load(MedCardsObjects.get(t).getImageUrl()).into(cardImg6);
                 cardFunImg6.setVisibility(View.VISIBLE);
                 cardFun6.setVisibility(View.VISIBLE);
                 break;
@@ -316,9 +316,9 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         for (int k = 0; k < funCards.size(); k++) {
-                            (funCards.get(k)).setSpeed(Math.round(FunctionCard.screen_width / (95.0+(k*10))));
+                            (funCards.get(k)).setSpeed(Math.round(FunctionCard.screenWidth / (95.0+(k*10))));
                             (funCards.get(k)).changePosition("LEFT");
-                            (funImgCards.get(k)).setSpeed(Math.round(FunctionCard.screen_width / (120.0+(k*10))));
+                            (funImgCards.get(k)).setSpeed(Math.round(FunctionCard.screenWidth / (120.0+(k*10))));
                             (funImgCards.get(k)).changePosition("RIGHT");
                         }
                     }
@@ -341,10 +341,10 @@ public class GameActivity extends AppCompatActivity {
             soundPool = new SoundPool(6, AudioManager.STREAM_MUSIC, 0);
         }
 
-        click_sound = soundPool.load(this, R.raw.click, 1);
-        tap_sound = soundPool.load(this, R.raw.tap, 1);
-        correct_sound = soundPool.load(this, R.raw.correct, 1);
-        incorrect_sound = soundPool.load(this, R.raw.incorrect, 1);
+        clickSound = soundPool.load(this, R.raw.click, 1);
+        tapSound = soundPool.load(this, R.raw.tap, 1);
+        correctSound = soundPool.load(this, R.raw.correct, 1);
+        incorrectSound = soundPool.load(this, R.raw.incorrect, 1);
 
         // Add animation
         animRotate = AnimationUtils.loadAnimation(this, R.anim.rotate);
@@ -360,7 +360,7 @@ public class GameActivity extends AppCompatActivity {
         @SuppressLint("ClickableViewAccessibility")
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            soundPool.play(tap_sound, 1, 1, 0, 0, 1);
+            soundPool.play(tapSound, 1, 1, 0, 0, 1);
             ClipData data = ClipData.newPlainText("", "");
             View.DragShadowBuilder myShadowBuilder = new View.DragShadowBuilder(v);
             v.startDrag(data, myShadowBuilder, v, 0);
@@ -402,13 +402,13 @@ public class GameActivity extends AppCompatActivity {
                     if (view.getId() == (MedCardSelected.getFunctions().get(0)).getCardViewId() ||
                             view.getId() == (MedCardSelected.getFunctions().get(1)).getCardViewId()) {
 
-                        ScoreLabel.setText("Score: " + ++score);
+                        scoreLabel.setText("Score: " + ++score);
 
                         YoYo.with(Techniques.Tada)
                                 .duration(700)
                                 .playOn(cardName);
 
-                        soundPool.play(correct_sound, 1, 1, 0, 0, 1);
+                        soundPool.play(correctSound, 1, 1, 0, 0, 1);
                         Toast.makeText(getApplicationContext(),"Correct!", Toast.LENGTH_SHORT).show();
 
                         if (score%2 == 0) {
@@ -427,8 +427,8 @@ public class GameActivity extends AppCompatActivity {
                         checkVisibility();
                     }
                     else {
-                        soundPool.play(incorrect_sound, 1, 1, 0, 0, 1);
-                        ScoreLabel.setText("Score: " + --score);
+                        soundPool.play(incorrectSound, 1, 1, 0, 0, 1);
+                        scoreLabel.setText("Score: " + --score);
 
                         YoYo.with(Techniques.Shake)
                                 .duration(900)
@@ -479,47 +479,38 @@ public class GameActivity extends AppCompatActivity {
     // Called when user taps the PAUSE Button
     public void pauseGame(View view) {
 
-        soundPool.play(click_sound, 1, 1, 0, 0, 1);
+        soundPool.play(clickSound, 1, 1, 0, 0, 1);
 
         YoYo.with(Techniques.Pulse)
                 .duration(700)
                 .playOn(view);
 
-        if (!pause_flag) {
-
-            pause_flag = true;
+        if (!pauseFlag) {
+            pauseFlag = true;
             State state = State.PAUSED;
-
             // Stop the timer
             timer.cancel();
             timer = null;
-
             timerHandler.removeCallbacks(timerRunnable);
-
             // Change button text
             timerButton.setText("START");
         }
         else {
-
-            pause_flag = false;
+            pauseFlag = false;
             timerButton.setText("PAUSE");
-
             timerHandler.postDelayed(timerRunnable, 0);
-
             // Create new timer
             timer = new Timer();
-
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     timerHandler.post(new Runnable() {
                         @Override
                         public void run() {
-
                             for (int k = 0; k < funCards.size(); k++) {
-                                (funCards.get(k)).setSpeed(Math.round(FunctionCard.screen_width / (95.0+(k*10))));
+                                (funCards.get(k)).setSpeed(Math.round(FunctionCard.screenWidth / (95.0+(k*10))));
                                 (funCards.get(k)).changePosition("LEFT");
-                                (funImgCards.get(k)).setSpeed(Math.round(FunctionCard.screen_width / (120.0+(k*10))));
+                                (funImgCards.get(k)).setSpeed(Math.round(FunctionCard.screenWidth / (120.0+(k*10))));
                                 (funImgCards.get(k)).changePosition("RIGHT");
                             }
 
@@ -534,7 +525,6 @@ public class GameActivity extends AppCompatActivity {
 
     public void saveAnswers() {
         answers = new String[4];
-
         for (int i = 0; i < 4; i++) {
             answers[i] = MedCardsObjects.get(i).getName();
             answers[i] += " - " + (MedCardsObjects.get(i).getFunctionsText().toLowerCase()) + "\n";
@@ -548,7 +538,6 @@ public class GameActivity extends AppCompatActivity {
 
     public void checkVisibility() {
         int counter = 0;
-
         for (int i = 0; i < funCards.size(); i++) {
             if (cardsFun.get(i).getVisibility() != View.VISIBLE) {
                 counter++;
@@ -557,7 +546,6 @@ public class GameActivity extends AppCompatActivity {
                 counter++;
             }
         }
-
         if (counter == (cardsFun.size() + cardsFunImg.size())) {
             State state = State.LOST;
             // Start End Activity with delay

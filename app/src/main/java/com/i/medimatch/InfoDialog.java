@@ -23,7 +23,6 @@ import java.util.Objects;
 
 public class InfoDialog extends AppCompatDialogFragment  {
 
-    private TextView textView;
     private StringBuilder text = new StringBuilder();
 
     @NonNull
@@ -34,35 +33,18 @@ public class InfoDialog extends AppCompatDialogFragment  {
         LayoutInflater inflater = Objects.requireNonNull(getActivity()).getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_info, null);
 
-        textView = view.findViewById(R.id.info);
+        TextView textView = view.findViewById(R.id.info);
 
-        BufferedReader reader = null;
-
-        try {
-            reader = new BufferedReader(new InputStreamReader(getContext().getAssets().open("info.txt")));
-
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(getContext().getAssets().open("info.txt")))) {
             // Read file until the end of file
             String mLine;
             while ((mLine = reader.readLine()) != null) {
                 text.append(mLine);
                 text.append('\n');
             }
-
         } catch (IOException e) {
-
-            Toast.makeText(getContext().getApplicationContext(),"Error reading file!",Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext().getApplicationContext(), "Error reading file!", Toast.LENGTH_LONG).show();
             e.printStackTrace();
-
-        } finally {
-
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    //log the exception
-                }
-            }
-
         }
 
         textView.setText((CharSequence) text);

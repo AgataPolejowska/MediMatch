@@ -9,19 +9,19 @@ import androidx.cardview.widget.CardView;
 
 public class FunctionCard {
 
-    public float card_x, card_y, card_height, card_width;
-    public static float screen_width;
-    public static float screen_height;
-    public float speed;
-    public CardView cardView;
+    private CardView cardView;
+    private float cardX, cardY, cardHeight, cardWidth;
+    private float speed;
 
+    public static float screenWidth;
+    public static float screenHeight;
 
     public FunctionCard(CardView cardView, float x, float y) {
         this.cardView = cardView;
-        this.card_height = cardView.getHeight();
-        this.card_width = cardView.getWidth();
-        this.card_x = x;
-        this.card_y = y;
+        this.cardHeight = cardView.getHeight();
+        this.cardWidth = cardView.getWidth();
+        this.cardX = x;
+        this.cardY = y;
     }
 
     public void setFunctionText(TextView cardFunText, String functionText) {
@@ -45,49 +45,43 @@ public class FunctionCard {
 
         switch(direction) {
             case "DOWN":
+                cardY += 10;
 
-                card_y += 10;
-
-                if(cardView.getY() > screen_height) {
-                    card_x = (float) Math.floor(Math.random()*(screen_width - card_width));
-                    card_y = -100.0f;
+                if(cardView.getY() > screenHeight) {
+                    cardX = (float) Math.floor(Math.random()*(screenWidth - cardWidth));
+                    cardY = -100.0f;
                 }
 
-                cardView.setX(card_x);
-                cardView.setY(card_y);
+                cardView.setX(cardX);
+                cardView.setY(cardY);
 
                 break;
 
             case "LEFT":
+                cardX -= (speed-2);
 
-                card_x -= (speed-2);
-
-                if(card_x < -700.0f) {
-                    card_x = screen_width;
-                    card_y = (float) Math.floor(Math.random() * (screen_height - card_height));
+                if(cardX < -700.0f) {
+                    cardX = screenWidth;
+                    cardY = (float) Math.floor(Math.random() * (screenHeight - cardHeight));
                 }
 
-                cardView.setX(card_x);
-                cardView.setY(card_y);
+                cardView.setX(cardX);
+                cardView.setY(cardY);
 
                 break;
 
             case "RIGHT":
+                cardX += (speed-2);
 
-                card_x += (speed-2);
-
-                if(card_x > screen_width) {
-                    card_x = -700.0f;
-                    card_y = (float) Math.floor(Math.random() * (screen_height - card_height));
+                if(cardX > screenWidth) {
+                    cardX = -700.0f;
+                    cardY = (float) Math.floor(Math.random() * (screenHeight - cardHeight));
                 }
 
-                cardView.setX(card_x);
-                cardView.setY(card_y);
+                cardView.setX(cardX);
+                cardView.setY(cardY);
 
                 break;
         }
-
-
     }
-
 }

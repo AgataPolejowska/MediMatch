@@ -33,7 +33,6 @@ public class AddNewDialog extends AppCompatDialogFragment {
         editMedFunction = view.findViewById(R.id.med_function);
         editMedUrl = view.findViewById(R.id.med_img_url);
 
-
         builder.setView(view)
                 .setTitle("Add new medication")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -51,9 +50,8 @@ public class AddNewDialog extends AppCompatDialogFragment {
                         listener.applyValues(med_name, med_function, med_url);
                     }
                 });
-
-
         return builder.create();
+
     }
 
     @Override

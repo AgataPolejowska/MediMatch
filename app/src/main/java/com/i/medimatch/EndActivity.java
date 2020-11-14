@@ -20,10 +20,10 @@ import java.io.OutputStream;
 public class EndActivity extends AppCompatActivity {
 
     private static final String FILE_NAME = "answers.txt";
-    String [] strAnswers;
+    private String [] strAnswers;
 
     private SoundPool soundPool;
-    private int click_sound;
+    private int clickSound;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,6 @@ public class EndActivity extends AppCompatActivity {
 
         Intent receivedIntent = getIntent();
         strAnswers = receivedIntent.getStringArrayExtra("answers");
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
@@ -46,9 +45,7 @@ public class EndActivity extends AppCompatActivity {
         } else {
             soundPool = new SoundPool(6, AudioManager.STREAM_MUSIC, 0);
         }
-
-        click_sound = soundPool.load(this, R.raw.click, 1);
-
+        clickSound = soundPool.load(this, R.raw.click, 1);
     }
 
     /* Called when the user taps the Start button */
@@ -57,10 +54,9 @@ public class EndActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     /* Called when the user taps the Save button */
     public void save(View v) {
-        soundPool.play(click_sound, 0.75f, 0.75f, 0, 0, 1);
+        soundPool.play(clickSound, 0.75f, 0.75f, 0, 0, 1);
 
         Intent newIntent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
 
@@ -71,13 +67,11 @@ public class EndActivity extends AppCompatActivity {
         startActivityForResult(newIntent, 1);
     }
 
-
     /* Called when the user taps the Quit button */
     public void quitGame(View v) {
         finishAffinity();
         System.exit(0);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -85,11 +79,15 @@ public class EndActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 try {
+                    assert data != null;
                     Uri uri = data.getData();
+                    assert uri != null;
                     OutputStream outputStream =getContentResolver().openOutputStream(uri);
                     for(String s: strAnswers) {
+                        assert outputStream != null;
                         outputStream.write(s.getBytes());
                     }
+                    assert outputStream != null;
                     outputStream.close();
                     Toast.makeText(this, "Answers saved successfully", Toast.LENGTH_LONG).show();
                 } catch (IOException e) {

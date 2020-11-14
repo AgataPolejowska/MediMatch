@@ -34,11 +34,11 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
     RadioButton [] medRadioButton;
 
     String medNameSelected;
-    MedicationCard medSelected;
+    MedicationCard MedSelected;
     MedicationCard NewMed;
 
     private SoundPool soundPool;
-    private int click_sound, start_sound;
+    private int clickSound, startSound;
 
 
     @Override
@@ -85,15 +85,15 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
             soundPool = new SoundPool(6, AudioManager.STREAM_MUSIC, 0);
         }
 
-        click_sound = soundPool.load(this, R.raw.click, 1);
-        start_sound = soundPool.load(this, R.raw.start, 1);
+        clickSound = soundPool.load(this, R.raw.click, 1);
+        startSound = soundPool.load(this, R.raw.start, 1);
 
     }
     /* END OF ON CREATE */
 
 
     public void checkButton(View v) {
-        soundPool.play(start_sound, 0.75f, 0.75f, 0, 0, 1);
+        soundPool.play(startSound, 0.75f, 0.75f, 0, 0, 1);
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
         YoYo.with(Techniques.Swing)
@@ -127,8 +127,8 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
         });
 
         NewMed = new MedicationCard(med_name, med_function);
-        NewMed.setImageURL(med_img);
-        NewMed.setNew(true);
+        NewMed.setImageUrl(med_img);
+        NewMed.isNew(true);
         medObjects.add(NewMed);
 
         radioGroup.addView(rb);
@@ -138,17 +138,17 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
     /* Called when the user taps the Save and Start button */
     public void setStartGameActivity(View view) {
 
-        soundPool.play(click_sound, 0.75f, 0.75f, 0, 0, 1);
+        soundPool.play(clickSound, 0.75f, 0.75f, 0, 0, 1);
 
         medNameSelected = radioButton.getText().toString();
 
-        medSelected = new MedicationCard(medNameSelected, (String) medNameFunction.get(medNameSelected));
-        medSelected.setNameSelected(true);
+        MedSelected = new MedicationCard(medNameSelected, (String) medNameFunction.get(medNameSelected));
+        MedSelected.setNameSelected(true);
 
 
         // Testing
         StringBuilder builder = new StringBuilder();
-        builder.append("You have chosen: " + medSelected.getName());
+        builder.append("You have chosen: " + MedSelected.getName());
         Toast.makeText(this, builder, Toast.LENGTH_SHORT).show();
 
         /* Start game activity */
@@ -156,7 +156,7 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
         // Pass objects to game activity
         intent.putExtra("Medications", medObjects);
         // Pass selected medication to next the game activity
-        intent.putExtra("MedicationSelected", medSelected);
+        intent.putExtra("MedicationSelected", MedSelected);
         startActivity(intent);
 
     }

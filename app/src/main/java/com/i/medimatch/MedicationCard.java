@@ -7,11 +7,10 @@ import java.util.ArrayList;
 
 public class MedicationCard implements Serializable {
 
-    public String name;
-    public String imageURL;
-    public String function;
-    public boolean selected = false;
-    public boolean newCard;
+    private String name;
+    private String imageUrl;
+    private String function;
+    private boolean newCard;
     public ArrayList<FunctionCard> functionsList = new ArrayList<>();
 
     public MedicationCard(String name, String function) {
@@ -32,19 +31,19 @@ public class MedicationCard implements Serializable {
         this.functionsList.add(funImgCard);
     }
 
-    public void setImageURL(String imageURL){
-        this.imageURL = imageURL;
+    public void setImageUrl(String imageUrl){
+        this.imageUrl = imageUrl;
     }
 
-    public String getImageURL(){
-        return imageURL;
+    public String getImageUrl(){
+        return imageUrl;
     }
 
-    public void setNew(boolean newCard) {
+    public void isNew(boolean newCard) {
         this.newCard = newCard;
     }
 
-    public boolean getNew(){
+    public boolean checkNew(){
         return newCard;
     }
 
@@ -53,7 +52,6 @@ public class MedicationCard implements Serializable {
     }
 
     public void setNameSelected(boolean selected) {
-        this.selected = selected;
     }
 
 }

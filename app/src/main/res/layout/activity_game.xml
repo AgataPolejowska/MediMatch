@@ -79,7 +79,6 @@
             android:layout_width="200dp"
             android:layout_height="80dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10"
             app:cardCornerRadius="15dp">
 
             <TextView
@@ -154,7 +153,6 @@
             android:id="@+id/card_fun_5"
             android:layout_width="200dp"
             android:layout_height="60dp"
-            android:
             app:cardCornerRadius="15dp">
 
             <TextView
