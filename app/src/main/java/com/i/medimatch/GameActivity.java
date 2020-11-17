@@ -87,8 +87,6 @@ public class GameActivity extends AppCompatActivity {
 
     int[] imageList = new int[] { R.drawable.thyroid, R.drawable.cholesterol, R.drawable.liver, R.drawable.brain, R.drawable.heart};
 
-    String [] answers;
-
     CardView cardFun1, cardFun2, cardFun3, cardFun4, cardFun5, cardFun6;
     TextView cardFunText1, cardFunText2, cardFunText3, cardFunText4, cardFunText5, cardFunText6;
 
@@ -119,6 +117,8 @@ public class GameActivity extends AppCompatActivity {
 
     Animation animRotate;
 
+    String [] answers;
+
 
     /* ON CREATE */
 
@@ -143,7 +143,7 @@ public class GameActivity extends AppCompatActivity {
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
 
-        // Menu
+        // Popup Menu
         Button openMenu = findViewById(R.id.popup_menu);
 
         openMenu.setOnClickListener(new View.OnClickListener(){
@@ -161,9 +161,11 @@ public class GameActivity extends AppCompatActivity {
                                 infoDialog.show(getSupportFragmentManager(), "Information");
                                 return true;
                             case R.id.item_mainmenu:
+                                MedicationCard.setNumberNewCard(0);
                                 startActivity(new Intent(GameActivity.this, MainActivity.class));
                                 return true;
                             case R.id.item_settings:
+                                MedicationCard.setNumberNewCard(0);
                                 startActivity(new Intent(GameActivity.this, SettingsActivity.class));
                                 return true;
                             case R.id.item_end:
@@ -195,7 +197,6 @@ public class GameActivity extends AppCompatActivity {
                 popupMenu.show();
             }
         });
-
 
         // Get screen size
         WindowManager windowManager = getWindowManager();
@@ -247,7 +248,6 @@ public class GameActivity extends AppCompatActivity {
         cardImages.add(cardImg4 = findViewById(R.id.image_card_4));
         cardImages.add(cardImg5 = findViewById(R.id.image_card_5));
         cardImages.add(cardImg6 = findViewById(R.id.image_card_6));
-
 
         // Check if new card is added, if yes set visible associated fun cards
         for (int t = 0; t < MedCardsObjects.size(); t++) {
@@ -307,7 +307,6 @@ public class GameActivity extends AppCompatActivity {
         cardName = findViewById(R.id.card_name);
         cardName.setOnDragListener(dragListener);
 
-
         // Move cards
         timer.schedule(new TimerTask() {
             @Override
@@ -325,7 +324,6 @@ public class GameActivity extends AppCompatActivity {
                 });
             }
         }, 0, 20);
-
 
         // Implement sound effects
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -354,8 +352,6 @@ public class GameActivity extends AppCompatActivity {
     /* END OF ON CREATE */
 
 
-
-
     View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {
         @SuppressLint("ClickableViewAccessibility")
         @Override
@@ -367,7 +363,6 @@ public class GameActivity extends AppCompatActivity {
             return false;
         }
     };
-
 
     View.OnDragListener dragListener = new View.OnDragListener() {
         @Override
@@ -440,13 +435,16 @@ public class GameActivity extends AppCompatActivity {
 
                     break;
             }
+
             return true;
+
         }
     };
 
 
     // Go to the next medication
     private void playNext(String currentName) {
+
         playedName.add(currentName);
 
         // Testing
@@ -472,8 +470,8 @@ public class GameActivity extends AppCompatActivity {
                         .playOn(cardName);
                 break;
         }
-    }
 
+    }
 
 
     // Called when user taps the PAUSE Button
@@ -488,6 +486,7 @@ public class GameActivity extends AppCompatActivity {
         if (!pauseFlag) {
             pauseFlag = true;
             State state = State.PAUSED;
+
             // Stop the timer
             timer.cancel();
             timer = null;
@@ -499,6 +498,7 @@ public class GameActivity extends AppCompatActivity {
             pauseFlag = false;
             timerButton.setText("PAUSE");
             timerHandler.postDelayed(timerRunnable, 0);
+
             // Create new timer
             timer = new Timer();
             timer.schedule(new TimerTask() {
@@ -520,6 +520,7 @@ public class GameActivity extends AppCompatActivity {
             }, 0, 20);
 
         }
+
     }
 
 
@@ -532,7 +533,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void saveResult() {
-        //
+        // TO DO
     }
 
 

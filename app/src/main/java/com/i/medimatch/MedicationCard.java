@@ -1,7 +1,6 @@
 package com.i.medimatch;
 
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -11,6 +10,7 @@ public class MedicationCard implements Serializable {
     private String imageUrl;
     private String function;
     private boolean newCard;
+    private static int numberNewCard;
     public ArrayList<FunctionCard> functionsList = new ArrayList<>();
 
     public MedicationCard(String name, String function) {
@@ -40,11 +40,20 @@ public class MedicationCard implements Serializable {
     }
 
     public void isNew(boolean newCard) {
+        numberNewCard++;
         this.newCard = newCard;
     }
 
     public boolean checkNew(){
         return newCard;
+    }
+
+    public static void setNumberNewCard(int numberNewCard) {
+        MedicationCard.numberNewCard = numberNewCard;
+    }
+
+    public static int getNumberNewCard() {
+        return numberNewCard;
     }
 
     public ArrayList<FunctionCard> getFunctions() {

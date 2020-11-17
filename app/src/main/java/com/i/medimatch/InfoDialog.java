@@ -43,11 +43,11 @@ public class InfoDialog extends AppCompatDialogFragment  {
                 text.append('\n');
             }
         } catch (IOException e) {
-            Toast.makeText(getContext().getApplicationContext(), "Error reading file!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext().getApplicationContext(), "Error reading the file", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
 
-        textView.setText((CharSequence) text);
+        textView.setText(text);
 
         builder.setView(view)
                 .setTitle("Information")

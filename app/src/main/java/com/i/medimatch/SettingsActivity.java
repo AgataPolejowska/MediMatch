@@ -114,24 +114,24 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void applyValues(String med_name, String med_function, String med_img) {
-        RadioButton rb = new RadioButton(SettingsActivity.this);
-        rb.setText(med_name);
-        rb.setTextColor(ContextCompat.getColorStateList(SettingsActivity.this, R.color.colorWhite));
-        rb.setTextSize(25);
-        rb.setButtonTintList(ContextCompat.getColorStateList(this, R.color.colorWhite));
-
-        rb.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                checkButton(v);
-            }
-        });
-
         NewMed = new MedicationCard(med_name, med_function);
         NewMed.setImageUrl(med_img);
         NewMed.isNew(true);
         medObjects.add(NewMed);
 
-        radioGroup.addView(rb);
+        if(MedicationCard.getNumberNewCard() <= 1) {
+            RadioButton rb = new RadioButton(SettingsActivity.this);
+            rb.setText(med_name);
+            rb.setTextColor(ContextCompat.getColorStateList(SettingsActivity.this, R.color.colorWhite));
+            rb.setTextSize(25);
+            rb.setButtonTintList(ContextCompat.getColorStateList(this, R.color.colorWhite));
+            rb.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    checkButton(v);
+                }
+            });
+            radioGroup.addView(rb);
+        }
     }
 
 
@@ -160,6 +160,5 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
         startActivity(intent);
 
     }
-
 
 }
