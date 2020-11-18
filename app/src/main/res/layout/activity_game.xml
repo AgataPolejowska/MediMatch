@@ -238,8 +238,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_fun_img_5"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             app:cardCornerRadius="15dp">
 
             <ImageView
@@ -252,8 +252,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_fun_img_6"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             app:cardCornerRadius="15dp">
 
             <ImageView
