@@ -36,7 +36,11 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -96,6 +100,8 @@ public class GameActivity extends AppCompatActivity {
     CardView cardName;
     TextView medNameText;
 
+    CardView cardWin;
+
     public float cardFun1_x, cardFun1_y;
     public float cardFun2_x, cardFun2_y;
     public float cardFun3_x, cardFun3_y;
@@ -113,11 +119,12 @@ public class GameActivity extends AppCompatActivity {
     public float frameHeight;
 
     private SoundPool soundPool;
-    private int clickSound, tapSound, correctSound, incorrectSound;
+    private int clickSound, tapSound, correctSound, incorrectSound, winSound;
 
     Animation animRotate;
 
     String [] answers;
+    String [] results = {"Your results: "};
 
 
     /* ON CREATE */
@@ -135,6 +142,11 @@ public class GameActivity extends AppCompatActivity {
 
         scoreLabel = findViewById(R.id.scoreLabel);
         scoreLabel.setText("Score: " + score);
+
+        // Get current date
+        Calendar calendar = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        results[0] += currentDate;
 
         timerLabel = findViewById(R.id.timerLabel);
         timerButton = findViewById(R.id.timerButton);
@@ -295,6 +307,9 @@ public class GameActivity extends AppCompatActivity {
         medNameText = findViewById(R.id.med_name);
         medNameText.setText(MedCardSelected.getName());
 
+        // Find win card
+        cardWin = findViewById(R.id.card_win);
+
         // Touch listener on cards
        for(CardView card : cardsFun) {
             card.setOnTouchListener(mOnTouchListener);
@@ -343,6 +358,7 @@ public class GameActivity extends AppCompatActivity {
         tapSound = soundPool.load(this, R.raw.tap, 1);
         correctSound = soundPool.load(this, R.raw.correct, 1);
         incorrectSound = soundPool.load(this, R.raw.incorrect, 1);
+        winSound = soundPool.load(this, R.raw.win, 1);
 
         // Add animation
         animRotate = AnimationUtils.loadAnimation(this, R.anim.rotate);
@@ -357,6 +373,7 @@ public class GameActivity extends AppCompatActivity {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             soundPool.play(tapSound, 1, 1, 0, 0, 1);
+            cardName.setCardBackgroundColor(Color.WHITE);
             ClipData data = ClipData.newPlainText("", "");
             View.DragShadowBuilder myShadowBuilder = new View.DragShadowBuilder(v);
             v.startDrag(data, myShadowBuilder, v, 0);
@@ -407,17 +424,15 @@ public class GameActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"Correct!", Toast.LENGTH_SHORT).show();
 
                         if (score%2 == 0) {
-
                             cardName.setCardBackgroundColor(Color.GREEN);
                             cardName.startAnimation(animRotate);
                             YoYo.with(Techniques.FlipOutY)
                                     .duration(700)
                                     .playOn(cardName);
 
-                            State state = State.WON;
+                            state = State.WON;
 
                             playNext((MedCardSelected.getName()));
-
                         }
                         checkVisibility();
                     }
@@ -523,7 +538,6 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-
     public void saveAnswers() {
         answers = new String[4];
         for (int i = 0; i < 4; i++) {
@@ -532,10 +546,10 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public void saveResult() {
-        // TO DO
+    public void saveResults() {
+        timer.cancel();
+        results[0] += " " + timerLabel.getText().toString().toLowerCase();
     }
-
 
     public void checkVisibility() {
         int counter = 0;
@@ -548,17 +562,24 @@ public class GameActivity extends AppCompatActivity {
             }
         }
         if (counter == (cardsFun.size() + cardsFunImg.size())) {
-            State state = State.LOST;
+            saveAnswers();
+            saveResults();
+
+            soundPool.play(winSound, 1, 1, 0, 0, 1);
+
+            // Show win card
+            cardWin.setVisibility(View.VISIBLE);
+
             // Start End Activity with delay
             timerHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     Intent intent2 = new Intent(GameActivity.this, EndActivity.class);
-                    saveAnswers();
                     intent2.putExtra("answers", answers);
+                    intent2.putExtra("results", results);
                     startActivity(intent2);
                 }
-            }, 1200);
+            }, 6200);
         }
 
     }

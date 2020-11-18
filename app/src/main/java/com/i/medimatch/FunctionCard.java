@@ -16,7 +16,6 @@ public class FunctionCard {
     public static float screenWidth;
     public static float screenHeight;
 
-
     public FunctionCard(CardView cardView, float x, float y) {
         this.cardView = cardView;
         this.cardHeight = cardView.getHeight();

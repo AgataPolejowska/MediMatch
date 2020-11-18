@@ -8,4 +8,7 @@
     <string name="axtil">AXTIL</string>
     <string name="score">Score:</string>
     <string name="timer_button">timer_button</string>
+    <string name="menu">MENU</string>
+    <string name="pause">PAUSE</string>
+    <string name="win_text">Congratulations! \n You know what functionality is hidden behind the medications names!</string>
 </resources>
