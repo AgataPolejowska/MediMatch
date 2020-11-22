@@ -45,12 +45,6 @@ import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
 
-    private enum State {
-        PAUSED, WON, LOST, RUNNING;
-    }
-
-    private State state = State.RUNNING;
-
     private TextView scoreLabel = null;
     private int score = 0;
 
@@ -127,7 +121,7 @@ public class GameActivity extends AppCompatActivity {
 
     /* ON CREATE */
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -163,6 +157,7 @@ public class GameActivity extends AppCompatActivity {
                 PopupMenu popupMenu = new PopupMenu(GameActivity.this, v);
                 popupMenu.getMenuInflater().inflate(R.menu.menu_popup, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @SuppressLint("NonConstantResourceId")
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
@@ -376,6 +371,7 @@ public class GameActivity extends AppCompatActivity {
     };
 
     View.OnDragListener dragListener = new View.OnDragListener() {
+        @SuppressLint("SetTextI18n")
         @Override
         public boolean onDrag(View v, DragEvent event) {
 
@@ -484,6 +480,7 @@ public class GameActivity extends AppCompatActivity {
 
 
     // Called when user taps the PAUSE Button
+    @SuppressLint("SetTextI18n")
     public void pauseGame(View view) {
 
         soundPool.play(clickSound, 1, 1, 0, 0, 1);
@@ -560,7 +557,7 @@ public class GameActivity extends AppCompatActivity {
         if (counter == (cardsFun.size() + cardsFunImg.size())) {
             saveResults();
 
-            if (score == counter) {
+            if (score == 10) {
                 saveAnswers();
                 soundPool.play(winSound, 1, 1, 0, 0, 1);
                 // Show win card

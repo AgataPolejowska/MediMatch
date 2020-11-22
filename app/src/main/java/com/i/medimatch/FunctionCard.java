@@ -9,7 +9,7 @@ import androidx.cardview.widget.CardView;
 
 public class FunctionCard {
 
-    private CardView cardView;
+    private final CardView cardView;
     private float cardX;
     private float cardY;
     private final float cardHeight;

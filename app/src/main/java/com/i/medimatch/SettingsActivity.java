@@ -1,6 +1,7 @@
 package com.i.medimatch;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -19,6 +20,9 @@ import androidx.core.content.ContextCompat;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +31,8 @@ import java.util.Map;
 public class SettingsActivity extends AppCompatActivity implements AddNewDialog.AddNewMedDialogListener {
 
     ArrayList<MedicationCard> medObjects = new ArrayList<>();
+    ArrayList<String> medNames = new ArrayList<>();
+    ArrayList<String> medFunctions = new ArrayList<>();
     HashMap<String, String> medNameFunction = new HashMap<>();
 
     RadioGroup radioGroup;
@@ -46,11 +52,29 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        medNameFunction.put("AXTIL", "Facilitating blood pumping");
-        medNameFunction.put("RIDLIP", "Reduction in the amount of LDL cholesterol in the blood");
-        medNameFunction.put("SYLIMAROL", "Regeneration and reconstruction of damaged liver");
-        medNameFunction.put("ENCEPHABOL", "Treatment of brain disorders");
-        medNameFunction.put("LEVOTHYROXINE", "Treatment of thyroid hormone deficiency");
+        try {
+            InputStream inputStream1 = getApplicationContext().getResources().getAssets()
+                    .open("medication_names.txt", Context.MODE_WORLD_READABLE);
+            InputStream inputStream2 = getApplicationContext().getResources().getAssets()
+                    .open("medication_functions.txt", Context.MODE_WORLD_READABLE);
+
+            BufferedReader inputNames = new BufferedReader(new InputStreamReader(inputStream1));
+            BufferedReader inputFunctions = new BufferedReader(new InputStreamReader(inputStream2));
+
+            String line = "";
+            while ((line = inputNames.readLine()) != null) {
+                medNames.add(line);
+            }
+            while ((line = inputFunctions.readLine()) != null) {
+                medFunctions.add(line);
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        for(int i = 0, j = 0; i < medNames.size() && j < medFunctions.size(); i++,j++) {
+            medNameFunction.put(medNames.get(i), medFunctions.get(j));
+        }
+
 
         radioGroup = findViewById(R.id.radioGroup);
 
@@ -144,7 +168,7 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
 
         // Testing
         StringBuilder builder = new StringBuilder();
-        builder.append("You have chosen: " + MedSelected.getName());
+        builder.append("You have chosen: ").append(MedSelected.getName());
         Toast.makeText(this, builder, Toast.LENGTH_SHORT).show();
 
         /* Start game activity */
