@@ -10,8 +10,8 @@ The game serves as an entertaining and teaching tool.
     * Compile SDK Version: 29 (API 29: Android 10.0 (Q))
     * Target SDK Version: 29 (API 29: Android 10.0 (Q))
     * Min SDK Version: 26 (API 26: Android 8.0 (Oreo))
-    * Android Gradle Plugin Version: 4.0.2
-    * Gradle Version: 6.1.1
+    * Android Gradle Plugin Version: 4.1.1
+    * Gradle Version: 6.5
 
 
 ### Game description

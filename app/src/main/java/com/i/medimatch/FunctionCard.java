@@ -10,7 +10,10 @@ import androidx.cardview.widget.CardView;
 public class FunctionCard {
 
     private CardView cardView;
-    private float cardX, cardY, cardHeight, cardWidth;
+    private float cardX;
+    private float cardY;
+    private final float cardHeight;
+    private final float cardWidth;
     private float speed;
 
     public static float screenWidth;

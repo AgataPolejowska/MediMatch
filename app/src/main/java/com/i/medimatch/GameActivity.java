@@ -58,7 +58,7 @@ public class GameActivity extends AppCompatActivity {
     private long startTime = 0;
 
     private Timer timer = new Timer();
-    private Handler timerHandler = new Handler(Looper.getMainLooper());
+    private final Handler timerHandler = new Handler(Looper.getMainLooper());
 
     Runnable timerRunnable = new Runnable() {
         @SuppressLint("DefaultLocale")
@@ -339,18 +339,14 @@ public class GameActivity extends AppCompatActivity {
         }, 0, 20);
 
         // Implement sound effects
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build();
-            soundPool = new SoundPool.Builder()
-                    .setMaxStreams(6)
-                    .setAudioAttributes(audioAttributes)
-                    .build();
-        } else {
-            soundPool = new SoundPool(6, AudioManager.STREAM_MUSIC, 0);
-        }
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+        soundPool = new SoundPool.Builder()
+                .setMaxStreams(6)
+                .setAudioAttributes(audioAttributes)
+                .build();
 
         clickSound = soundPool.load(this, R.raw.click, 1);
         tapSound = soundPool.load(this, R.raw.tap, 1);
@@ -421,7 +417,7 @@ public class GameActivity extends AppCompatActivity {
                         soundPool.play(correctSound, 1, 1, 0, 0, 1);
                         Toast.makeText(getApplicationContext(),"Correct!", Toast.LENGTH_SHORT).show();
 
-                        if (score%2 == 0) {
+                        if (score%2 == 0 && score > 0) {
                             cardName.setCardBackgroundColor(Color.GREEN);
                             cardName.startAnimation(animRotate);
                             YoYo.with(Techniques.FlipOutY)
@@ -551,6 +547,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void checkVisibility() {
         int counter = 0;
+
         for (int i = 0; i < funCards.size(); i++) {
             if (cardsFun.get(i).getVisibility() != View.VISIBLE) {
                 counter++;
@@ -559,14 +556,16 @@ public class GameActivity extends AppCompatActivity {
                 counter++;
             }
         }
+
         if (counter == (cardsFun.size() + cardsFunImg.size())) {
-            saveAnswers();
             saveResults();
 
-            soundPool.play(winSound, 1, 1, 0, 0, 1);
-
-            // Show win card
-            cardWin.setVisibility(View.VISIBLE);
+            if (score == counter) {
+                saveAnswers();
+                soundPool.play(winSound, 1, 1, 0, 0, 1);
+                // Show win card
+                cardWin.setVisibility(View.VISIBLE);
+            }
 
             // Start End Activity with delay
             timerHandler.postDelayed(new Runnable() {
