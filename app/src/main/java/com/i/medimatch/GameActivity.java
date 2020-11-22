@@ -135,7 +135,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         // Receive data from Settings Activity
-        MedCardsObjects = (ArrayList<MedicationCard>)getIntent().getSerializableExtra("Medications");
+        MedCardsObjects = (ArrayList<MedicationCard>) getIntent().getSerializableExtra("Medications");
         MedCardSelected = (MedicationCard) getIntent().getSerializableExtra("MedicationSelected");
 
         scoreLabel = findViewById(R.id.scoreLabel);
@@ -464,7 +464,7 @@ public class GameActivity extends AppCompatActivity {
         final StringBuilder builder = new StringBuilder();
         builder.append("You have completed: ");
         for(int j = 0; j < playedName.size(); j++) {
-            builder.append(" " +playedName.get(j));
+            builder.append(" ").append(playedName.get(j));
         }
         Toast.makeText(this, builder, Toast.LENGTH_SHORT).show();
 

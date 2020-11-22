@@ -44,19 +44,6 @@ public class FunctionCard {
     public void changePosition(String direction) {
 
         switch(direction) {
-            case "DOWN":
-                cardY += 10;
-
-                if(cardView.getY() > screenHeight) {
-                    cardX = (float) Math.floor(Math.random()*(screenWidth - cardWidth));
-                    cardY = -100.0f;
-                }
-
-                cardView.setX(cardX);
-                cardView.setY(cardY);
-
-                break;
-
             case "LEFT":
                 cardX -= (speed-2);
 
