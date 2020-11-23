@@ -420,7 +420,6 @@ public class GameActivity extends AppCompatActivity {
                                     .duration(700)
                                     .playOn(cardName);
 
-                            state = State.WON;
 
                             playNext((MedCardSelected.getName()));
                         }
@@ -491,7 +490,6 @@ public class GameActivity extends AppCompatActivity {
 
         if (!pauseFlag) {
             pauseFlag = true;
-            State state = State.PAUSED;
 
             // Stop the timer
             timer.cancel();
@@ -557,7 +555,7 @@ public class GameActivity extends AppCompatActivity {
         if (counter == (cardsFun.size() + cardsFunImg.size())) {
             saveResults();
 
-            if (score == 10) {
+            if (score == 10 || score == 12) {
                 saveAnswers();
                 soundPool.play(winSound, 1, 1, 0, 0, 1);
                 // Show win card

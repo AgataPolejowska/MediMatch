@@ -69,12 +69,12 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
                 medFunctions.add(line);
             }
         } catch (Exception e) {
-            e.getMessage();
+            e.printStackTrace();
         }
+
         for(int i = 0, j = 0; i < medNames.size() && j < medFunctions.size(); i++,j++) {
             medNameFunction.put(medNames.get(i), medFunctions.get(j));
         }
-
 
         radioGroup = findViewById(R.id.radioGroup);
 
