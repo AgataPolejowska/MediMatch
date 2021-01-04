@@ -1,3 +1,21 @@
+/*
+ * This file is available and licensed under the following license:
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are not permitted without written permission form the copyright holders.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 package com.i.medimatch;
 
 import android.annotation.SuppressLint;
@@ -7,9 +25,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.media.AudioAttributes;
-import android.media.AudioManager;
 import android.media.SoundPool;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -42,18 +58,26 @@ import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+/**
+ * Represents the game activity in which the game is played.
+ * @author Agata Polejowska
+ */
 public class GameActivity extends AppCompatActivity {
 
+    /** The label for displaying the current score. */
     private TextView scoreLabel = null;
+    /** Stores the total score. */
     private int score = 0;
 
+    /** The label for displaying time passed. */
     private TextView timerLabel;
+    /** Defines the start time. */
     private long startTime = 0;
-
+    /** A timer object */
     private Timer timer = new Timer();
+    /** A handler object */
     private final Handler timerHandler = new Handler(Looper.getMainLooper());
-
+    /** Used to count the time. */
     Runnable timerRunnable = new Runnable() {
         @SuppressLint("DefaultLocale")
         @Override
@@ -68,59 +92,75 @@ public class GameActivity extends AppCompatActivity {
         }
     };
 
+    /** A button for pausing and resuming the timer. */
     private Button timerButton;
+    /** A flag for timer pausing and resuming. */
     private boolean pauseFlag = false;
 
-    ArrayList<CardView> cardsFun = new ArrayList<>();
-    ArrayList<CardView> cardsFunImg = new ArrayList<>();
-    ArrayList<FunctionCard> funCards = new ArrayList<>();
-    ArrayList<FunctionCard> funImgCards = new ArrayList<>();
+    /** Stores cardviews with medication functions description. */
+    private ArrayList<CardView> cardsFun = new ArrayList<>();
+    /** Stores cardviews with medication functions images. */
+    private ArrayList<CardView> cardsFunImg = new ArrayList<>();
+    /** Stores function card with text objects.*/
+    private ArrayList<FunctionCard> funCards = new ArrayList<>();
+    /** Stores function card with images objects. */
+    private ArrayList<FunctionCard> funImgCards = new ArrayList<>();
 
-    ArrayList<MedicationCard> MedCardsObjects = new ArrayList<>();
-    ArrayList<String> playedName = new ArrayList<>();
+    /** Stores medication cards objects. */
+    private ArrayList<MedicationCard> MedCardsObjects = new ArrayList<>();
+    /** Stores the names of medications that user matched correctly. */
+    private ArrayList<String> playedName = new ArrayList<>();
 
-    MedicationCard MedCardSelected;
+    /** An object representing the selected medication. */
+    private MedicationCard MedCardSelected;
 
-    int[] imageList = new int[] { R.drawable.thyroid, R.drawable.cholesterol, R.drawable.liver, R.drawable.brain, R.drawable.heart};
+    /** Stores resources id */
+    private int[] imageList = new int[] { R.drawable.thyroid, R.drawable.cholesterol, R.drawable.liver, R.drawable.brain, R.drawable.heart};
 
-    CardView cardFun1, cardFun2, cardFun3, cardFun4, cardFun5, cardFun6;
-    TextView cardFunText1, cardFunText2, cardFunText3, cardFunText4, cardFunText5, cardFunText6;
+    /** The cardview with the medication description in the text format. */
+    private CardView cardFun1, cardFun2, cardFun3, cardFun4, cardFun5, cardFun6;
+    /** The textview with medication function description. */
+    private TextView cardFunText1, cardFunText2, cardFunText3, cardFunText4, cardFunText5, cardFunText6;
 
-    CardView cardFunImg1, cardFunImg2, cardFunImg3, cardFunImg4, cardFunImg5, cardFunImg6;
-    ImageView cardImg1, cardImg2, cardImg3, cardImg4, cardImg5, cardImg6;
+    /** The cardview with the medication description as an image. */
+    private CardView cardFunImg1, cardFunImg2, cardFunImg3, cardFunImg4, cardFunImg5, cardFunImg6;
+    /** The imageview with medication function image. */
+    private ImageView cardImg1, cardImg2, cardImg3, cardImg4, cardImg5, cardImg6;
 
-    CardView cardName;
-    TextView medNameText;
+    /** A cardview with the medication name to be matched. */
+    private CardView cardName;
+    /** A textview with the medication name to be matched. */
+    private TextView medNameText;
+    /** A cardview displayed after winning the game. */
+    private CardView cardWin;
 
-    CardView cardWin;
+    /** The cardview with function description X an Y coordinates */
+    public float cardFun1_x, cardFun1_y, cardFun2_x, cardFun2_y, cardFun3_x, cardFun3_y, cardFun4_x, cardFun4_y, cardFun5_x, cardFun5_y, cardFun6_x, cardFun6_y;
+    /** The cardview with image X an Y coordinates */
+    public float cardFunImg1_x, cardFunImg1_y, cardFunImg2_x, cardFunImg2_y, cardFunImg3_x, cardFunImg3_y, cardFunImg4_x, cardFunImg4_y, cardFunImg5_x, cardFunImg5_y, cardFunImg6_x, cardFunImg6_y;
 
-    public float cardFun1_x, cardFun1_y;
-    public float cardFun2_x, cardFun2_y;
-    public float cardFun3_x, cardFun3_y;
-    public float cardFun4_x, cardFun4_y;
-    public float cardFun5_x, cardFun5_y;
-    public float cardFun6_x, cardFun6_y;
-
-    public float cardFunImg1_x, cardFunImg1_y;
-    public float cardFunImg2_x, cardFunImg2_y;
-    public float cardFunImg3_x, cardFunImg3_y;
-    public float cardFunImg4_x, cardFunImg4_y;
-    public float cardFunImg5_x, cardFunImg5_y;
-    public float cardFunImg6_x, cardFunImg6_y;
-
+    /** The height of the game frame */
     public float frameHeight;
 
+    /** An object for managing and playing audio resources. */
     private SoundPool soundPool;
+    /** Stores the loaded sound from the APK resource. */
     private int clickSound, tapSound, correctSound, incorrectSound, winSound;
 
-    Animation animRotate;
+    /** An object for animations. */
+    private Animation animRotate;
 
-    String [] answers;
-    String [] results = {"Your results: "};
+    /** Stores answers. */
+    private String [] answers;
+    /** Stores results. */
+    private String [] results = {"Your results: "};
 
 
     /* ON CREATE */
-
+    /**
+     * Initializing the game activity.
+     * @param savedInstanceState a reference to a Bundle object
+     */
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -351,7 +391,6 @@ public class GameActivity extends AppCompatActivity {
 
         // Add animation
         animRotate = AnimationUtils.loadAnimation(this, R.anim.rotate);
-
     }
 
     /* END OF ON CREATE */
@@ -439,14 +478,15 @@ public class GameActivity extends AppCompatActivity {
 
                     break;
             }
-
             return true;
-
         }
     };
 
 
-    // Go to the next medication
+    /**
+     * Proceeds to the next medication to be matched.
+     * @param currentName the name of medication currently played
+     */
     private void playNext(String currentName) {
 
         playedName.add(currentName);
@@ -470,7 +510,10 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    // Called when user taps the PAUSE Button
+    /**
+     * Called when the user taps the PAUSE Button.
+     * @param view the user interface component
+     */
     @SuppressLint("SetTextI18n")
     public void pauseGame(View view) {
 
@@ -519,6 +562,7 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    /** Saves answers. */
     public void saveAnswers() {
         answers = new String[4];
         for (int i = 0; i < 4; i++) {
@@ -527,11 +571,13 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    /** Saves results and stops timer. */
     public void saveResults() {
         timer.cancel();
         results[0] += " " + timerLabel.getText().toString().toLowerCase();
     }
 
+    /** Checks if cardviews are visible. Under certain conditions proceeds to the next activity. */
     public void checkVisibility() {
         int counter = 0;
 

@@ -1,11 +1,27 @@
+/*
+ * This file is available and licensed under the following license:
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are not permitted without written permission form the copyright holders.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 package com.i.medimatch;
 
 import android.content.Intent;
 import android.media.AudioAttributes;
-import android.media.AudioManager;
 import android.media.SoundPool;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -16,19 +32,33 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
 import java.io.OutputStream;
 
-
+/**
+ * Represents the game end activity.
+ * @author Agata Polejowska
+ */
 public class EndActivity extends AppCompatActivity {
 
+    /** The name of a file where answers are stored. */
     private static final String FILE_NAME = "answers.txt";
+    /** The name of a file where results are stored. */
     private static final String FILE_NAME_RESULTS = "results.txt";
+    /** Stores answers. */
     private String [] strAnswers;
+    /** Stores results. */
     private String [] strResults;
 
-    int[] buttonMemory = new int[] {0, 0};
+    /** Saves button states */
+    private int[] buttonMemory = new int[] {0, 0};
 
+    /** An object for managing and playing audio resources. */
     private SoundPool soundPool;
+    /** Stores the loaded sound from the APK resource. */
     private int clickSound;
 
+    /**
+     * Initializing the end activity.
+     * @param savedInstanceState a reference to a Bundle object
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,14 +79,20 @@ public class EndActivity extends AppCompatActivity {
         clickSound = soundPool.load(this, R.raw.click, 1);
     }
 
-    /* Called when the user taps the Start button */
+    /**
+     * Called when the user taps the Try again button.
+     * @param view the user interface component
+     */
     public void tryAgain(View view) {
         MedicationCard.setNumberNewCard(0);
         Intent intent = new Intent(EndActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
-    /* Called when the user taps the Save Answers button */
+    /**
+     * Called when the user taps the Save Answers button
+     * @param v the user interface component
+     */
     public void save(View v) {
         soundPool.play(clickSound, 0.75f, 0.75f, 0, 0, 1);
 
@@ -72,7 +108,10 @@ public class EndActivity extends AppCompatActivity {
         startActivityForResult(newIntent, 1);
     }
 
-    /* Called when the user taps the Save button */
+    /**
+     * Called when the user taps the Save Results button
+     * @param v the user interface component
+     */
     public void saveResults(View v) {
         soundPool.play(clickSound, 0.75f, 0.75f, 0, 0, 1);
 
@@ -88,12 +127,21 @@ public class EndActivity extends AppCompatActivity {
         startActivityForResult(newIntent2, 1);
     }
 
-    /* Called when the user taps the Quit button */
+    /**
+     * Called when the user taps the Quit button
+     * @param v the user interface component
+     */
     public void quitGame(View v) {
         finishAffinity();
         System.exit(0);
     }
 
+    /**
+     * Used to get a result back from the activity when it ends.
+     * @param requestCode the requestCode the activity started with
+     * @param resultCode the resultCode returned from the activity
+     * @param data the additional data from the activity
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
