@@ -126,6 +126,5 @@ public class EndActivity extends AppCompatActivity {
                 Toast.makeText(this, "The file has not been saved", Toast.LENGTH_LONG).show();
             }
         }
-
     }
 }

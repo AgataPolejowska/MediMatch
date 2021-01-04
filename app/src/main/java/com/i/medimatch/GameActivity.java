@@ -451,14 +451,6 @@ public class GameActivity extends AppCompatActivity {
 
         playedName.add(currentName);
 
-        // Testing
-        final StringBuilder builder = new StringBuilder();
-        builder.append("You have completed: ");
-        for(int j = 0; j < playedName.size(); j++) {
-            builder.append(" ").append(playedName.get(j));
-        }
-        Toast.makeText(this, builder, Toast.LENGTH_SHORT).show();
-
         for (MedicationCard MedCard : MedCardsObjects){
             if (currentName.equals(MedCard.getName())){
                 continue;

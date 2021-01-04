@@ -166,11 +166,6 @@ public class SettingsActivity extends AppCompatActivity implements AddNewDialog.
         MedSelected.setNameSelected(true);
 
 
-        // Testing
-        StringBuilder builder = new StringBuilder();
-        builder.append("You have chosen: ").append(MedSelected.getName());
-        Toast.makeText(this, builder, Toast.LENGTH_SHORT).show();
-
         /* Start game activity */
         Intent intent = new Intent(SettingsActivity.this, GameActivity.class);
         // Pass objects to game activity
