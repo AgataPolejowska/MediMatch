@@ -115,7 +115,7 @@ public class GameActivity extends AppCompatActivity {
     private MedicationCard MedCardSelected;
 
     /** Stores resources id */
-    private int[] imageList = new int[] { R.drawable.thyroid, R.drawable.cholesterol, R.drawable.liver, R.drawable.brain, R.drawable.heart};
+    private int[] imageList = new int[] { R.drawable.heart, R.drawable.brain, R.drawable.cholesterol, R.drawable.liver, R.drawable.thyroid};
 
     /** The cardview with the medication description in the text format. */
     private CardView cardFun1, cardFun2, cardFun3, cardFun4, cardFun5, cardFun6;

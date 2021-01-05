@@ -135,7 +135,7 @@ public class EndActivity extends AppCompatActivity {
      */
     public void quitGame(View v) {
         soundPool.play(clickSound, 0.75f, 0.75f, 0, 0, 1);
-        
+
         finishAffinity();
         System.exit(0);
     }
