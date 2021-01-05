@@ -84,6 +84,8 @@ public class EndActivity extends AppCompatActivity {
      * @param view the user interface component
      */
     public void tryAgain(View view) {
+        soundPool.play(clickSound, 0.75f, 0.75f, 0, 0, 1);
+
         MedicationCard.setNumberNewCard(0);
         Intent intent = new Intent(EndActivity.this, MainActivity.class);
         startActivity(intent);
@@ -132,6 +134,8 @@ public class EndActivity extends AppCompatActivity {
      * @param v the user interface component
      */
     public void quitGame(View v) {
+        soundPool.play(clickSound, 0.75f, 0.75f, 0, 0, 1);
+        
         finishAffinity();
         System.exit(0);
     }

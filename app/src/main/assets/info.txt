@@ -4,4 +4,4 @@ Cards matching is accomplished by dragging cards with funcions and dropping them
 
 Proceeding to the next medication can only occur if matching is done perfectly. Otherwise, it is advised to play the game again.
 
-Good Luck!
+Good luck!
