@@ -34,4 +34,8 @@ When player matches correctly, then he gains a positive point and score counter 
 
 
 ### Status
-Version 1.0 completed.
+This project is completed and ready for further improvements.
+
+### Presentation
+I invite you to have a look at the game presentation summarizing the software engineering part of the project. The presentation is available in Polish language in pdf format .
+https://drive.google.com/file/d/1N20i1n2p-pQWQJTG8-pctApO1N27qoLP/view?usp=sharing
